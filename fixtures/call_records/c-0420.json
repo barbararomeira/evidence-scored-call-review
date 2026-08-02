@@ -9,32 +9,32 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
-      "timestamp": "04:53"
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:49"
     },
     "category": {
       "status": "delivered",
-      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
-      "timestamp": "06:44"
+      "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
+      "timestamp": "06:43"
     },
     "promise_visibility": {
       "status": "delivered",
-      "quote": "Nobody has to prepare a status pack, because the status is live",
-      "timestamp": "08:16"
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "08:30"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "When something drifts, the person who owns it gets told rather than having to go looking",
-      "timestamp": "10:46"
+      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
+      "timestamp": "10:17"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
-      "timestamp": "12:31"
+      "quote": "Everything you own records events; the loss happens in the gaps between them",
+      "timestamp": "12:45"
     },
     "promise_durable": {
       "status": "delivered",
-      "quote": "It is not a project that improves a number once and then drifts back",
+      "quote": "What stops it fading is that the work runs through it every day, not once a quarter",
       "timestamp": "14:10"
     }
   },
@@ -46,18 +46,18 @@
     },
     "own_situations": [
       {
-        "what": "our quality holds sit for days because nobody ow",
-        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "15:20"
       },
       {
-        "what": "the same ticket bounces between two teams twice ",
-        "quote": "The same ticket bounces between two teams twice before anyone notices",
+        "what": "we lost a supplier last quarter over something t",
+        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
         "timestamp": "16:20"
       },
       {
-        "what": "our onboarding handoff takes anywhere between tw",
-        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
         "timestamp": "17:20"
       }
     ],

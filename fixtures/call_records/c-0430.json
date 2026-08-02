@@ -10,31 +10,31 @@
     "problem_framing": {
       "status": "delivered",
       "quote": "Managers spend their mornings assembling a picture instead of acting on one",
-      "timestamp": "04:21"
+      "timestamp": "04:10"
     },
     "category": {
       "status": "delivered",
       "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
-      "timestamp": "06:22"
+      "timestamp": "06:44"
     },
     "promise_visibility": {
       "status": "absent",
-      "quote": "Thanks for making the time. Where would you like to start?",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
       "timestamp": "00:05"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "You get told when it matters, which is the opposite of hunting through reports",
-      "timestamp": "08:29"
+      "quote": "When something drifts, the person who owns it gets told rather than having to go looking",
+      "timestamp": "08:35"
     },
     "promise_moat": {
       "status": "absent",
-      "quote": "Thanks for making the time. Where would you like to start?",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
       "timestamp": "00:05"
     },
     "promise_durable": {
       "status": "absent",
-      "quote": "Thanks for making the time. Where would you like to start?",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
       "timestamp": "00:05"
     }
   },
@@ -46,13 +46,13 @@
     },
     "own_situations": [
       {
-        "what": "half my week is asking four people for the same ",
-        "quote": "Half my week is asking four people for the same update",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "09:20"
       },
       {
-        "what": "our quality holds sit for days because nobody ow",
-        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
         "timestamp": "10:20"
       }
     ],

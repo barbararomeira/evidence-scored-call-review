@@ -17,7 +17,7 @@ import pathlib
 import statistics
 import sys
 
-from callscore import render, scope, tips
+from callscore import dynamics, render, scope, tips
 from callscore.extractors import base, get
 from callscore.score_engagement import score as score_engagement
 from callscore.score_message import score as score_message
@@ -34,6 +34,7 @@ def collect(transcript_dir: pathlib.Path, extractor_name: str) -> list:
         record = extractor.extract(t)
         ok, reason = scope.in_scope(t.call_type, record["adherence"])
         rows.append({
+            "dynamics": dynamics.analyse(record, t.body),
             "call_id": t.call_id, "rep": t.rep, "call_type": t.call_type, "account": t.account,
             "date": t.date, "scope_reason": reason,
             "message": score_message(record["adherence"]) if ok else None,
@@ -134,6 +135,36 @@ def messaging_analysis(rows: list, week: str) -> str:
                     "signal there is, and deliberately never scored:", ""]
         for acct, q in echoes:
             out.append(f'> *"{q}"*  \n> — {acct}')
+    # --- what earns attention, what loses the room ---
+    tally = dynamics.roll_up(rows)
+    if tally:
+        out += ["", "**What earns attention, and what loses the room.** A lift is the buyer saying "
+                    "something real straight after an element lands; a drop is three or more rep "
+                    "turns with no reply, or an explicit deflection.", "",
+                "| element | lifts | drops |", "|:--|--:|--:|"]
+        for el, v in sorted(tally.items(), key=lambda kv: kv[1]["drops"] - kv[1]["lifts"]):
+            out.append(f"| {render.LABELS[el]} | {v['lifts']} | {v['drops']} |")
+        worst = max(tally.items(), key=lambda kv: kv[1]["drops"])
+        best = max(tally.items(), key=lambda kv: kv[1]["lifts"])
+        out += ["", f"{render.LABELS[best[0]].capitalize()} is what buys you a conversation. "
+                    f"{render.LABELS[worst[0]].capitalize()} is where the room most often goes quiet — "
+                    f"which is a delivery problem, not necessarily a message problem."]
+
+    # --- per rep ---
+    out += ["", "### Who is delivering it", "",
+            "| rep | pitches | elements delivered | framing pair | engagement |", "|:--|--:|--:|--:|--:|"]
+    for rep in sorted({r["rep"] for r in rows}):
+        rp = [r for r in pitches if r["rep"] == rep]
+        if not rp:
+            continue
+        avg = round(statistics.mean([r["message"]["delivered"] for r in rp]), 1)
+        fp = sum(1 for r in rp if r["message"]["framing_pair"])
+        eng = round(statistics.median([r["engagement"]["score"] for r in rows if r["rep"] == rep]))
+        out.append(f"| {rep} | {len(rp)} | {avg} of 6 | {fp} of {len(rp)} | {eng}/100 |")
+    out += ["", "Named here because this section is read by whoever owns the message, and a gap that "
+                "sits with one rep is a coaching problem while a gap across all of them is a "
+                "messaging problem. They are fixed in different places."]
+
     out += ["", "## 3. Are we converting better?", "",
             "Not answerable yet. Comparing deals sold on the new message against the rest needs the "
             "CRM join and enough closed deals on each side; this run has neither.", "",

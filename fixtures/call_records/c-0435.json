@@ -9,33 +9,33 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
-      "timestamp": "04:44"
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:33"
     },
     "category": {
       "status": "delivered",
       "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
-      "timestamp": "06:17"
+      "timestamp": "06:28"
     },
     "promise_visibility": {
       "status": "delivered",
-      "quote": "You stop chasing people for status, because the state is just there",
-      "timestamp": "08:29"
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "08:14"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "When something drifts, the person who owns it gets told rather than having to go looking",
-      "timestamp": "10:47"
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "10:41"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
-      "timestamp": "12:49"
+      "quote": "Everything you own records events; the loss happens in the gaps between them",
+      "timestamp": "12:21"
     },
     "promise_durable": {
       "status": "delivered",
       "quote": "It is not a project that improves a number once and then drifts back",
-      "timestamp": "14:52"
+      "timestamp": "14:43"
     }
   },
   "engagement": {
@@ -46,8 +46,8 @@
     },
     "own_situations": [
       {
-        "what": "our onboarding handoff takes anywhere between tw",
-        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
         "timestamp": "15:20"
       },
       {
@@ -58,7 +58,7 @@
     ],
     "excitement": [
       {
-        "quote": "That would give me back the first hour of every day",
+        "quote": "I want my team to see this",
         "timestamp": "17:40"
       }
     ],

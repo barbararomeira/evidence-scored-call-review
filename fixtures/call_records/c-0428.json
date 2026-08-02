@@ -9,28 +9,28 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "Most teams find out what went wrong after it has already cost them the week",
-      "timestamp": "04:32"
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:44"
     },
     "category": {
       "status": "delivered",
-      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
-      "timestamp": "06:38"
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:29"
     },
     "promise_visibility": {
       "status": "delivered",
-      "quote": "The current state is visible without anyone being asked for an update",
-      "timestamp": "08:50"
+      "quote": "Nobody has to prepare a status pack, because the status is live",
+      "timestamp": "08:31"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
-      "timestamp": "10:25"
+      "quote": "When something drifts, the person who owns it gets told rather than having to go looking",
+      "timestamp": "10:14"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "Everything you own records events; the loss happens in the gaps between them",
-      "timestamp": "12:26"
+      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
+      "timestamp": "12:39"
     },
     "promise_durable": {
       "status": "absent",
@@ -46,23 +46,23 @@
     },
     "own_situations": [
       {
-        "what": "my team builds a status pack every monday that i",
-        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "what": "we lost a supplier last quarter over something t",
+        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
         "timestamp": "13:20"
       },
       {
-        "what": "the same ticket bounces between two teams twice ",
-        "quote": "The same ticket bounces between two teams twice before anyone notices",
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
         "timestamp": "14:20"
       }
     ],
     "excitement": [
       {
-        "quote": "I want my team to see this",
+        "quote": "Okay, that is a real difference from what we looked at before",
         "timestamp": "15:40"
       },
       {
-        "quote": "Okay, that is a real difference from what we looked at before",
+        "quote": "That is exactly what we have been trying to get visibility on",
         "timestamp": "16:40"
       }
     ],

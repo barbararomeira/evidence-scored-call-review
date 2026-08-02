@@ -85,6 +85,14 @@ ECHO = [
     "Right, so you are the layer we actually run the work on, not another report",
     "Meaning we would stop finding out after the fact — that is the difference",
 ]
+REACTIONS = [
+    "Right, that is the bit that costs us most.",
+    "Okay — how does that work in practice for a team our size?",
+    "That matches what we see, honestly.",
+    "Mm. And who would own that on our side?",
+    "That is the part my director would care about.",
+    "Yes, we have exactly that problem.",
+]
 QUESTIONS = [
     "How long does it take to get the first workflow live?",
     "Does this replace what we have or sit next to it?",
@@ -123,6 +131,10 @@ def build_call(spec: dict, rng: random.Random) -> tuple[str, dict]:
             ts = f"{used_time:02d}:{rng.randint(10, 55)}"
             lines.append(f"REP: {line}.")
             adherence[el] = {"status": "delivered", "quote": line, "timestamp": ts}
+            # A real call breathes: the buyer reacts to most things the rep says. Without this the
+            # transcript is a monologue and every silence gets blamed on whichever element came first.
+            if rng.random() < spec.get("reaction_rate", 0.7):
+                lines.append(f"PROSPECT: {rng.choice(REACTIONS)}")
         else:
             adherence[el] = {"status": "absent", "quote": opener_anchor,
                              "timestamp": "00:05"}

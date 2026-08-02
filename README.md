@@ -22,53 +22,60 @@ Point it at a folder of call transcripts. It gives you, per call:
 
 ---
 
-## The four jobs, and which one thinks
+## The agents
 
-Only the first touches a model. Everything else is deterministic Python reading what it produced — which is why the same evidence always yields the same coaching, and why a rep asking *"why this?"* gets a rule rather than a shrug.
+Three roles. Only the first is a model; the other two are the *analyst* and the *coach*, and in this repo they are deterministic Python — see the note below, because that is a deliberate difference from the system this came from.
 
-| | job | runs | reads | writes | model? |
-|:-:|:--|:--|:--|:--|:-:|
-| ① | **Extract** — read the call once, produce evidence | per call, daily | the transcript | one `call_record.json`, a quote behind every verdict | **yes** — the only one |
-| ② | **Score & coach** — gate, score, tell each rep | daily | the day's call records | scored table + `coaching/<date>_<rep>.md` | no |
-| ③ | **Coach the week** — trend, consistency, and whether the last tip stuck | weekly | 7 days of call records | `weekly/coaching-<rep>.md` | no |
-| ④ | **Analyse the message** — is it working at all | weekly | all call records | `weekly/messaging-analysis.md` | no |
+| | agent | runs | reads | writes |
+|:-:|:--|:--|:--|:--|
+| ① | **The extractor** — reads the call, produces evidence | per call, daily | the transcript, the rubric | one `call_record.json`: every verdict with the quote behind it |
+| ② | **The coach** — tells each rep what to change | daily *and* weekly | call records for that window | `coaching/<date>_<rep>.md`, `weekly/coaching-<rep>.md` |
+| ③ | **The messaging analyst** — is the message working at all | weekly | every call record | `weekly/messaging-analysis.md` |
 
-② and ③ deliberately produce the **same shape** — a rep should not have to learn two formats. The difference is the claim: a day says *you skipped it on this call*, a week says *you skip it*.
+**The coach** writes two documents with the same shape but different claims. The daily one says *you skipped it on this call*; the weekly one says *you skip it* — and adds the three things a day cannot know: a trend against the rep's own previous week, the consistency spread across their pitches, and whether the last tip was actually adopted.
 
-④ is a different document for a different reader. It is about the message, not about a person, and it never names a rep.
+**The messaging analyst** never names a rep in judgement — it reports per rep so a reader can tell a coaching problem from a messaging problem, but its subject is the message. A gap that sits with one rep is fixed by coaching; the same gap across everyone is fixed by rewriting the pitch. Different problems, different owners.
+
+### Why only one of them is a model here
+
+In the system this pattern came from, ② and ③ are separate LLM agents on a weekly schedule. In this repo they are plain Python, on purpose:
+
+- **What to say is chosen by rules, not by a model.** A model picking which weakness to raise drifts toward whatever is most narratable, varies week to week on identical evidence, and cannot be unit-tested. Deterministic selection means the same calls always produce the same coaching, and a rep asking *"why this one?"* gets an answer instead of a shrug.
+- **The model does the part only a model can do** — reading unstructured speech and pointing at the sentence that proves each verdict. That is ①, and it is the whole reason an LLM is here at all.
+- **The seam is open if you disagree.** A phrasing pass over already-selected content is a reasonable addition, and `callscore/extractors/base.py` is the only place a model plugs in. What should not move into a model is the *selection* — see Decision 9.
 
 ```mermaid
 flowchart TD
     T[transcripts] --> A1
 
-    subgraph ONE["① Extract · the only model step"]
+    subgraph ONE["① The extractor · the only model step"]
       A1[read each call once<br/>quote behind every verdict]
     end
 
     A1 --> R[(call records<br/>evidence + counts)]
 
-    subgraph DAILY["② Daily · deterministic"]
-      D1[scope gate → two scores] --> D2[coaching message per rep]
+    subgraph TWO["② The coach · deterministic"]
+      D1[daily: scope gate → two scores → what to change]
+      W1[weekly: trend · consistency · did the tip stick]
     end
 
-    subgraph WEEKLY["③ + ④ Weekly · deterministic"]
-      W1[same message, 7-day window<br/>patterns not incidents]
-      W2[messaging analysis<br/>per element · engagement gap · echo]
+    subgraph THREE["③ The messaging analyst · deterministic"]
+      W2[per element · what earns attention<br/>what loses the room · per rep]
     end
 
     R --> D1
     R --> W1
     R --> W2
 
-    D2 --> O1([a rep reads this])
+    D1 --> O1([a rep reads this])
     W1 --> O1
     W2 --> O2([whoever owns the message reads this])
 
-    classDef llm fill:#e1f5ff,stroke:#0969da,color:#000
-    classDef python fill:#f6f8fa,stroke:#656d76,color:#000
-    classDef io fill:#dafbe1,stroke:#1a7f37,color:#000
+    classDef llm fill:#EAF2F6,stroke:#47809E,color:#23252B
+    classDef python fill:#F7F9FA,stroke:#8A9099,color:#23252B
+    classDef io fill:#F0F4E9,stroke:#75905A,color:#23252B
     class A1 llm
-    class D1,D2,W1,W2 python
+    class D1,W1,W2 python
     class T,R,O1,O2 io
 ```
 

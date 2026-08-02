@@ -14,28 +14,28 @@
     },
     "category": {
       "status": "absent",
-      "quote": "Thanks for making the time. Where would you like to start?",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
       "timestamp": "00:05"
     },
     "promise_visibility": {
       "status": "delivered",
-      "quote": "Nobody has to prepare a status pack, because the status is live",
-      "timestamp": "06:41"
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "06:50"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
-      "timestamp": "08:50"
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "08:27"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "Your systems record transactions, they do not see the work between transactions",
-      "timestamp": "10:18"
+      "quote": "Everything you own records events; the loss happens in the gaps between them",
+      "timestamp": "10:40"
     },
     "promise_durable": {
       "status": "delivered",
-      "quote": "What stops it fading is that the work runs through it every day, not once a quarter",
-      "timestamp": "12:27"
+      "quote": "It is not a project that improves a number once and then drifts back",
+      "timestamp": "12:43"
     }
   },
   "engagement": {
@@ -46,8 +46,8 @@
     },
     "own_situations": [
       {
-        "what": "half my week is asking four people for the same ",
-        "quote": "Half my week is asking four people for the same update",
+        "what": "our quality holds sit for days because nobody ow",
+        "quote": "Our quality holds sit for days because nobody owns the escalation",
         "timestamp": "13:20"
       },
       {
@@ -58,7 +58,7 @@
     ],
     "excitement": [
       {
-        "quote": "That would give me back the first hour of every day",
+        "quote": "That is exactly what we have been trying to get visibility on",
         "timestamp": "15:40"
       }
     ],

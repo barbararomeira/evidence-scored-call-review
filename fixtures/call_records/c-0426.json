@@ -9,33 +9,33 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
-      "timestamp": "04:20"
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:35"
     },
     "category": {
       "status": "delivered",
-      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
-      "timestamp": "06:42"
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:15"
     },
     "promise_visibility": {
       "status": "delivered",
       "quote": "Nobody has to prepare a status pack, because the status is live",
-      "timestamp": "08:52"
+      "timestamp": "08:22"
     },
     "promise_proactive": {
       "status": "delivered",
-      "quote": "You get told when it matters, which is the opposite of hunting through reports",
-      "timestamp": "10:32"
+      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
+      "timestamp": "10:41"
     },
     "promise_moat": {
       "status": "delivered",
       "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
-      "timestamp": "12:19"
+      "timestamp": "12:42"
     },
     "promise_durable": {
       "status": "delivered",
       "quote": "The daily routine changes, so the gain holds instead of decaying after rollout",
-      "timestamp": "14:20"
+      "timestamp": "14:32"
     }
   },
   "engagement": {
@@ -46,28 +46,28 @@
     },
     "own_situations": [
       {
-        "what": "our quality holds sit for days because nobody ow",
-        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "15:20"
+      },
+      {
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "timestamp": "16:20"
       },
       {
         "what": "half my week is asking four people for the same ",
         "quote": "Half my week is asking four people for the same update",
-        "timestamp": "16:20"
-      },
-      {
-        "what": "the same ticket bounces between two teams twice ",
-        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "17:20"
       }
     ],
     "excitement": [
       {
-        "quote": "I want my team to see this",
+        "quote": "That would give me back the first hour of every day",
         "timestamp": "18:40"
       },
       {
-        "quote": "That would give me back the first hour of every day",
+        "quote": "That is exactly what we have been trying to get visibility on",
         "timestamp": "19:40"
       },
       {
@@ -83,7 +83,7 @@
   },
   "echo": [
     {
-      "quote": "So it accounts for the time between the events, not just the events themselves",
+      "quote": "Right, so you are the layer we actually run the work on, not another report",
       "timestamp": "21:15"
     }
   ],

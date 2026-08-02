@@ -9,23 +9,23 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
-      "timestamp": "04:28"
+      "quote": "Most teams find out what went wrong after it has already cost them the week",
+      "timestamp": "04:24"
     },
     "category": {
       "status": "delivered",
-      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
-      "timestamp": "06:10"
+      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
+      "timestamp": "06:36"
     },
     "promise_visibility": {
       "status": "delivered",
       "quote": "The current state is visible without anyone being asked for an update",
-      "timestamp": "08:20"
+      "timestamp": "08:36"
     },
     "promise_proactive": {
       "status": "delivered",
       "quote": "You get told when it matters, which is the opposite of hunting through reports",
-      "timestamp": "10:27"
+      "timestamp": "10:39"
     },
     "promise_moat": {
       "status": "absent",
@@ -46,19 +46,19 @@
     },
     "own_situations": [
       {
-        "what": "my team builds a status pack every monday that i",
-        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
         "timestamp": "11:20"
       },
       {
-        "what": "we lost a supplier last quarter over something t",
-        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "12:20"
       }
     ],
     "excitement": [
       {
-        "quote": "Okay, that is a real difference from what we looked at before",
+        "quote": "I want my team to see this",
         "timestamp": "13:40"
       }
     ],

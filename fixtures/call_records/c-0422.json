@@ -9,32 +9,32 @@
   "adherence": {
     "problem_framing": {
       "status": "delivered",
-      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
-      "timestamp": "04:38"
+      "quote": "Most teams find out what went wrong after it has already cost them the week",
+      "timestamp": "04:40"
     },
     "category": {
       "status": "delivered",
-      "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
-      "timestamp": "06:14"
+      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
+      "timestamp": "06:38"
     },
     "promise_visibility": {
       "status": "delivered",
-      "quote": "The current state is visible without anyone being asked for an update",
-      "timestamp": "08:24"
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "08:36"
     },
     "promise_proactive": {
       "status": "delivered",
       "quote": "You get told when it matters, which is the opposite of hunting through reports",
-      "timestamp": "10:42"
+      "timestamp": "10:52"
     },
     "promise_moat": {
       "status": "absent",
-      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "quote": "Good to meet you. I thought I would keep this short and leave room for questions.",
       "timestamp": "00:05"
     },
     "promise_durable": {
       "status": "absent",
-      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "quote": "Good to meet you. I thought I would keep this short and leave room for questions.",
       "timestamp": "00:05"
     }
   },
@@ -46,14 +46,14 @@
     },
     "own_situations": [
       {
-        "what": "my team builds a status pack every monday that i",
-        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "11:20"
       }
     ],
     "excitement": [
       {
-        "quote": "I want my team to see this",
+        "quote": "Okay, that is a real difference from what we looked at before",
         "timestamp": "12:40"
       }
     ],

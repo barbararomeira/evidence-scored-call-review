@@ -9,33 +9,33 @@
   "adherence": {
     "problem_framing": {
       "status": "absent",
-      "quote": "Thanks for making the time. Where would you like to start?",
+      "quote": "Good to meet you. I thought I would keep this short and leave room for questions.",
       "timestamp": "00:05"
     },
     "category": {
       "status": "delivered",
-      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
-      "timestamp": "04:38"
+      "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
+      "timestamp": "04:37"
     },
     "promise_visibility": {
       "status": "delivered",
       "quote": "You stop chasing people for status, because the state is just there",
-      "timestamp": "06:41"
+      "timestamp": "06:26"
     },
     "promise_proactive": {
       "status": "delivered",
       "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
-      "timestamp": "08:37"
+      "timestamp": "08:55"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "Everything you own records events; the loss happens in the gaps between them",
-      "timestamp": "10:38"
+      "quote": "Your systems record transactions, they do not see the work between transactions",
+      "timestamp": "10:32"
     },
     "promise_durable": {
       "status": "delivered",
       "quote": "It is not a project that improves a number once and then drifts back",
-      "timestamp": "12:49"
+      "timestamp": "12:15"
     }
   },
   "engagement": {
@@ -46,24 +46,24 @@
     },
     "own_situations": [
       {
-        "what": "half my week is asking four people for the same ",
-        "quote": "Half my week is asking four people for the same update",
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
         "timestamp": "13:20"
       },
       {
-        "what": "my team builds a status pack every monday that i",
-        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "what": "we lost a supplier last quarter over something t",
+        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
         "timestamp": "14:20"
       },
       {
-        "what": "our quality holds sit for days because nobody ow",
-        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
         "timestamp": "15:20"
       }
     ],
     "excitement": [
       {
-        "quote": "That is exactly what we have been trying to get visibility on",
+        "quote": "I want my team to see this",
         "timestamp": "16:40"
       }
     ],

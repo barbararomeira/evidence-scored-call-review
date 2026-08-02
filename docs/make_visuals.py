@@ -16,7 +16,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from callscore import render, tips  # noqa: E402
+from callscore import dynamics, render, tips  # noqa: E402
 from run_day import process, team_medians  # noqa: E402
 from run_week import collect, follow_through, most_missed, week_of  # noqa: E402
 
@@ -299,6 +299,33 @@ def main():
                  f'<div class="num">{d} of {len(appl)}</div></div>')
     echo = next(r for r in week_rows if r["echo"])
 
+    tally = dynamics.roll_up(week_rows)
+    mx = max(max(v["lifts"], v["drops"]) for v in tally.values()) or 1
+    dynrows = ""
+    for el, v in sorted(tally.items(), key=lambda kv: -kv[1]["lifts"]):
+        dynrows += (f'<div class="row"><div class="lab">{render.LABELS[el]}</div>'
+                    f'<div class="track"><div class="bar"><span style="width:{v["lifts"]/mx*100:.0f}%">'
+                    f'</span></div></div>'
+                    f'<div class="num" style="width:96px;font-weight:600;font-size:11.5px">'
+                    f'<span style="color:var(--matcha)">{v["lifts"]} lifts</span> · '
+                    f'<span style="color:var(--pink)">{v["drops"]}</span></div></div>')
+
+    reprows = ('<div class="row" style="font-family:\'Space Mono\',monospace;font-size:9px;'
+               'letter-spacing:1px;text-transform:uppercase;color:#8A9099;margin-bottom:4px">'
+               '<div class="lab">rep</div><div class="track">pitches · elements · framing pair</div>'
+               '<div class="num" style="width:74px">eng.</div></div>')
+    for rep in sorted({r["rep"] for r in week_rows}):
+        rp = [r for r in pitches if r["rep"] == rep]
+        if not rp:
+            continue
+        avg = round(statistics.mean([r["message"]["delivered"] for r in rp]), 1)
+        fp = sum(1 for r in rp if r["message"]["framing_pair"])
+        eng = round(statistics.median([r["engagement"]["score"] for r in week_rows if r["rep"] == rep]))
+        reprows += (f'<div class="row"><div class="lab" style="font-weight:600">{rep}</div>'
+                    f'<div class="track" style="font-size:12.5px;color:#5B636B">{len(rp)} pitches · '
+                    f'{avg} of 6 elements · framing pair {fp} of {len(rp)}</div>'
+                    f'<div class="num" style="width:74px">{eng}/100</div></div>')
+
     wk_names, wk_framing, wk_eng, rep_w1, rep_w2 = [], [], [], [], []
     for wk in ("week 1", "week 2"):
         wr = [r for r in week_rows if week_of(r["date"]) == wk]
@@ -349,10 +376,19 @@ def main():
       <p class="note">Read that as a hypothesis, not a finding. Reps who deliver the whole message may
       also be working better accounts — with this many calls the two cannot be separated.</p>
 
+      <h3 style="color:var(--blue);margin-top:16px">What earns attention, what loses the room</h3>
+      <p style="margin-bottom:9px;font-size:12.5px;color:#6B737B">A lift is the buyer saying
+      something real straight after an element lands. A drop is three or more rep turns with no
+      reply, or an explicit deflection.</p>
+      {dynrows}
+
+      <h3 style="color:var(--blue);margin-top:16px">Who is delivering it</h3>
+      {reprows}
+
       <h3 style="color:var(--matcha);margin-top:15px">Where it came back at us</h3>
       <div class="q">“{echo['echo'][0]['quote']}”<br><span style="font-style:normal;font-size:11.5px">
       — {echo['account']} · recorded, never scored</span></div>
-    </div>""", "example-messaging-analysis", 830, 730)
+    </div>""", "example-messaging-analysis", 830, 1145)
 
 
 if __name__ == "__main__":

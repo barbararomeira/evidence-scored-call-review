@@ -25,17 +25,17 @@
     "promise_proactive": {
       "status": "delivered",
       "quote": "You get told when it matters, which is the opposite of hunting through reports",
-      "timestamp": "06:48"
+      "timestamp": "06:30"
     },
     "promise_moat": {
       "status": "delivered",
-      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
-      "timestamp": "08:52"
+      "quote": "Everything you own records events; the loss happens in the gaps between them",
+      "timestamp": "08:12"
     },
     "promise_durable": {
       "status": "delivered",
-      "quote": "The daily routine changes, so the gain holds instead of decaying after rollout",
-      "timestamp": "10:16"
+      "quote": "It is not a project that improves a number once and then drifts back",
+      "timestamp": "10:36"
     }
   },
   "engagement": {
@@ -46,19 +46,19 @@
     },
     "own_situations": [
       {
-        "what": "we run the whole thing in spreadsheets and three",
-        "quote": "We run the whole thing in spreadsheets and three people maintain them",
+        "what": "approvals go into legal and we genuinely do not ",
+        "quote": "Approvals go into legal and we genuinely do not know when they will come out",
         "timestamp": "11:20"
       },
       {
-        "what": "approvals go into legal and we genuinely do not ",
-        "quote": "Approvals go into legal and we genuinely do not know when they will come out",
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
         "timestamp": "12:20"
       }
     ],
     "excitement": [
       {
-        "quote": "Okay, that is a real difference from what we looked at before",
+        "quote": "I want my team to see this",
         "timestamp": "13:40"
       }
     ],

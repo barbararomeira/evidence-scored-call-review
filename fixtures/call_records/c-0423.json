@@ -20,7 +20,7 @@
     "promise_visibility": {
       "status": "delivered",
       "quote": "You stop chasing people for status, because the state is just there",
-      "timestamp": "04:48"
+      "timestamp": "04:42"
     },
     "promise_proactive": {
       "status": "absent",
@@ -46,8 +46,8 @@
     },
     "own_situations": [
       {
-        "what": "half my week is asking four people for the same ",
-        "quote": "Half my week is asking four people for the same update",
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
         "timestamp": "05:20"
       }
     ],
