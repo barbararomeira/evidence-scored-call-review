@@ -8,6 +8,18 @@ The example in this repo is a sales team checking whether reps actually deliver 
 
 ---
 
+## What it does
+
+Point it at a folder of call transcripts. It gives you, per call:
+
+| | |
+|---|---|
+| **How much of your message was delivered** | six things you decided to say, counted — and only on calls where a pitch belonged |
+| **How the buyer responded** | next step reached, situations they described, excitement, real back-and-forth |
+| **A coaching message per rep** | what worked, what they missed, one thing to change — every claim quoting the call |
+
+---
+
 ## Quickstart
 
 No install, no API key, no network:
@@ -18,26 +30,60 @@ cd evidence-scored-call-coaching
 python3 run_day.py --mock
 ```
 
-```
-call      rep     type           message       framing engagement  echo
-───────────────────────────────────────────────────────────────────────
-c-0412    Ana     discovery       67 (4/6)     no              67  no
-c-0413    Ana     pricing        — out of scope —               67  no
-c-0414    Ben     demo           100 (6/6)     yes             93  yes
-c-0415    Ben     scheduling     — out of scope —               26  no
-c-0416    Chloe   intro           17 (1/6)     no              35  no
-c-0417    Chloe   discovery       67 (4/6)     yes             60  no
-  Scored for message:  4 of 6 calls
-    out of scope — c-0413 (pricing): Commercial negotiation. Nobody restates the category while discussing price.
-    out of scope — c-0415 (scheduling): Logistics. There is no pitch to deliver.
-  Framing pair landed: 2 of 4 pitches   n=4 — not enough data yet
-  Echo (recorded, never scored): 1 of 6
-  Every scored point carries a verbatim quote found in its own transcript.
-```
+You get this, over six invented calls from three reps:
 
-That output contains the whole design. Two calls get **no message score at all** rather than a zero. One aggregate prints its number and then refuses to interpret it. And nothing was scored that isn't backed by a quote found in the call it came from.
+| call | rep | type | message delivered | framing pair | engagement | echo |
+|:--|:--|:--|--:|:-:|--:|:-:|
+| c-0412 | Ana | discovery | 4 of 6 · **67** | ✗ | 67 | — |
+| c-0413 | Ana | pricing | *not a pitch* | — | 67 | — |
+| c-0414 | Ben | demo | 6 of 6 · **100** | ✓ | 93 | ✓ |
+| c-0415 | Ben | scheduling | *not a pitch* | — | 26 | — |
+| c-0416 | Chloe | intro | 1 of 6 · **17** | ✗ | 35 | — |
+| c-0417 | Chloe | discovery | 4 of 6 · **67** | ✓ | 60 | — |
 
-`--mock` swaps **only** the extraction step, replaying the pre-recorded call records in `fixtures/`. Every gate, score, coaching selection and rollup after that is real code executing. Prefer to read before running? [`examples/`](examples/) has the committed output, including two coaching messages.
+> **Scored for message:** 4 of 6 calls — `c-0413` and `c-0415` were never pitches
+> **Framing pair landed:** 2 of 4 pitches · `n=4 — not enough data yet`
+> **Echo:** 1 of 6, recorded and never scored
+> **Every scored point carries a verbatim quote found in its own transcript.**
+
+Three things in that table are the whole design:
+
+1. **Two calls have no score at all**, not a zero. A pricing negotiation isn't a bad pitch — it isn't a pitch.
+2. **One number refuses to be interpreted.** It prints, then says the sample is too small to mean anything.
+3. **Ana looks fine and isn't.** Four of six elements delivered, twice — but the framing pair never lands. A coverage score alone calls that a good week.
+
+### And a coaching message per rep
+
+Written from the same evidence, no model involved in choosing what to say:
+
+> **Ben — 2026-05-18**
+> 2 calls (1 pitch, 1 commercial or logistics)
+>
+> **Where you land**
+> Message delivered — you 6 of 6 · team 4 of 6
+> Engagement — you 60/100 · team 64/100
+> Next step reached — you 3 of 4 · team 3 of 4
+>
+> **What worked**
+> Cobalt Systems was your strongest call — engagement 93/100, and they put your framing in their own words: *"So it takes into account the space between the events, not just the events. That's actually how I'd explain it to my board"*
+>
+> **What to improve**
+> Nothing to change from these calls: every element the call had room for landed.
+
+`--mock` swaps **only** the extraction step, replaying pre-recorded call records from `fixtures/`. Every gate, score, coaching selection and rollup after that is real code executing. Want to read before running? [`examples/`](examples/) has the committed output.
+
+---
+
+## Finding your way around
+
+| If you want to… | Go here |
+|---|---|
+| see what it produces, without cloning | [`examples/`](examples/) |
+| change what gets scored | [`rubric/`](rubric/) — four files, the only ones you edit |
+| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 10 entries, chose / considered / why |
+| see the calls it runs on | [`fixtures/`](fixtures/) — invented transcripts and the story they tell |
+| plug in your own model | [`callscore/extractors/base.py`](callscore/extractors/base.py) — one method |
+| read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) |
 
 ---
 
@@ -101,27 +147,19 @@ Adding a new question about your calls costs one consumer of the record, not ano
 
 ### What is scored, what is refused, what is only recorded
 
-```mermaid
-flowchart TD
-    subgraph SCORED["scored"]
-      direction LR
-      M1[the problem]:::pair --- M2[the category]:::pair
-      M3[see what is happening] --- M4[be told, not go looking]
-      M5[what no other system can do] --- M6[value that lasts]
-      E1[next step reached · 35] --- E2[their own situations · 25]
-      E3[excitement · 20] --- E4[back-and-forth · 20]
-    end
-    subgraph RECORDED["recorded, never scored"]
-      K[echo — the buyer restating<br/>your framing in their own words]
-    end
-    subgraph REFUSED["refused a message score"]
-      S[pricing · scheduling · implementation · scoping]
-    end
+| | | |
+|---|---|---|
+| **Message delivered** | the problem · the category | reported *together* as the **framing pair** |
+| | see what is happening · be told, not go looking | |
+| | what no other system can do · value that lasts | |
+| **Engagement** | next step reached | 35 |
+| | their own situations | 25 |
+| | excitement | 20 |
+| | back-and-forth | 20 |
+| **Recorded, never scored** | echo — the buyer restating your framing in their own words | the best signal there is, and the one that dies if you count it |
+| **Refused a score** | pricing · scheduling · implementation · scoping | no pitch was delivered, so there is nothing to grade |
 
-    classDef pair fill:#fff4ee,stroke:#ff590d,color:#000
-```
-
-The two orange elements are reported together as the **framing pair**, separately from the coverage score. That exists because of a real miss: a call can deliver four promises cleanly while the frame around them is still the old pitch, and a coverage score is structurally blind to it. Echo stays unscored on purpose — the moment it counts, people fish for it and the signal dies.
+The framing pair is reported separately from the coverage score because a call can deliver four promises cleanly while the frame around them is still the old pitch — and counting elements cannot see that. Echo stays unscored on purpose: the moment it earns points, people start fishing for it.
 
 ---
 
@@ -146,17 +184,6 @@ python3 run_day.py --transcripts ./my_calls --extractor claude_cli
 ```bash
 python3 -m pytest tests -q
 ```
-
-## Repo map
-
-| Path | Purpose |
-|---|---|
-| `rubric/` | The four files you edit to make this yours |
-| `callscore/` | Scoring, gates, evidence checks, rendering — all deterministic |
-| `callscore/extractors/` | The single seam where a model touches the system |
-| `fixtures/` | Six synthetic calls and the story they tell |
-| `examples/` | Committed output, readable before you clone |
-| `tests/` | The claims above, pinned |
 
 ## Not built, on purpose
 

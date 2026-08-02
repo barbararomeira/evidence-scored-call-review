@@ -8,19 +8,21 @@ LABELS = {
     "promise_moat": "what no other system can do", "promise_durable": "value that lasts",
 }
 
-def scored_table(rows: list[dict]) -> str:
-    head = (f"{'call':<9} {'rep':<7} {'type':<14} {'message':<13} {'framing':<8}"
-            f"{'engagement':>10}  echo")
-    out = [head, "─" * len(head)]
+def scored_table(rows: list) -> str:
+    """Aligned terminal table. Columns are fixed width so nothing shifts when a call is refused."""
+    H = f"{'call':<8}{'rep':<8}{'type':<12}{'message':>14}  {'framing':<8}{'engage':>7}  {'echo':<5}"
+    out = [H, "─" * len(H)]
     for r in rows:
         if r["message"] is None:
-            msg, framing = "— out of scope", "—"
+            msg, framing = "not a pitch", "—"
         else:
-            msg = f"{r['message']['score']:>3} ({r['message']['delivered']}/{r['message']['applicable']})"
-            framing = "yes" if r["message"]["framing_pair"] else "no"
-        out.append(f"{r['call_id']:<9} {r['rep']:<7} {r['call_type']:<14} {msg:<13} {framing:<8}"
-                   f"{r['engagement']['score']:>10}  {'yes' if r['echo'] else 'no'}")
+            m = r["message"]
+            msg = f"{m['delivered']} of 6 · {m['score']}"
+            framing = "yes" if m["framing_pair"] else "no"
+        out.append(f"{r['call_id']:<8}{r['rep']:<8}{r['call_type']:<12}{msg:>14}  {framing:<8}"
+                   f"{r['engagement']['score']:>7}  {'yes' if r['echo'] else '—':<5}")
     return "\n".join(out)
+
 
 def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
     """Deterministic selection (Decision 11): the same evidence always produces the same coaching."""
