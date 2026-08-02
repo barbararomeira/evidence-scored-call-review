@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0419",
+  "date": "2026-05-20",
+  "rep": "Ana",
+  "call_type": "demo",
+  "account": "Tessellate",
+  "duration_min": 31,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Most teams find out what went wrong after it has already cost them the week",
+      "timestamp": "04:48"
+    },
+    "category": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "Nobody has to prepare a status pack, because the status is live",
+      "timestamp": "06:41"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
+      "timestamp": "08:50"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "Your systems record transactions, they do not see the work between transactions",
+      "timestamp": "10:18"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "What stops it fading is that the work runs through it every day, not once a quarter",
+      "timestamp": "12:27"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "Yes, let us book something for next week.",
+      "timestamp": "30:30"
+    },
+    "own_situations": [
+      {
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
+        "timestamp": "13:20"
+      },
+      {
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
+        "timestamp": "14:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That would give me back the first hour of every day",
+        "timestamp": "15:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 8,
+      "per_30min": 11
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

@@ -21,13 +21,16 @@ ROOT = pathlib.Path(__file__).resolve().parent
 MIN_N_FOR_VERDICT = 5  # Decision 9: print n always, suppress the verdict below this
 
 
-def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str | None):
+def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str | None,
+            date_filter: str | None = None):
     extractor = get(extractor_name)
     rows, problems = [], []
 
     for path in sorted(transcript_dir.glob("*.md")):
         t = base.load_transcript(path)
         if rep_filter and t.rep != rep_filter:
+            continue
+        if date_filter and t.date != date_filter:
             continue
         record = extractor.extract(t)
 
@@ -61,6 +64,7 @@ def main():
     ap.add_argument("--extractor", default=None, help="claude_api | claude_cli | codex_cli | ollama")
     ap.add_argument("--transcripts", default=None, help="folder of transcript .md files")
     ap.add_argument("--rep", default=None, help="only this rep")
+    ap.add_argument("--date", default=None, help="only this day, e.g. 2026-05-26 (a daily run is one day)")
     ap.add_argument("--out", default="outputs", help="where coaching messages are written")
     args = ap.parse_args()
 
@@ -68,7 +72,7 @@ def main():
         ap.error("pass --mock to run offline, or --extractor to use a model")
 
     tdir = pathlib.Path(args.transcripts) if args.transcripts else ROOT / "fixtures" / "transcripts"
-    rows, problems = process(tdir, "mock" if args.mock else args.extractor, args.rep)
+    rows, problems = process(tdir, "mock" if args.mock else args.extractor, args.rep, args.date)
 
     if not rows:
         print(f"No transcripts found in {tdir}")
@@ -78,7 +82,8 @@ def main():
         shown = tdir.relative_to(ROOT)          # never print the machine's absolute paths
     except ValueError:
         shown = tdir
-    print(f"\n{len(rows)} calls from {shown}\n")
+    when = f" on {args.date}" if args.date else ""
+    print(f"\n{len(rows)} calls{when} from {shown}\n")
     print(render.scored_table(rows))
 
     scored = [r for r in rows if r["message"]]

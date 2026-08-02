@@ -1,0 +1,64 @@
+{
+  "call_id": "c-0424",
+  "date": "2026-05-22",
+  "rep": "Dev",
+  "call_type": "pricing",
+  "account": "Perch Software",
+  "duration_min": 21,
+  "scoring_scope": "engagement_only",
+  "adherence": {
+    "problem_framing": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "category": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_visibility": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_proactive": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_moat": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_durable": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 4,
+      "quote": "Send me pricing and I will get it in front of procurement this week.",
+      "timestamp": "20:30"
+    },
+    "own_situations": [
+      {
+        "what": "we lost a supplier last quarter over something t",
+        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
+        "timestamp": "03:20"
+      }
+    ],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 4,
+      "substantive_turns": 6,
+      "per_30min": 14
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

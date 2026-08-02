@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0430",
+  "date": "2026-05-28",
+  "rep": "Dev",
+  "call_type": "discovery",
+  "account": "Wren Retail",
+  "duration_min": 25,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
+      "timestamp": "04:21"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:22"
+    },
+    "promise_visibility": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "08:29"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "Yes, let us book something for next week.",
+      "timestamp": "24:30"
+    },
+    "own_situations": [
+      {
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
+        "timestamp": "09:20"
+      },
+      {
+        "what": "our quality holds sit for days because nobody ow",
+        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "timestamp": "10:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "I want my team to see this",
+        "timestamp": "11:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 6,
+      "per_30min": 11
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

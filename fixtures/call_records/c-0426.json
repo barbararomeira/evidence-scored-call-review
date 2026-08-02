@@ -1,0 +1,92 @@
+{
+  "call_id": "c-0426",
+  "date": "2026-05-26",
+  "rep": "Ben",
+  "call_type": "demo",
+  "account": "Kestrel Ops",
+  "duration_min": 33,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
+      "timestamp": "04:20"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
+      "timestamp": "06:42"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "Nobody has to prepare a status pack, because the status is live",
+      "timestamp": "08:52"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "10:32"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
+      "timestamp": "12:19"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "The daily routine changes, so the gain holds instead of decaying after rollout",
+      "timestamp": "14:20"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 4,
+      "quote": "Send me pricing and I will get it in front of procurement this week.",
+      "timestamp": "32:30"
+    },
+    "own_situations": [
+      {
+        "what": "our quality holds sit for days because nobody ow",
+        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "timestamp": "15:20"
+      },
+      {
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
+        "timestamp": "16:20"
+      },
+      {
+        "what": "the same ticket bounces between two teams twice ",
+        "quote": "The same ticket bounces between two teams twice before anyone notices",
+        "timestamp": "17:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "I want my team to see this",
+        "timestamp": "18:40"
+      },
+      {
+        "quote": "That would give me back the first hour of every day",
+        "timestamp": "19:40"
+      },
+      {
+        "quote": "Okay, that is a real difference from what we looked at before",
+        "timestamp": "20:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 5,
+      "substantive_turns": 11,
+      "per_30min": 15
+    }
+  },
+  "echo": [
+    {
+      "quote": "So it accounts for the time between the events, not just the events themselves",
+      "timestamp": "21:15"
+    }
+  ],
+  "flags": [],
+  "scoring_version": "v1"
+}

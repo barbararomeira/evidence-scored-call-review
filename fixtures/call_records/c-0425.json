@@ -1,0 +1,79 @@
+{
+  "call_id": "c-0425",
+  "date": "2026-05-26",
+  "rep": "Ana",
+  "call_type": "discovery",
+  "account": "Halden Foods",
+  "duration_min": 30,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "We are the system you run the work with, not a dashboard bolted onto what you already have",
+      "timestamp": "04:38"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "06:41"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
+      "timestamp": "08:37"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "Everything you own records events; the loss happens in the gaps between them",
+      "timestamp": "10:38"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "It is not a project that improves a number once and then drifts back",
+      "timestamp": "12:49"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to my director \u2014 she would have to sponsor it.",
+      "timestamp": "29:30"
+    },
+    "own_situations": [
+      {
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
+        "timestamp": "13:20"
+      },
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "14:20"
+      },
+      {
+        "what": "our quality holds sit for days because nobody ow",
+        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "timestamp": "15:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That is exactly what we have been trying to get visibility on",
+        "timestamp": "16:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 4,
+      "substantive_turns": 8,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

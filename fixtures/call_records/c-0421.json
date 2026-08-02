@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0421",
+  "date": "2026-05-21",
+  "rep": "Ben",
+  "call_type": "intro",
+  "account": "Aster Logistics",
+  "duration_min": 20,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
+      "timestamp": "04:28"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:10"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "08:20"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "10:27"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "Yes, let us book something for next week.",
+      "timestamp": "19:30"
+    },
+    "own_situations": [
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "11:20"
+      },
+      {
+        "what": "we lost a supplier last quarter over something t",
+        "quote": "We lost a supplier last quarter over something that sat in a queue for nine days",
+        "timestamp": "12:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "Okay, that is a real difference from what we looked at before",
+        "timestamp": "13:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 5,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

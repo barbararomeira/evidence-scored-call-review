@@ -1,13 +1,13 @@
 *Ana — 2026-05-18*
-2 calls (1 pitch, 1 commercial or logistics)
+5 calls (4 pitches, 1 commercial or logistics)
 
 *Where you land*
 Message delivered — you 4 of 6 · team 4 of 6
-Engagement — you 67/100 · team 64/100
-Next step reached — you 4 of 4 · team 3 of 4
+Engagement — you 66/100 · team 60/100
+Next step reached — you 3 of 4 · team 3 of 4
 
 *What worked*
-Beacon Analytics was your strongest call — engagement 67/100. The moment worth repeating: "Okay. This is interesting."
+Halden Foods was your strongest call — engagement 72/100. The moment worth repeating: "That is exactly what we have been trying to get visibility on"
 
 *What you missed*
 On Beacon Analytics you did not land: the problem, the category. That call delivered 4 of 6 elements.

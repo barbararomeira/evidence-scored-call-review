@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0418",
+  "date": "2026-05-19",
+  "rep": "Ana",
+  "call_type": "discovery",
+  "account": "Perch Software",
+  "duration_min": 28,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "absent",
+      "quote": "Good to meet you. I thought I would keep this short and leave room for questions.",
+      "timestamp": "00:05"
+    },
+    "category": {
+      "status": "absent",
+      "quote": "Good to meet you. I thought I would keep this short and leave room for questions.",
+      "timestamp": "00:05"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "04:54"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "06:48"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
+      "timestamp": "08:52"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "The daily routine changes, so the gain holds instead of decaying after rollout",
+      "timestamp": "10:16"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to my director \u2014 she would have to sponsor it.",
+      "timestamp": "27:30"
+    },
+    "own_situations": [
+      {
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
+        "timestamp": "11:20"
+      },
+      {
+        "what": "approvals go into legal and we genuinely do not ",
+        "quote": "Approvals go into legal and we genuinely do not know when they will come out",
+        "timestamp": "12:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "Okay, that is a real difference from what we looked at before",
+        "timestamp": "13:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 4,
+      "substantive_turns": 7,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

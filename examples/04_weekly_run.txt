@@ -1,0 +1,16 @@
+
+Week of 18–21 May 2026  ·  20 calls  ·  14 pitches  ·  6 not pitches
+
+  Framing pair landed        8 of 14 pitches
+  Engagement when it landed  73/100  (n=8)
+  ...and when it did not     56/100  (n=6)   → +17 points
+  Weakest element            value that lasts — delivered in 7 of 14
+  Echo, recorded not scored  4 of 20
+
+  Written:
+    outputs/weekly/messaging-analysis.md
+    outputs/weekly/coaching-Ana.md
+    outputs/weekly/coaching-Ben.md
+    outputs/weekly/coaching-Chloe.md
+    outputs/weekly/coaching-Dev.md
+

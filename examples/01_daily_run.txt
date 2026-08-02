@@ -1,0 +1,18 @@
+
+3 calls on 2026-05-21 from fixtures/transcripts
+
+call    rep     type             message  framing   engagement  echo 
+─────────────────────────────────────────────────────────────────────
+c-0417  Chloe   discovery         4 of 6  yes           60/100  —    
+c-0421  Ben     intro             4 of 6  yes           58/100  —    
+c-0422  Chloe   demo              4 of 6  yes           50/100  —    
+
+  Scored for message:  3 of 3 calls
+  Framing pair landed: 3 of 3 pitches   n=3 — not enough data yet
+  Echo (recorded, never scored): 0 of 3
+  Every scored point carries a verbatim quote found in its own transcript.
+
+  Coaching written:
+    outputs/coaching/2026-05-21_Ben.md
+    outputs/coaching/2026-05-21_Chloe.md
+

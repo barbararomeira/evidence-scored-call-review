@@ -1,0 +1,69 @@
+{
+  "call_id": "c-0427",
+  "date": "2026-05-27",
+  "rep": "Ben",
+  "call_type": "implementation",
+  "account": "Cobalt Systems",
+  "duration_min": 24,
+  "scoring_scope": "engagement_only",
+  "adherence": {
+    "problem_framing": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "category": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_visibility": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_proactive": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_moat": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_durable": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to my director \u2014 she would have to sponsor it.",
+      "timestamp": "23:30"
+    },
+    "own_situations": [
+      {
+        "what": "we run the whole thing in spreadsheets and three",
+        "quote": "We run the whole thing in spreadsheets and three people maintain them",
+        "timestamp": "03:20"
+      },
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "04:20"
+      }
+    ],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 7,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

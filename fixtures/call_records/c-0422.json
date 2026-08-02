@@ -1,0 +1,69 @@
+{
+  "call_id": "c-0422",
+  "date": "2026-05-21",
+  "rep": "Chloe",
+  "call_type": "demo",
+  "account": "Marlow Group",
+  "duration_min": 26,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:38"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
+      "timestamp": "06:14"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "08:24"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "10:42"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "Yes, let us book something for next week.",
+      "timestamp": "25:30"
+    },
+    "own_situations": [
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "11:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "I want my team to see this",
+        "timestamp": "12:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 6,
+      "per_30min": 10
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

@@ -1,0 +1,64 @@
+{
+  "call_id": "c-0423",
+  "date": "2026-05-22",
+  "rep": "Dev",
+  "call_type": "intro",
+  "account": "Wren Retail",
+  "duration_min": 17,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    },
+    "category": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "04:48"
+    },
+    "promise_proactive": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Appreciate the call. Tell me what prompted you to take it.",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 1,
+      "quote": "Send me some material and I will have a look.",
+      "timestamp": "16:30"
+    },
+    "own_situations": [
+      {
+        "what": "half my week is asking four people for the same ",
+        "quote": "Half my week is asking four people for the same update",
+        "timestamp": "05:20"
+      }
+    ],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 2,
+      "substantive_turns": 3,
+      "per_30min": 9
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

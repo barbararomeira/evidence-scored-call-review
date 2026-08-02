@@ -1,0 +1,58 @@
+{
+  "call_id": "c-0429",
+  "date": "2026-05-28",
+  "rep": "Chloe",
+  "call_type": "scheduling",
+  "account": "Marlow Group",
+  "duration_min": 8,
+  "scoring_scope": "engagement_only",
+  "adherence": {
+    "problem_framing": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "category": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_visibility": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_proactive": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_moat": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_durable": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "Yes, let us book something for next week.",
+      "timestamp": "07:30"
+    },
+    "own_situations": [],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 1,
+      "substantive_turns": 2,
+      "per_30min": 11
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}
