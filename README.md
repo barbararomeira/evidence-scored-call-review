@@ -133,6 +133,58 @@ All five outputs are committed in **[`examples/`](examples/)**.
 
 ---
 
+## The four jobs, and which one thinks
+
+Only the first touches a model. Everything else is deterministic Python reading what it produced — which is why the same evidence always yields the same coaching, and why a rep asking *"why this?"* gets a rule rather than a shrug.
+
+| | job | runs | reads | writes | model? |
+|:-:|:--|:--|:--|:--|:-:|
+| ① | **Extract** — read the call once, produce evidence | per call, daily | the transcript | one `call_record.json`, a quote behind every verdict | **yes** — the only one |
+| ② | **Score & coach** — gate, score, tell each rep | daily | the day's call records | scored table + `coaching/<date>_<rep>.md` | no |
+| ③ | **Coach the week** — the same message, wider window | weekly | 7 days of call records | `weekly/coaching-<rep>.md` | no |
+| ④ | **Analyse the message** — is it working at all | weekly | all call records | `weekly/messaging-analysis.md` | no |
+
+② and ③ deliberately produce the **same shape** — a rep should not have to learn two formats. The difference is the claim: a day says *you skipped it on this call*, a week says *you skip it*.
+
+④ is a different document for a different reader. It is about the message, not about a person, and it never names a rep.
+
+```mermaid
+flowchart TD
+    T[transcripts] --> A1
+
+    subgraph ONE["① Extract · the only model step"]
+      A1[read each call once<br/>quote behind every verdict]
+    end
+
+    A1 --> R[(call records<br/>evidence + counts)]
+
+    subgraph DAILY["② Daily · deterministic"]
+      D1[scope gate → two scores] --> D2[coaching message per rep]
+    end
+
+    subgraph WEEKLY["③ + ④ Weekly · deterministic"]
+      W1[same message, 7-day window<br/>patterns not incidents]
+      W2[messaging analysis<br/>per element · engagement gap · echo]
+    end
+
+    R --> D1
+    R --> W1
+    R --> W2
+
+    D2 --> O1([a rep reads this])
+    W1 --> O1
+    W2 --> O2([whoever owns the message reads this])
+
+    classDef llm fill:#e1f5ff,stroke:#0969da,color:#000
+    classDef python fill:#f6f8fa,stroke:#656d76,color:#000
+    classDef io fill:#dafbe1,stroke:#1a7f37,color:#000
+    class A1 llm
+    class D1,D2,W1,W2 python
+    class T,R,O1,O2 io
+```
+
+---
+
 ## Finding your way around
 
 | If you want to… | Go here |
@@ -162,30 +214,7 @@ Full reasoning, including what was considered and rejected, in [`DECISIONS.md`](
 
 ---
 
-## How it fits together
-
-```mermaid
-flowchart TD
-    N([Notetaker: Fathom · Fireflies · Otter · a folder of text]) --> I[ingest → transcript + front matter<br/><i>Python</i>]
-    I --> X[① Extract once per call<br/>one call record, quotes attached<br/><i>the only model step</i>]
-    X --> G{② Was this call a pitch?<br/><i>scope gate</i>}
-    G -- no --> E
-    G -- yes --> M[③ Message delivered<br/>6 elements · quote required<br/>framing pair reported separately]
-    M --> E[④ Engagement<br/>35 / 25 / 20 / 20<br/>echo recorded, never summed in]
-    E --> C[⑤ Per-rep coaching<br/>worked · missed · improve<br/><i>selected deterministically</i>]
-    C --> O([day summary · coaching/*.md])
-
-    classDef llm fill:#e1f5ff,stroke:#0969da,color:#000
-    classDef python fill:#f6f8fa,stroke:#656d76,color:#000
-    classDef io fill:#dafbe1,stroke:#1a7f37,color:#000
-    class X llm
-    class I,G,M,E,C python
-    class N,O io
-```
-
-Blue is the one step a model touches. Grey is deterministic Python. Green is what goes in and comes out.
-
-### Why "extract once" is the whole architecture
+## Why "extract once" is the whole architecture
 
 ```mermaid
 flowchart LR
@@ -204,7 +233,7 @@ flowchart LR
 
 Adding a new question about your calls costs one consumer of the record, not another pass over the transcripts. In the system this pattern came from, the calls were already being read every morning for a completely different purpose; the second question cost one extra extraction step, not a new pipeline.
 
-### What is scored, what is refused, what is only recorded
+## What is scored, what is refused, what is only recorded
 
 | | | |
 |---|---|---|
