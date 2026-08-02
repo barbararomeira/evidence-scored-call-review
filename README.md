@@ -26,32 +26,54 @@ Point it at a folder of call transcripts. It gives you, per call:
 
 | | Runs | Model | Purpose | Reads | Produces |
 |:--|:--|:--|:--|:--|:--|
-| **The extractor** *(one per call, in parallel)* | inside each daily run | **your choice** — Claude API, Claude Code, Codex, or a local model | Read one call and come back with facts. Every verdict carries the sentence that proves it, including the ones that say an element was missing. | exactly one transcript | one **call record** — it decides nothing and scores nothing |
-| **The coach** | daily **and** weekly | **none** — deterministic Python | Tell each rep what to change. Daily: *you skipped it on this call*. Weekly: *you skip it* — plus the trend, the spread, and whether the last tip stuck. | call records for that window, and the tips register | a **coaching message** per rep, and the updated **tips register** |
-| **The messaging analyst** | weekly | **none** — deterministic Python | Ask whether the message itself is working, separately from who delivered it. Reports per rep, but never judges one. | every call record, all weeks | the **messaging analysis** — trend, what earns attention, what loses the room |
+| **The extractor** *(one per call, in parallel)* | inside each daily run | **Sonnet-class.** Claude Sonnet 5 (API or a Claude Code subscription), Codex CLI, or Llama 3.1 8B / Qwen 2.5 via Ollama if you want it free and offline. A reasoning model is wasted here — the judgement lives in the rubric, not the model. | Read one call and come back with facts. Every verdict carries the sentence that proves it, including the ones that say an element was missing. | exactly one transcript | one **call record** — it decides nothing and scores nothing |
+| **The coach** | daily **and** weekly | **none.** Python | Tell each rep what to change. Daily: *you skipped it on this call*. Weekly: *you skip it* — plus the trend, the spread, and whether the last tip stuck. | call records for that window, and the tips register | a **coaching message** per rep, and the updated **tips register** |
+| **The messaging analyst** | weekly | **none.** Python | Ask whether the message itself is working, separately from who delivered it. Reports per rep, but never judges one. | every call record, all weeks | the **messaging analysis** — trend, what earns attention, what loses the room |
 | **You** | 2 min daily · 10 min weekly | — | Decide. Forward the coaching, or don't. Rewrite the rubric when the analysis says the message is the problem rather than the delivery. | the coaching and the analysis | **edits to `rubric/`** — the only file that changes what any of this measures |
 
 Only the extractor is a model, and only because reading unstructured speech is the one thing a model does that code cannot. *What* to say is chosen by rules: the same evidence always produces the same coaching, and a rep asking "why this one?" gets an answer rather than a shrug. In the system this came from, the coach and the analyst are LLM agents — see [Decision 9](DECISIONS.md) for why they are not here, and `callscore/extractors/base.py` for the seam if you disagree.
 
 ```mermaid
-flowchart LR
-    T[transcripts] --> A1[the extractor<br/>one per call · a model]
-    A1 --> R[(call records<br/>evidence + counts)]
-    R --> C[the coach<br/>daily + weekly]
-    R --> M[the messaging analyst<br/>weekly]
-    C --> O1([each rep])
-    M --> O2([whoever owns the message])
-    O1 --> Y[you<br/>decide · edit the rubric]
-    O2 --> Y
-    Y -.-> A1
+flowchart TB
+    T["📞 Call transcripts"] --> X
+    RB["📋 Your rubric<br/><i>six elements · what counts as a pitch</i>"] -.-> X
 
-    classDef llm fill:#EAF2F6,stroke:#47809E,color:#23252B
-    classDef python fill:#F7F9FA,stroke:#8A9099,color:#23252B
-    classDef io fill:#F0F4E9,stroke:#75905A,color:#23252B
-    class A1 llm
-    class C,M python
-    class T,R,O1,O2,Y io
+    subgraph EXTRACT ["The extractor · daily · the only model"]
+        X["one helper per call, in parallel<br/><b>quotes everything · scores nothing</b>"]
+    end
+
+    X --> CR[("🗂️ Call records<br/><i>one per call, read many times</i>")]
+
+    subgraph COACH ["The coach · daily + weekly · deterministic"]
+        G{"Was this a pitch?"} -->|"no"| SK["no message score at all<br/><b>refusing is a feature</b>"]
+        G -->|"yes"| SC["two scores,<br/><i>never blended into one</i>"]
+        SC --> TP["tips register<br/><b>status judged from later calls</b>"]
+    end
+
+    subgraph ANALYST ["The messaging analyst · weekly · deterministic"]
+        TR["trend by week"] --> LD["what earns attention,<br/>what loses the room"] --> PR["per rep<br/><i>reported, never judged</i>"]
+    end
+
+    CR --> G
+    CR --> TR
+    SK --> CM
+    TP --> CM["📄 Coaching message"]
+    PR --> MA["📄 Messaging analysis"]
+
+    CM --> YOU(["🧑 You — forward it, or don't"])
+    MA --> YOU
+    YOU -->|"the delivery is the problem"| REP(["🧑‍💼 The rep"])
+    YOU -->|"the message is the problem"| RB
+
+    style EXTRACT fill:#eef4f8,stroke:#47809E
+    style COACH fill:#f8f9fa,stroke:#8A9099
+    style ANALYST fill:#f4f8f0,stroke:#75905A
+    style CR fill:#fff8e8,stroke:#b98b2e
+    style YOU fill:#faeef2,stroke:#C4718D
+    style RB fill:#faeef2,stroke:#C4718D
 ```
+
+The two dotted-in boxes are the only ones you touch: the **rubric** going in, and **you** coming out. Everything between them is fixed — which is the point. When the analysis says every rep misses the same element, that is not four coaching problems, it is one rubric that is asking for something the pitch has no room to say.
 
 ---
 
