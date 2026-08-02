@@ -24,59 +24,33 @@ Point it at a folder of call transcripts. It gives you, per call:
 
 ## The agents
 
-Three roles. Only the first is a model; the other two are the *analyst* and the *coach*, and in this repo they are deterministic Python — see the note below, because that is a deliberate difference from the system this came from.
+| | Runs | Model | Purpose | Reads | Produces |
+|:--|:--|:--|:--|:--|:--|
+| **The extractor** *(one per call, in parallel)* | inside each daily run | **your choice** — Claude API, Claude Code, Codex, or a local model | Read one call and come back with facts. Every verdict carries the sentence that proves it, including the ones that say an element was missing. | exactly one transcript | one **call record** — it decides nothing and scores nothing |
+| **The coach** | daily **and** weekly | **none** — deterministic Python | Tell each rep what to change. Daily: *you skipped it on this call*. Weekly: *you skip it* — plus the trend, the spread, and whether the last tip stuck. | call records for that window, and the tips register | a **coaching message** per rep, and the updated **tips register** |
+| **The messaging analyst** | weekly | **none** — deterministic Python | Ask whether the message itself is working, separately from who delivered it. Reports per rep, but never judges one. | every call record, all weeks | the **messaging analysis** — trend, what earns attention, what loses the room |
+| **You** | 2 min daily · 10 min weekly | — | Decide. Forward the coaching, or don't. Rewrite the rubric when the analysis says the message is the problem rather than the delivery. | the coaching and the analysis | **edits to `rubric/`** — the only file that changes what any of this measures |
 
-| | agent | runs | reads | writes |
-|:-:|:--|:--|:--|:--|
-| ① | **The extractor** — reads the call, produces evidence | per call, daily | the transcript, the rubric | one `call_record.json`: every verdict with the quote behind it |
-| ② | **The coach** — tells each rep what to change | daily *and* weekly | call records for that window | `coaching/<date>_<rep>.md`, `weekly/coaching-<rep>.md` |
-| ③ | **The messaging analyst** — is the message working at all | weekly | every call record | `weekly/messaging-analysis.md` |
-
-**The coach** writes two documents with the same shape but different claims. The daily one says *you skipped it on this call*; the weekly one says *you skip it* — and adds the three things a day cannot know: a trend against the rep's own previous week, the consistency spread across their pitches, and whether the last tip was actually adopted.
-
-**The messaging analyst** never names a rep in judgement — it reports per rep so a reader can tell a coaching problem from a messaging problem, but its subject is the message. A gap that sits with one rep is fixed by coaching; the same gap across everyone is fixed by rewriting the pitch. Different problems, different owners.
-
-### Why only one of them is a model here
-
-In the system this pattern came from, ② and ③ are separate LLM agents on a weekly schedule. In this repo they are plain Python, on purpose:
-
-- **What to say is chosen by rules, not by a model.** A model picking which weakness to raise drifts toward whatever is most narratable, varies week to week on identical evidence, and cannot be unit-tested. Deterministic selection means the same calls always produce the same coaching, and a rep asking *"why this one?"* gets an answer instead of a shrug.
-- **The model does the part only a model can do** — reading unstructured speech and pointing at the sentence that proves each verdict. That is ①, and it is the whole reason an LLM is here at all.
-- **The seam is open if you disagree.** A phrasing pass over already-selected content is a reasonable addition, and `callscore/extractors/base.py` is the only place a model plugs in. What should not move into a model is the *selection* — see Decision 9.
+Only the extractor is a model, and only because reading unstructured speech is the one thing a model does that code cannot. *What* to say is chosen by rules: the same evidence always produces the same coaching, and a rep asking "why this one?" gets an answer rather than a shrug. In the system this came from, the coach and the analyst are LLM agents — see [Decision 9](DECISIONS.md) for why they are not here, and `callscore/extractors/base.py` for the seam if you disagree.
 
 ```mermaid
-flowchart TD
-    T[transcripts] --> A1
-
-    subgraph ONE["① The extractor · the only model step"]
-      A1[read each call once<br/>quote behind every verdict]
-    end
-
+flowchart LR
+    T[transcripts] --> A1[the extractor<br/>one per call · a model]
     A1 --> R[(call records<br/>evidence + counts)]
-
-    subgraph TWO["② The coach · deterministic"]
-      D1[daily: scope gate → two scores → what to change]
-      W1[weekly: trend · consistency · did the tip stick]
-    end
-
-    subgraph THREE["③ The messaging analyst · deterministic"]
-      W2[per element · what earns attention<br/>what loses the room · per rep]
-    end
-
-    R --> D1
-    R --> W1
-    R --> W2
-
-    D1 --> O1([a rep reads this])
-    W1 --> O1
-    W2 --> O2([whoever owns the message reads this])
+    R --> C[the coach<br/>daily + weekly]
+    R --> M[the messaging analyst<br/>weekly]
+    C --> O1([each rep])
+    M --> O2([whoever owns the message])
+    O1 --> Y[you<br/>decide · edit the rubric]
+    O2 --> Y
+    Y -.-> A1
 
     classDef llm fill:#EAF2F6,stroke:#47809E,color:#23252B
     classDef python fill:#F7F9FA,stroke:#8A9099,color:#23252B
     classDef io fill:#F0F4E9,stroke:#75905A,color:#23252B
     class A1 llm
-    class D1,W1,W2 python
-    class T,R,O1,O2 io
+    class C,M python
+    class T,R,O1,O2,Y io
 ```
 
 ---
