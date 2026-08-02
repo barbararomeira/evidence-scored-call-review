@@ -22,117 +22,6 @@ Point it at a folder of call transcripts. It gives you, per call:
 
 ---
 
-## Quickstart
-
-No install, no API key, no network:
-
-```bash
-git clone https://github.com/barbararomeira/evidence-scored-call-coaching
-cd evidence-scored-call-coaching
-python3 run_day.py --mock
-```
-
-You get this, over six invented calls from three reps:
-
-| call | rep | type | message delivered | framing pair | engagement | echo |
-|:--|:--|:--|:-:|:-:|:-:|:-:|
-| c-0412 | Ana | discovery | **4** of 6 | ✗ | 67 / 100 | — |
-| c-0413 | Ana | pricing | *not a pitch* | — | 67 / 100 | — |
-| c-0414 | Ben | demo | **6** of 6 | ✓ | 93 / 100 | ✓ |
-| c-0415 | Ben | scheduling | *not a pitch* | — | 26 / 100 | — |
-| c-0416 | Chloe | intro | **1** of 6 | ✗ | 35 / 100 | — |
-| c-0417 | Chloe | discovery | **4** of 6 | ✓ | 60 / 100 | — |
-
-*Message delivered* counts how many of your six message elements the rep actually said, out of the number that call had room for. *Framing pair* is whether the two that matter most — the problem and the category — landed **together**. *Engagement* is what the buyer did, scored out of 100.
-
-> **Scored for message:** 4 of 6 calls — `c-0413` and `c-0415` were never pitches
-> **Framing pair landed:** 2 of 4 pitches · `n=4 — not enough data yet`
-> **Echo:** 1 of 6, recorded and never scored
-> **Every scored point carries a verbatim quote found in its own transcript.**
-
-Three things in that table are the whole design:
-
-1. **Two calls have no score at all**, not a zero. A pricing negotiation isn't a bad pitch — it isn't a pitch.
-2. **One number refuses to be interpreted.** It prints, then says the sample is too small to mean anything.
-3. **Ana looks fine and isn't.** Four of six elements delivered, twice — but the framing pair never lands. A coverage score alone calls that a good week.
-
-### The three things it writes
-
-<table>
-<tr><td width="33%" valign="top">
-
-**① Daily coaching**
-per rep, on yesterday's calls
-
-</td><td width="33%" valign="top">
-
-**② Weekly coaching**
-same shape, a pattern across the week
-
-</td><td width="33%" valign="top">
-
-**③ Messaging analysis**
-about the message, not the person
-
-</td></tr>
-</table>
-
-**① Daily — what one rep receives:**
-
-> **Ana — 2026-05-18** · 2 calls (1 pitch, 1 commercial or logistics)
->
-> | | you | team |
-> |:--|:--|:--|
-> | Message delivered | 4 of 6 | 4 of 6 |
-> | Engagement | 67 / 100 | 64 / 100 |
-> | Next step reached | 4 of 4 | 3 of 4 |
->
-> **What worked** — Beacon Analytics was your strongest call, engagement 67/100. The moment worth repeating: *"Okay. This is interesting."*
->
-> **What you missed** — On Beacon Analytics you did not land: the problem, the category.
->
-> **What to improve** — Say the problem out loud before you move into the product. Done looks like: it appears in the first two minutes of the call.
-
-**② Weekly — the same rep, same format, but now a pattern:**
-
-> **Ana — week of 18–21 May 2026** · 5 calls (4 pitches, 1 commercial)
->
-> | | you | team |
-> |:--|:--|:--|
-> | Message delivered | 4 of 6 | 4 of 6 |
-> | Engagement | 67 / 100 | 60 / 100 |
->
-> **What you missed** — The problem went unsaid in **3 of your 4 pitches** this week — Beacon Analytics is the clearest example.
-
-A day says *you skipped it on this call*. A week says *you skip it*. Same message shape, different claim — which is the only reason the weekly one exists.
-
-**③ Messaging analysis — a different document, for a different question:**
-
-> **Is the team sticking to the message?**
-> The framing pair — the problem *and* the category, landing together — held in **8 of 14 pitches**.
->
-> | element | delivered | when it applied |
-> |:--|--:|--:|
-> | the problem | 9 | 14 |
-> | the category | 9 | 14 |
-> | see what is happening | 13 | 14 |
-> | be told, not go looking | 12 | 14 |
-> | what no other system can do | 8 | 14 |
-> | value that lasts | 7 | 14 |
->
-> **Is it landing?**
-> Pitches where the framing pair landed: **73/100** (n=8). Where it did not: **56/100** (n=6).
->
-> *Read that as a hypothesis, not a finding. Reps who deliver the whole message may also be working better accounts — with this many calls the two cannot be separated.*
-
-Notice what the daily run refused to say and the weekly run would: on three calls it prints `n=3 — not enough data yet`; on fourteen it gives you the number. Same rule, different sample.
-
-All five outputs are committed in **[`examples/`](examples/)**.
-
-`--mock` swaps **only** the extraction step, replaying pre-recorded call records from `fixtures/`. Every gate, score, coaching selection and rollup after that is real code executing. Want to read before running? [`examples/`](examples/) has the committed output.
-
----
-
 ## The four jobs, and which one thinks
 
 Only the first touches a model. Everything else is deterministic Python reading what it produced — which is why the same evidence always yields the same coaching, and why a rep asking *"why this?"* gets a rule rather than a shrug.
@@ -182,6 +71,60 @@ flowchart TD
     class D1,D2,W1,W2 python
     class T,R,O1,O2 io
 ```
+
+---
+
+## Quickstart
+
+No install, no API key, no network:
+
+```bash
+git clone https://github.com/barbararomeira/evidence-scored-call-coaching
+cd evidence-scored-call-coaching
+python3 run_day.py --mock
+```
+
+You get this, over six invented calls from three reps:
+
+| call | rep | type | message delivered | framing pair | engagement | echo |
+|:--|:--|:--|:-:|:-:|:-:|:-:|
+| c-0412 | Ana | discovery | **4** of 6 | ✗ | 67 / 100 | — |
+| c-0413 | Ana | pricing | *not a pitch* | — | 67 / 100 | — |
+| c-0414 | Ben | demo | **6** of 6 | ✓ | 93 / 100 | ✓ |
+| c-0415 | Ben | scheduling | *not a pitch* | — | 26 / 100 | — |
+| c-0416 | Chloe | intro | **1** of 6 | ✗ | 35 / 100 | — |
+| c-0417 | Chloe | discovery | **4** of 6 | ✓ | 60 / 100 | — |
+
+*Message delivered* counts how many of your six message elements the rep actually said, out of the number that call had room for. *Framing pair* is whether the two that matter most — the problem and the category — landed **together**. *Engagement* is what the buyer did, scored out of 100.
+
+> **Scored for message:** 4 of 6 calls — `c-0413` and `c-0415` were never pitches
+> **Framing pair landed:** 2 of 4 pitches · `n=4 — not enough data yet`
+> **Echo:** 1 of 6, recorded and never scored
+> **Every scored point carries a verbatim quote found in its own transcript.**
+
+Three things in that table are the whole design:
+
+1. **Two calls have no score at all**, not a zero. A pricing negotiation isn't a bad pitch — it isn't a pitch.
+2. **One number refuses to be interpreted.** It prints, then says the sample is too small to mean anything.
+3. **Ana looks fine and isn't.** Four of six elements delivered, twice — but the framing pair never lands. A coverage score alone calls that a good week.
+
+### The three things it writes
+
+**① Daily coaching** — what one rep gets the morning after their calls:
+
+![daily coaching](docs/example-daily-coaching.png)
+
+**② Weekly coaching** — the same shape, a week wide. A day says *you skipped it on this call*; a week says *you skip it*:
+
+![weekly coaching](docs/example-weekly-coaching.png)
+
+**③ Messaging analysis** — a different document for a different reader. About the message, never about a person:
+
+![messaging analysis](docs/example-messaging-analysis.png)
+
+All five outputs are committed as text in **[`examples/`](examples/)**; the cards above are rendered from the same run by [`docs/make_visuals.py`](docs/make_visuals.py), so they cannot drift from what the code does.
+
+`--mock` swaps **only** the extraction step, replaying pre-recorded call records from `fixtures/`. Every gate, score, coaching selection and rollup after that is real code executing. Want to read before running? [`examples/`](examples/) has the committed output.
 
 ---
 
