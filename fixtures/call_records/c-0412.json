@@ -1,7 +1,7 @@
 {
   "call_id": "c-0412",
   "date": "2026-05-18",
-  "rep": "R-02",
+  "rep": "Ana",
   "call_type": "discovery",
   "account": "Beacon Analytics",
   "duration_min": 27,
@@ -41,7 +41,7 @@
   "engagement": {
     "next_step_reached": {
       "level": 3,
-      "quote": "Let me take it to Dana \u2014 she runs ops for the wider group and she's the one who'd have to sponsor it",
+      "quote": "Let me take it to Ruth \u2014 she runs ops for the wider group and she's the one who'd have to sponsor it",
       "timestamp": "22:40"
     },
     "own_situations": [

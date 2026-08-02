@@ -9,7 +9,7 @@ LABELS = {
 }
 
 def scored_table(rows: list[dict]) -> str:
-    head = (f"{'call':<9} {'rep':<6} {'type':<14} {'message':<13} {'framing':<8}"
+    head = (f"{'call':<9} {'rep':<7} {'type':<14} {'message':<13} {'framing':<8}"
             f"{'engagement':>10}  echo")
     out = [head, "─" * len(head)]
     for r in rows:
@@ -18,7 +18,7 @@ def scored_table(rows: list[dict]) -> str:
         else:
             msg = f"{r['message']['score']:>3} ({r['message']['delivered']}/{r['message']['applicable']})"
             framing = "yes" if r["message"]["framing_pair"] else "no"
-        out.append(f"{r['call_id']:<9} {r['rep']:<6} {r['call_type']:<14} {msg:<13} {framing:<8}"
+        out.append(f"{r['call_id']:<9} {r['rep']:<7} {r['call_type']:<14} {msg:<13} {framing:<8}"
                    f"{r['engagement']['score']:>10}  {'yes' if r['echo'] else 'no'}")
     return "\n".join(out)
 

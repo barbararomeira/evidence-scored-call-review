@@ -2,7 +2,7 @@
 
 Why this is shaped the way it is. Each entry records what was chosen, what was genuinely considered, and what the choice costs — because the cost is the part that tells you whether to copy it.
 
-**Note on names.** Every company, rep and quote in this repo is invented. `R-02` is an opaque id, not a person.
+**Note on names.** Every company, person and quote in this repo is invented. The reps are called Ana, Ben and Chloe; the buyers are companies that do not exist. Nothing here is drawn from a real call.
 
 ---
 
@@ -78,7 +78,7 @@ Revisit only if there is a way to distinguish spontaneous echo from prompted ech
 
 **Why:** this exists because a calibration failed. Checking the scorer against calls that had been read by hand, one disagreed: an off-message call still scored well, because four promises landed cleanly while the frame around them was the previous pitch. Coverage scoring is structurally blind to this — it counts elements, and the frame is a property of the combination.
 
-Re-weighting only moves the number; it doesn't create the distinction. A separate flag answers "did this call carry the new message" rather than "how many boxes were ticked". Look at `R-02` in the fixtures: 4 of 6 delivered, and the framing pair never lands. A coverage score alone calls that a good week.
+Re-weighting only moves the number; it doesn't create the distinction. A separate flag answers "did this call carry the new message" rather than "how many boxes were ticked". Look at Ana in the fixtures: 4 of 6 delivered, and the framing pair never lands. A coverage score alone calls that a good week.
 
 ---
 

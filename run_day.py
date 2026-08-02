@@ -2,7 +2,7 @@
 """Daily run: transcripts in, scored table and per-rep coaching out.
 
     python3 run_day.py --mock                 # offline, no key, no network
-    python3 run_day.py --mock --rep R-05      # one rep
+    python3 run_day.py --mock --rep Ben      # one rep
     python3 run_day.py --transcripts ./calls --extractor claude_cli
 
 Every step after extraction is deterministic Python. The model's only job is turning a

@@ -19,15 +19,14 @@ python3 run_day.py --mock
 ```
 
 ```
-call      rep    type           message       framing engagement  echo
-──────────────────────────────────────────────────────────────────────
-c-0412    R-02   discovery       67 (4/6)     no              67  no
-c-0413    R-02   pricing        — out of scope —               67  no
-c-0414    R-05   demo           100 (6/6)     yes             93  yes
-c-0415    R-05   scheduling     — out of scope —               26  no
-c-0416    R-07   intro           17 (1/6)     no              35  no
-c-0417    R-07   discovery       67 (4/6)     yes             60  no
-
+call      rep     type           message       framing engagement  echo
+───────────────────────────────────────────────────────────────────────
+c-0412    Ana     discovery       67 (4/6)     no              67  no
+c-0413    Ana     pricing        — out of scope —               67  no
+c-0414    Ben     demo           100 (6/6)     yes             93  yes
+c-0415    Ben     scheduling     — out of scope —               26  no
+c-0416    Chloe   intro           17 (1/6)     no              35  no
+c-0417    Chloe   discovery       67 (4/6)     yes             60  no
   Scored for message:  4 of 6 calls
     out of scope — c-0413 (pricing): Commercial negotiation. Nobody restates the category while discussing price.
     out of scope — c-0415 (scheduling): Logistics. There is no pitch to deliver.
