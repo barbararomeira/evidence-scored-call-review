@@ -1,0 +1,88 @@
+{
+  "call_id": "c-0414",
+  "date": "2026-05-19",
+  "rep": "R-05",
+  "call_type": "demo",
+  "account": "Cobalt Systems",
+  "duration_min": 34,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Most teams don't find out what went wrong until it has already cost them the week",
+      "timestamp": "01:05"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "this is an operating layer for how the team actually runs. Not a dashboard bolted onto what you already have",
+      "timestamp": "02:20"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "your current state is visible without anyone being asked for it",
+      "timestamp": "03:40"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "If something drifts, it goes to the person who owns it",
+      "timestamp": "05:10"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "your systems record transactions. They don't see the work between transactions",
+      "timestamp": "08:30"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "the daily routine changes. It isn't a project that improves a number once",
+      "timestamp": "24:10"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 4,
+      "quote": "can you send me pricing shape beforehand so I'm not wasting her time",
+      "timestamp": "30:40"
+    },
+    "own_situations": [
+      {
+        "what": "sales-to-delivery onboarding handoffs stalling two weeks",
+        "quote": "Onboarding handoffs between sales and delivery \u2014 two weeks, nobody can say why",
+        "timestamp": "18:20"
+      },
+      {
+        "what": "contract renewals sitting with legal",
+        "quote": "And contract renewals sitting with legal",
+        "timestamp": "18:35"
+      },
+      {
+        "what": "support rework loop going unnoticed",
+        "quote": "the same ticket bounces twice before anyone notices",
+        "timestamp": "18:50"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That's exactly what we need \u2014 I've been trying to get visibility on that for a year",
+        "timestamp": "19:30"
+      },
+      {
+        "quote": "Okay, that's a real difference",
+        "timestamp": "07:10"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 5,
+      "substantive_turns": 13,
+      "per_30min": 16
+    }
+  },
+  "echo": [
+    {
+      "quote": "So it takes into account the space between the events, not just the events. That's actually how I'd explain it to my board",
+      "timestamp": "12:05"
+    }
+  ],
+  "flags": [],
+  "scoring_version": "v1"
+}

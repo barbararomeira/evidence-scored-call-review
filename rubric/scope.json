@@ -1,0 +1,17 @@
+{
+  "_comment": "Which calls the message rubric applies to. A call outside scope gets no message score at all \u2014 not a zero.",
+  "in_scope": [
+    "intro",
+    "discovery",
+    "demo",
+    "pitch",
+    "follow_up_with_pitch"
+  ],
+  "out_of_scope": {
+    "pricing": "Commercial negotiation. Nobody restates the category while discussing price.",
+    "scheduling": "Logistics. There is no pitch to deliver.",
+    "implementation": "Post-sale planning. Delivery work, not selling.",
+    "technical_scoping": "Feasibility detail with no product story told."
+  },
+  "heuristic": "If three or more of the four promise elements would be not-applicable, the call was not a pitch."
+}

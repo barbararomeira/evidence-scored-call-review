@@ -1,0 +1,24 @@
+
+6 calls from fixtures/transcripts
+
+call      rep    type           message       framing engagement  echo
+──────────────────────────────────────────────────────────────────────
+c-0412    R-02   discovery       67 (4/6)     no              67  no
+c-0413    R-02   pricing        — out of scope —               67  no
+c-0414    R-05   demo           100 (6/6)     yes             93  yes
+c-0415    R-05   scheduling     — out of scope —               26  no
+c-0416    R-07   intro           17 (1/6)     no              35  no
+c-0417    R-07   discovery       67 (4/6)     yes             60  no
+
+  Scored for message:  4 of 6 calls
+    out of scope — c-0413 (pricing): Commercial negotiation. Nobody restates the category while discussing price.
+    out of scope — c-0415 (scheduling): Logistics. There is no pitch to deliver.
+  Framing pair landed: 2 of 4 pitches   n=4 — not enough data yet
+  Echo (recorded, never scored): 1 of 6
+  Every scored point carries a verbatim quote found in its own transcript.
+
+  Coaching written:
+    outputs/coaching/2026-05-18_R-02.md
+    outputs/coaching/2026-05-18_R-05.md
+    outputs/coaching/2026-05-18_R-07.md
+

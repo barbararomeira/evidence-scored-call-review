@@ -1,0 +1,56 @@
+{
+  "_comment": "Illustrative weights, not validated. They sum to 100 and a test enforces that. Re-weight for your own funnel.",
+  "components": [
+    {
+      "id": "next_step_reached",
+      "label": "Next step reached",
+      "weight": 35,
+      "ladder": [
+        "nothing",
+        "send me something",
+        "next meeting booked",
+        "taken to their boss or committee",
+        "asked for pricing, a business case or a pilot"
+      ]
+    },
+    {
+      "id": "own_situations",
+      "label": "Their own situations",
+      "weight": 25,
+      "scale": {
+        "0": 0,
+        "1": 12,
+        "2": 20,
+        "3+": 25
+      },
+      "definition": "Specific situations, teams or problems the buyer described from their own company. Generic industry talk does not count."
+    },
+    {
+      "id": "excitement",
+      "label": "Excitement",
+      "weight": 20,
+      "cap": 3,
+      "definition": "Distinct explicit positive reactions. Capped, so one enthusiastic buyer cannot dominate the score."
+    },
+    {
+      "id": "back_and_forth",
+      "label": "Back-and-forth",
+      "weight": 20,
+      "buckets": {
+        "0": 0,
+        "1-5": 8,
+        "6-12": 14,
+        "13+": 20
+      },
+      "definition": "Buyer questions plus substantive turns, per 30 minutes.",
+      "short_call_rule": "Calls under 15 minutes are bucketed on the raw count, not the per-30-minute rate. Extrapolating a 9-minute logistics call to half an hour manufactures engagement that was never there."
+    }
+  ],
+  "recorded_not_scored": [
+    {
+      "id": "echo",
+      "label": "Repeated our framing back",
+      "why": "The best available signal that the message landed, and the most dangerous to score: the moment it counts, reps fish for it and the signal dies."
+    }
+  ]
+}

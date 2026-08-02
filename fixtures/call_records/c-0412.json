@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0412",
+  "date": "2026-05-18",
+  "rep": "R-02",
+  "call_type": "discovery",
+  "account": "Beacon Analytics",
+  "duration_min": 27,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "absent",
+      "quote": "So at the core it's a reporting tool that sits on top of your existing systems",
+      "timestamp": "01:10"
+    },
+    "category": {
+      "status": "absent",
+      "quote": "it's a reporting tool that sits on top of your existing systems and pulls everything into one place",
+      "timestamp": "01:10"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "the current state is always live. You don't have to chase anyone for an update",
+      "timestamp": "02:40"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "the system pushes the exception to whoever owns it. You don't go looking \u2014 it tells you",
+      "timestamp": "04:05"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "they record the transaction, they don't see the work between transactions",
+      "timestamp": "07:20"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "it isn't a cleanup project that improves a number once. The daily routine changes, so it holds",
+      "timestamp": "10:15"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to Dana \u2014 she runs ops for the wider group and she's the one who'd have to sponsor it",
+      "timestamp": "22:40"
+    },
+    "own_situations": [
+      {
+        "what": "Tuesday status sync running on three-day-old information",
+        "quote": "Six people in a room reading out status that's already three days old",
+        "timestamp": "03:15"
+      },
+      {
+        "what": "supplier escalation with no traceable cause",
+        "quote": "We had a supplier escalate last quarter over exactly that",
+        "timestamp": "08:50"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "Okay. This is interesting.",
+        "timestamp": "22:30"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 8,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

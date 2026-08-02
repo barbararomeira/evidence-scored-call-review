@@ -1,0 +1,15 @@
+[project]
+name = "evidence-scored-call-coaching"
+version = "0.1.0"
+description = "Turns sales-call transcripts into evidence-backed rubric scores and per-rep coaching."
+requires-python = ">=3.9"          # runs on whatever python3 is already on the machine
+dependencies = []            # stdlib only, on purpose: the quickstart must run with no install
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

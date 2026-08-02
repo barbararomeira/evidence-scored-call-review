@@ -1,0 +1,64 @@
+{
+  "call_id": "c-0416",
+  "date": "2026-05-19",
+  "rep": "R-07",
+  "call_type": "intro",
+  "account": "Lumen Media",
+  "duration_min": 18,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "absent",
+      "quote": "So the main thing is you get everything in one view",
+      "timestamp": "00:50"
+    },
+    "category": {
+      "status": "absent",
+      "quote": "we're a platform for operations teams",
+      "timestamp": "00:20"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "Instead of pulling reports you just open it and it's there",
+      "timestamp": "01:05"
+    },
+    "promise_proactive": {
+      "status": "absent",
+      "quote": "It varies quite a bit, honestly. Visibility mostly",
+      "timestamp": "09:40"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "It can do either, depends how you want to run it",
+      "timestamp": "07:15"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "I'd need to scope it properly first, but it's annual and it scales with usage",
+      "timestamp": "11:20"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 1,
+      "quote": "Can you send some material over and I'll have a look?",
+      "timestamp": "13:10"
+    },
+    "own_situations": [
+      {
+        "what": "running the work in spreadsheets today",
+        "quote": "We're mostly in spreadsheets today, so anything is an improvement",
+        "timestamp": "01:30"
+      }
+    ],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 4,
+      "per_30min": 12
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

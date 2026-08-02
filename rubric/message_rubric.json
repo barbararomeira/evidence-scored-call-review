@@ -1,0 +1,48 @@
+{
+  "_comment": "The message you decided to tell. Rewrite these six for your own positioning; ids are stable, labels are what humans read.",
+  "elements": [
+    {
+      "id": "problem_framing",
+      "label": "The problem",
+      "definition": "Names the operating pain the buyer lives with, before describing any product.",
+      "never_not_applicable": true
+    },
+    {
+      "id": "category",
+      "label": "The category",
+      "definition": "Places the product in the category you chose to compete in, rather than describing it as a tool or a feature.",
+      "never_not_applicable": true
+    },
+    {
+      "id": "promise_visibility",
+      "label": "See what is happening",
+      "definition": "The buyer stops chasing people for status; the system shows the current state."
+    },
+    {
+      "id": "promise_proactive",
+      "label": "Be told, not go looking",
+      "definition": "Problems are surfaced to the responsible person instead of waiting to be discovered."
+    },
+    {
+      "id": "promise_moat",
+      "label": "What no other system can do",
+      "definition": "The specific reason the incumbent stack cannot produce this, stated concretely."
+    },
+    {
+      "id": "promise_durable",
+      "label": "Value that lasts",
+      "definition": "Why the gain compounds instead of fading after the rollout."
+    }
+  ],
+  "framing_pair": {
+    "elements": [
+      "problem_framing",
+      "category"
+    ],
+    "why": "Reported separately because a coverage score is structurally blind to it: every promise can land while the frame around them is still the old pitch."
+  },
+  "evidence": {
+    "quote_required": true,
+    "quote_required_for_absent": true
+  }
+}

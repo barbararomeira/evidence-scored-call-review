@@ -1,0 +1,60 @@
+{
+  "call_id": "c-0415",
+  "date": "2026-05-20",
+  "rep": "R-05",
+  "call_type": "scheduling",
+  "account": "Cobalt Systems",
+  "duration_min": 9,
+  "scoring_scope": "engagement_only",
+  "adherence": {
+    "problem_framing": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "category": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_visibility": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_proactive": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_moat": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    },
+    "promise_durable": {
+      "status": "n/a",
+      "quote": null,
+      "timestamp": null
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 2,
+      "quote": "The 29th. Mornings only, she's strict about that",
+      "timestamp": "01:40"
+    },
+    "own_situations": [],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 1,
+      "substantive_turns": 3,
+      "per_30min": 13
+    }
+  },
+  "echo": [],
+  "flags": [
+    "Nine-minute logistics call: back-and-forth bucketed on the raw count, not extrapolated to 30 minutes."
+  ],
+  "scoring_version": "v1"
+}

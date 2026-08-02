@@ -1,0 +1,69 @@
+{
+  "call_id": "c-0417",
+  "date": "2026-05-21",
+  "rep": "R-07",
+  "call_type": "discovery",
+  "account": "Vantage Foods",
+  "duration_min": 26,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Teams find out what went wrong after it's already cost them the week",
+      "timestamp": "01:15"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "it's an operating layer for how the team runs. Not another reporting tool sitting on top of what you have",
+      "timestamp": "03:05"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "you'd stop chasing people for status, because the current state is just visible",
+      "timestamp": "04:30"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "when something drifts, the person who owns it gets told",
+      "timestamp": "06:00"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "It learns the workflow first rather than firing on fixed thresholds",
+      "timestamp": "07:10"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Both are good fits",
+      "timestamp": "12:40"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let's do the scoping session. I'd want my ops lead in it",
+      "timestamp": "21:30"
+    },
+    "own_situations": [
+      {
+        "what": "supplier onboarding chain varying two to eleven weeks",
+        "quote": "the supplier onboarding chain, which takes anywhere between two and eleven weeks and nobody can tell me why",
+        "timestamp": "11:20"
+      },
+      {
+        "what": "quality holds sitting without escalation",
+        "quote": "the quality hold process where things sit and nobody escalates",
+        "timestamp": "11:45"
+      }
+    ],
+    "excitement": [],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 6,
+      "per_30min": 10
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}
