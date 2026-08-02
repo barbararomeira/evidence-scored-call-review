@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0435",
+  "date": "2026-05-29",
+  "rep": "Ben",
+  "call_type": "discovery",
+  "account": "Aster Logistics",
+  "duration_min": 28,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
+      "timestamp": "04:44"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "The way to think about it is an operating layer for how the team runs, not a reporting tool",
+      "timestamp": "06:17"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "08:29"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "When something drifts, the person who owns it gets told rather than having to go looking",
+      "timestamp": "10:47"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
+      "timestamp": "12:49"
+    },
+    "promise_durable": {
+      "status": "delivered",
+      "quote": "It is not a project that improves a number once and then drifts back",
+      "timestamp": "14:52"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to my director \u2014 she would have to sponsor it.",
+      "timestamp": "27:30"
+    },
+    "own_situations": [
+      {
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "timestamp": "15:20"
+      },
+      {
+        "what": "approvals go into legal and we genuinely do not ",
+        "quote": "Approvals go into legal and we genuinely do not know when they will come out",
+        "timestamp": "16:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That would give me back the first hour of every day",
+        "timestamp": "17:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 4,
+      "substantive_turns": 8,
+      "per_30min": 13
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

@@ -227,6 +227,21 @@ SPECS = [
     dict(call_id="c-0431", date="2026-05-29", rep="Dev", call_type="technical_scoping",
          account="Ironwood Health", duration_min=22, scope="engagement_only", delivered=[],
          next_step=2, situations=2, excitement=0, questions=4, turns=7),
+    dict(call_id="c-0432", date="2026-05-26", rep="Ana", call_type="demo", account="Perch Software",
+         duration_min=32, scope="full", delivered=P[:5], next_step=4, situations=3, excitement=2,
+         questions=4, turns=9, echo=True),
+    dict(call_id="c-0433", date="2026-05-28", rep="Ana", call_type="discovery", account="Tessellate",
+         duration_min=27, scope="full", delivered=P[:2] + P[2:4], next_step=3, situations=2,
+         excitement=1, questions=3, turns=7),
+    dict(call_id="c-0434", date="2026-05-27", rep="Chloe", call_type="demo", account="Marlow Group",
+         duration_min=30, scope="full", delivered=P[:5], next_step=3, situations=2, excitement=2,
+         questions=4, turns=8),
+    dict(call_id="c-0435", date="2026-05-29", rep="Ben", call_type="discovery", account="Aster Logistics",
+         duration_min=28, scope="full", delivered=P, next_step=3, situations=2, excitement=1,
+         questions=4, turns=8),
+    dict(call_id="c-0436", date="2026-05-28", rep="Dev", call_type="demo", account="Orchid Labs",
+         duration_min=26, scope="full", delivered=P[:2] + [P[2]], next_step=2, situations=2,
+         excitement=1, questions=3, turns=6),
 ]
 
 

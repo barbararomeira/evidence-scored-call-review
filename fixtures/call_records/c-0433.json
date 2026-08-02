@@ -1,0 +1,74 @@
+{
+  "call_id": "c-0433",
+  "date": "2026-05-28",
+  "rep": "Ana",
+  "call_type": "discovery",
+  "account": "Tessellate",
+  "duration_min": 27,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "Managers spend their mornings assembling a picture instead of acting on one",
+      "timestamp": "04:29"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:43"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "You stop chasing people for status, because the state is just there",
+      "timestamp": "08:21"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "The exception comes to you, instead of waiting in a dashboard for someone to open it",
+      "timestamp": "10:23"
+    },
+    "promise_moat": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 3,
+      "quote": "Let me take it to my director \u2014 she would have to sponsor it.",
+      "timestamp": "26:30"
+    },
+    "own_situations": [
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "11:20"
+      },
+      {
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "timestamp": "12:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That is exactly what we have been trying to get visibility on",
+        "timestamp": "13:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 3,
+      "substantive_turns": 7,
+      "per_30min": 11
+    }
+  },
+  "echo": [],
+  "flags": [],
+  "scoring_version": "v1"
+}

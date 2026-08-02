@@ -17,7 +17,7 @@ import pathlib
 import statistics
 import sys
 
-from callscore import render, scope
+from callscore import render, scope, tips
 from callscore.extractors import base, get
 from callscore.score_engagement import score as score_engagement
 from callscore.score_message import score as score_message
@@ -218,6 +218,14 @@ def weekly_coaching(rep: str, rows: list, week: str, team: dict) -> str:
         else:
             lines += ["", "*What to improve*",
                       "Nothing to change: every element your calls had room for landed."]
+
+    open_tips = tips.register(rep, [r for r in mine if week_of(r["date"]) == "week 1"],
+                              [r for r in mine if week_of(r["date"]) == "week 2"], "2026W21")
+    if open_tips:
+        lines += ["", "*Your open tips*"]
+        for t in open_tips:
+            lines.append(f"{t['id']} — say {render.LABELS[t['element']]} before you move into the "
+                         f"product · {t['status']}: {t['evidence']}")
     return "\n".join(lines)
 
 

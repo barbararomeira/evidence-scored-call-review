@@ -16,7 +16,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from callscore import render  # noqa: E402
+from callscore import render, tips  # noqa: E402
 from run_day import process, team_medians  # noqa: E402
 from run_week import collect, follow_through, most_missed, week_of  # noqa: E402
 
@@ -24,43 +24,61 @@ DOCS = ROOT / "docs"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 CSS = """
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&family=Space+Mono:wght@700&display=swap');
+:root{
+  --noir:#23252B; --blue:#47809E; --blue-fill:#93B8CA; --blue-wash:#EAF2F6;
+  --pink:#C4718D; --pink-fill:#EEBCCA; --pink-wash:#FAEEF2;
+  --matcha:#75905A; --matcha-fill:#B2C49C; --matcha-wash:#F0F4E9;
+  --muted:#8A9099; --line:#E7EBEF;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,'Segoe UI',Inter,Helvetica,Arial,sans-serif;background:#eef1f4;padding:26px}
-.card{background:#fff;border-radius:14px;border:1px solid #e3e7eb;box-shadow:0 1px 3px rgba(16,22,26,.07);
-      padding:22px 24px;max-width:720px}
-.top{display:flex;align-items:center;gap:11px;padding-bottom:13px;border-bottom:1px solid #eef1f4;margin-bottom:15px}
-.av{width:38px;height:38px;border-radius:9px;background:#47809E;color:#fff;font-weight:700;font-size:16px;
-    display:flex;align-items:center;justify-content:center}
-.who{font-weight:700;font-size:15px;color:#1b1f24}
-.sub{font-size:12.5px;color:#7d858e;margin-top:1px}
-.tiles{display:flex;gap:9px;margin-bottom:17px}
-.tile{flex:1;background:#f7f9fb;border:1px solid #e8ecf0;border-radius:9px;padding:9px 11px}
-.tl{font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:#8b939b;font-weight:700}
-.tv{font-size:19px;font-weight:700;color:#1b1f24;margin-top:3px}
-.tv small{font-size:12px;font-weight:600;color:#9aa1a8}
-.tteam{font-size:11px;color:#8b939b;margin-top:2px}
-h3{font-size:11px;letter-spacing:.8px;text-transform:uppercase;margin:15px 0 6px;font-weight:700}
-.good h3{color:#2f8f52}.miss h3{color:#c07a1e}.do h3{color:#47809E}
-p{font-size:13.5px;line-height:1.55;color:#2c3238}
-.q{border-left:3px solid #d9e2e8;padding-left:11px;margin-top:7px;font-style:italic;color:#5b636b;font-size:13px}
-.bar{height:7px;background:#eef1f4;border-radius:4px;overflow:hidden;margin-top:4px}
-.bar span{display:block;height:100%;background:#93B8CA}
-.bar.low span{background:#e0a94f}
-.row{display:flex;align-items:center;gap:11px;margin-bottom:8px}
-.row .lab{width:210px;font-size:12.5px;color:#2c3238}
-.row .num{width:56px;text-align:right;font-size:12.5px;font-weight:700;color:#1b1f24}
+body{font-family:Inter,-apple-system,'Segoe UI',Helvetica,sans-serif;background:#F4F6F8;padding:26px;color:var(--noir)}
+.card{background:#fff;border-radius:16px;border:1px solid var(--line);
+      box-shadow:0 1px 2px rgba(35,37,43,.05);padding:24px 26px;max-width:740px}
+.top{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.av{width:40px;height:40px;border-radius:10px;background:var(--blue);color:#fff;font-weight:700;font-size:17px;
+    display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif}
+.who{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:18px;color:var(--noir)}
+.sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.stamp{font-family:'Space Mono',Menlo,monospace;font-weight:700;font-size:9.5px;letter-spacing:1.6px;
+       text-transform:uppercase;padding:3px 9px;border-radius:4px;background:var(--blue-wash);
+       color:var(--blue);margin-left:9px;vertical-align:3px}
+.tiles{display:flex;gap:9px;margin-bottom:18px}
+.tile{flex:1;background:#FBFCFD;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.tl{font-family:'Space Mono',Menlo,monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--muted);font-weight:700}
+.tv{font-size:20px;font-weight:700;color:var(--noir);margin-top:4px}
+.tv small{font-size:12px;font-weight:600;color:var(--muted)}
+.tteam{font-size:11px;color:var(--muted);margin-top:3px}
+h3{font-family:'Space Mono',Menlo,monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;
+   margin:16px 0 6px;font-weight:700}
+.good h3{color:var(--matcha)}.miss h3{color:var(--pink)}.do h3{color:var(--blue)}.tips h3{color:var(--noir)}
+p{font-size:13.5px;line-height:1.6;color:#33373E}
+.q{border-left:3px solid var(--blue-fill);padding-left:12px;margin-top:8px;font-style:italic;
+   color:#5B636B;font-size:13px}
+.bar{height:7px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:4px}
+.bar span{display:block;height:100%;background:var(--blue-fill)}
+.bar.low span{background:var(--pink-fill)}
+.row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.row .lab{width:210px;font-size:12.5px}
+.row .num{width:58px;text-align:right;font-size:12.5px;font-weight:700}
 .row .track{flex:1}
 .split{display:flex;gap:11px;margin:14px 0 4px}
-.big{flex:1;border-radius:10px;padding:12px 14px}
-.big.on{background:#eef6f0;border:1px solid #cfe6d8}
-.big.off{background:#fbf3e8;border:1px solid #f0dfc4}
-.bignum{font-size:25px;font-weight:700;color:#1b1f24}
-.biglab{font-size:11.5px;color:#6b737b;margin-top:2px}
-.note{font-size:11.5px;color:#8b939b;font-style:italic;margin-top:11px;line-height:1.5}
-.hdr{font-size:17px;font-weight:700;color:#1b1f24}
-.leg{font-size:10.5px;color:#8b939b;margin-top:-6px}
-.chip{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-      padding:3px 8px;border-radius:20px;background:#eef4f8;color:#47809E;margin-left:8px;vertical-align:2px}
+.big{flex:1;border-radius:11px;padding:13px 15px}
+.big.on{background:var(--matcha-wash);border:1px solid var(--matcha-fill)}
+.big.off{background:var(--pink-wash);border:1px solid var(--pink-fill)}
+.bignum{font-family:'Playfair Display',Georgia,serif;font-size:27px;font-weight:700}
+.biglab{font-size:11.5px;color:#6B737B;margin-top:3px}
+.note{font-size:11.5px;color:var(--muted);font-style:italic;margin-top:12px;line-height:1.55}
+.leg{font-size:10.5px;color:var(--muted);margin-top:-6px}
+.tiprow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.pill{font-family:'Space Mono',Menlo,monospace;font-size:9px;font-weight:700;letter-spacing:.8px;
+      text-transform:uppercase;padding:4px 8px;border-radius:4px;white-space:nowrap}
+.pill.adopted{background:var(--matcha-wash);color:var(--matcha)}
+.pill.partial{background:var(--blue-wash);color:var(--blue)}
+.pill.notyet{background:var(--pink-wash);color:var(--pink)}
+.pill.none{background:#F2F4F6;color:var(--muted)}
+.tipid{font-family:'Space Mono',Menlo,monospace;font-size:10px;color:var(--muted)}
 """
 
 
@@ -166,7 +184,7 @@ def main():
     exc = best["record"]["engagement"]["excitement"]
     shot(f"""<div class="card">
       <div class="top"><div class="av">A</div>
-        <div><div class="who">Ana <span class="chip">daily</span></div>
+        <div><div class="who">Ana <span class="stamp">daily</span></div>
         <div class="sub">2026-05-18 · 2 calls (1 pitch, 1 commercial or logistics)</div></div></div>
       {tiles(pitch[0]['message']['delivered'], team['delivered'],
              round(statistics.median([r['engagement']['score'] for r in mine])), team['engagement'],
@@ -179,50 +197,68 @@ def main():
         message from the old pitch.</p></div>
       <div class="do"><h3>What to improve</h3><p>Say the problem out loud before you move into the product.
         <em>Done looks like:</em> it appears in the first two minutes of the call.</p></div>
-    </div>""", "example-daily-coaching", 790, 470)
+    </div>""", "example-daily-coaching", 790, 455)
 
     # ---------- ② weekly coaching ----------
     wk = [r for r in week_rows if r["rep"] == "Ana"]
     wp = [r for r in wk if r["message"]]
     w2 = [r for r in wk if week_of(r["date"]) == "week 2"]
     w1 = [r for r in wk if week_of(r["date"]) == "week 1"]
-    el, hits, of_n = most_missed(wp)
+    el, hits, of_n = most_missed([r for r in w2 if r["message"]])
     wteam = {
         "delivered": round(statistics.median([r["message"]["delivered"] for r in week_rows if r["message"]])),
         "engagement": round(statistics.median([r["engagement"]["score"] for r in week_rows])),
+        "step": round(statistics.median([r["engagement"]["next_step_level"] for r in week_rows])),
     }
     now_d = round(statistics.mean([r["message"]["delivered"] for r in w2 if r["message"]]))
     prev_d = round(statistics.mean([r["message"]["delivered"] for r in w1 if r["message"]]))
     now_e = round(statistics.median([r["engagement"]["score"] for r in w2]))
     prev_e = round(statistics.median([r["engagement"]["score"] for r in w1]))
-    lo = min(r["message"]["delivered"] for r in wp)
-    hi = max(r["message"]["delivered"] for r in wp)
-    weakest = min(wp, key=lambda r: r["message"]["delivered"])
+    now_s = round(statistics.median([r["engagement"]["next_step_level"] for r in w2]))
+    w2p = [r for r in w2 if r["message"]]
+    lo = min(r["message"]["delivered"] for r in w2p)
+    hi = max(r["message"]["delivered"] for r in w2p)
+    weakest = min(w2p, key=lambda r: r["message"]["delivered"])
     ft = follow_through("Ana", week_rows)
+    best = max(w2, key=lambda r: r["engagement"]["score"])
+    open_tips = tips.register("Ana", w1, w2, "2026W21")
     types = {}
-    for r in wk:
+    for r in w2:                      # the reporting week, not the whole span
         types[r["call_type"]] = types.get(r["call_type"], 0) + 1
     mix = " · ".join(f"{v} {k}" for k, v in sorted(types.items(), key=lambda kv: -kv[1]))
 
     def delta(now, before):
         if now == before:
-            return '<span style="color:#8b939b">= same as last week</span>'
-        arrow = "▲" if now > before else "▼"
-        col = "#2f8f52" if now > before else "#c07a1e"
+            return '<span style="color:#8A9099">= same as last week</span>'
+        arrow, col = ("▲", "#75905A") if now > before else ("▼", "#C4718D")
         return f'<span style="color:{col}">{arrow} from {before} last week</span>'
+
+    PILL = {"Adopted": "adopted", "Partial": "partial", "Not yet": "notyet", "No evidence yet": "none"}
+    tiprows = ""
+    for t in open_tips:
+        tiprows += (f'<div class="tiprow"><span class="pill {PILL[t["status"]]}">{t["status"]}</span>'
+                    f'<div><div style="font-size:13px">Say <strong>{render.LABELS[t["element"]]}</strong> '
+                    f'before you move into the product '
+                    f'<span class="tipid">· {t["id"]}</span></div>'
+                    f'<div style="font-size:11.5px;color:#8A9099;margin-top:2px">'
+                    f'raised after {t["missed_then"]} of {t["of_then"]} pitches missed it · '
+                    f'{t["evidence"]}</div></div></div>')
 
     shot(f"""<div class="card">
       <div class="top"><div class="av">A</div>
-        <div><div class="who">Ana <span class="chip">weekly</span></div>
-        <div class="sub">week of 18–29 May 2026 · {len(wk)} calls: {mix}</div></div></div>
+        <div><div class="who">Ana <span class="stamp">weekly</span></div>
+        <div class="sub">week of 26–29 May 2026 · {len(w2)} calls: {mix}</div></div></div>
 
       <div class="tiles">
         <div class="tile"><div class="tl">Message delivered</div>
           <div class="tv">{now_d} <small>of 6</small></div>
-          <div class="tteam">{delta(now_d, prev_d)} · team {wteam['delivered']} of 6</div></div>
+          <div class="tteam">{delta(now_d, prev_d)}<br>team {wteam['delivered']} of 6</div></div>
         <div class="tile"><div class="tl">Engagement</div>
           <div class="tv">{now_e}<small>/100</small></div>
-          <div class="tteam">{delta(now_e, prev_e)} · team {wteam['engagement']}/100</div></div>
+          <div class="tteam">{delta(now_e, prev_e)}<br>team {wteam['engagement']}/100</div></div>
+        <div class="tile"><div class="tl">Next step</div>
+          <div class="tv">{now_s} <small>of 4</small></div>
+          <div class="tteam">team {wteam['step']} of 4</div></div>
         <div class="tile"><div class="tl">Consistency</div>
           <div class="tv">{lo}–{hi} <small>of 6</small></div>
           <div class="tteam">{weakest['account']} pulls the bottom</div></div>
@@ -231,14 +267,18 @@ def main():
       <div class="good"><h3>Since last week</h3>
         <p>{ft.replace('*Last week you were skipping ', '<strong>Last week you were skipping ').replace('* — ', '</strong> — ')}</p></div>
 
+      <div class="good"><h3>What worked</h3>
+        <p>{best['account']} was your strongest call — engagement {best['engagement']['score']}/100.</p></div>
+
       <div class="miss"><h3>The pattern to fix</h3>
         <p><strong>{render.LABELS[el].capitalize()}</strong> went unsaid in <strong>{hits} of your
-        {of_n} pitches</strong>. One call is a slip; {hits} is a habit — which is the whole reason
-        this message exists alongside the daily one.</p></div>
+        {of_n} pitches</strong>. One call is a slip; {hits} is a habit.</p></div>
 
       <div class="do"><h3>What to improve</h3><p>Say {render.LABELS[el]} out loud before you move
-        into the product. <em>Done looks like:</em> it appears in the first two minutes of the call.</p></div>
-    </div>""", "example-weekly-coaching", 790, 445)
+        into the product. <em>Done looks like:</em> it appears in the first two minutes.</p></div>
+
+      <div class="tips"><h3>Your open tips</h3>{tiprows}</div>
+    </div>""", "example-weekly-coaching", 800, 545)
 
     # ---------- ③ messaging analysis ----------
     pitches = [r for r in week_rows if r["message"]]
@@ -281,25 +321,25 @@ def main():
         ' &nbsp; <span style="color:#75905A">&#9679;</span> median engagement</div></div>'
         '<div style="flex:1"><div class="tl" style="margin-bottom:3px">'
         'Elements delivered, per rep</div>' + svg_reps(reps, rep_w1, rep_w2) +
-        '<div class="leg"><span style="color:#cfdde5">&#9646;</span> week 1 &nbsp;'
-        '<span style="color:#47809E">&#9646;</span> week 2 &nbsp;&middot; out of 6</div></div>'
+        '<div class="leg"><span style="color:#C9DBE4">&#9646;</span> week 1 &nbsp;'
+        '<span style="color:var(--blue)">&#9646;</span> week 2 &nbsp;&middot; out of 6</div></div>'
         '</div>')
 
     shot(f"""<div class="card">
-      <div class="top"><div class="av" style="background:#75905A">M</div>
-        <div><div class="who">Messaging analysis <span class="chip">weekly</span></div>
+      <div class="top"><div class="av" style="background:var(--matcha)">M</div>
+        <div><div class="who">Messaging analysis <span class="stamp">weekly</span></div>
         <div class="sub">18–29 May 2026 · {len(week_rows)} calls · {len(pitches)} pitches ·
         {len(week_rows) - len(pitches)} carried no product story</div></div></div>
 
-      <h3 style="color:#47809E;margin-top:2px">The trend</h3>
+      <h3 style="color:var(--blue);margin-top:2px">The trend</h3>
       {charts}
 
-      <h3 style="color:#47809E">Is the team sticking to the message?</h3>
+      <h3 style="color:var(--blue)">Is the team sticking to the message?</h3>
       <p style="margin-bottom:11px">The framing pair — the problem <em>and</em> the category, landing
       together — held in <strong>{len(framing)} of {len(pitches)} pitches</strong>.</p>
       {bars}
 
-      <h3 style="color:#47809E;margin-top:16px">Is it landing?</h3>
+      <h3 style="color:var(--blue);margin-top:16px">Is it landing?</h3>
       <div class="split">
         <div class="big on"><div class="bignum">{on}<span style="font-size:14px">/100</span></div>
           <div class="biglab">pitches where the framing landed &nbsp;·&nbsp; n={len(framing)}</div></div>
@@ -309,7 +349,7 @@ def main():
       <p class="note">Read that as a hypothesis, not a finding. Reps who deliver the whole message may
       also be working better accounts — with this many calls the two cannot be separated.</p>
 
-      <h3 style="color:#2f8f52;margin-top:15px">Where it came back at us</h3>
+      <h3 style="color:var(--matcha);margin-top:15px">Where it came back at us</h3>
       <div class="q">“{echo['echo'][0]['quote']}”<br><span style="font-style:normal;font-size:11.5px">
       — {echo['account']} · recorded, never scored</span></div>
     </div>""", "example-messaging-analysis", 830, 730)

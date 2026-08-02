@@ -30,7 +30,7 @@ Only the first touches a model. Everything else is deterministic Python reading 
 |:-:|:--|:--|:--|:--|:-:|
 | ① | **Extract** — read the call once, produce evidence | per call, daily | the transcript | one `call_record.json`, a quote behind every verdict | **yes** — the only one |
 | ② | **Score & coach** — gate, score, tell each rep | daily | the day's call records | scored table + `coaching/<date>_<rep>.md` | no |
-| ③ | **Coach the week** — the same message, wider window | weekly | 7 days of call records | `weekly/coaching-<rep>.md` | no |
+| ③ | **Coach the week** — trend, consistency, and whether the last tip stuck | weekly | 7 days of call records | `weekly/coaching-<rep>.md` | no |
 | ④ | **Analyse the message** — is it working at all | weekly | all call records | `weekly/messaging-analysis.md` | no |
 
 ② and ③ deliberately produce the **same shape** — a rep should not have to learn two formats. The difference is the claim: a day says *you skipped it on this call*, a week says *you skip it*.
@@ -114,7 +114,7 @@ Three things in that table are the whole design:
 
 ![daily coaching](docs/example-daily-coaching.png)
 
-**② Weekly coaching** — the same shape, a week wide. A day says *you skipped it on this call*; a week says *you skip it*:
+**② Weekly coaching** — same shape, but carrying the four things a day structurally cannot: a trend against the rep's *own* previous week, consistency (the spread across their pitches and which call pulls the bottom), follow-through on the last tip, and the open tips register with a status derived from later calls — never self-reported:
 
 ![weekly coaching](docs/example-weekly-coaching.png)
 

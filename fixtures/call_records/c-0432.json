@@ -1,0 +1,88 @@
+{
+  "call_id": "c-0432",
+  "date": "2026-05-26",
+  "rep": "Ana",
+  "call_type": "demo",
+  "account": "Perch Software",
+  "duration_min": 32,
+  "scoring_scope": "full",
+  "adherence": {
+    "problem_framing": {
+      "status": "delivered",
+      "quote": "The pattern we see is that nobody knows until someone complains, and by then it is a week old",
+      "timestamp": "04:50"
+    },
+    "category": {
+      "status": "delivered",
+      "quote": "It is an operating layer for the work itself, which is a different thing from reporting on it",
+      "timestamp": "06:55"
+    },
+    "promise_visibility": {
+      "status": "delivered",
+      "quote": "The current state is visible without anyone being asked for an update",
+      "timestamp": "08:19"
+    },
+    "promise_proactive": {
+      "status": "delivered",
+      "quote": "You get told when it matters, which is the opposite of hunting through reports",
+      "timestamp": "10:43"
+    },
+    "promise_moat": {
+      "status": "delivered",
+      "quote": "The stack you have knows an approval happened, not that it sat with someone for nine days",
+      "timestamp": "12:18"
+    },
+    "promise_durable": {
+      "status": "absent",
+      "quote": "Thanks for making the time. Where would you like to start?",
+      "timestamp": "00:05"
+    }
+  },
+  "engagement": {
+    "next_step_reached": {
+      "level": 4,
+      "quote": "Send me pricing and I will get it in front of procurement this week.",
+      "timestamp": "31:30"
+    },
+    "own_situations": [
+      {
+        "what": "our onboarding handoff takes anywhere between tw",
+        "quote": "Our onboarding handoff takes anywhere between two and six weeks and nobody can tell me why",
+        "timestamp": "13:20"
+      },
+      {
+        "what": "my team builds a status pack every monday that i",
+        "quote": "My team builds a status pack every Monday that is obsolete by Tuesday afternoon",
+        "timestamp": "14:20"
+      },
+      {
+        "what": "our quality holds sit for days because nobody ow",
+        "quote": "Our quality holds sit for days because nobody owns the escalation",
+        "timestamp": "15:20"
+      }
+    ],
+    "excitement": [
+      {
+        "quote": "That is exactly what we have been trying to get visibility on",
+        "timestamp": "16:40"
+      },
+      {
+        "quote": "That would give me back the first hour of every day",
+        "timestamp": "17:40"
+      }
+    ],
+    "back_and_forth": {
+      "questions": 4,
+      "substantive_turns": 9,
+      "per_30min": 12
+    }
+  },
+  "echo": [
+    {
+      "quote": "So it accounts for the time between the events, not just the events themselves",
+      "timestamp": "18:15"
+    }
+  ],
+  "flags": [],
+  "scoring_version": "v1"
+}
