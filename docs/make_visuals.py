@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT))
 
 from callscore import render  # noqa: E402
 from run_day import process, team_medians  # noqa: E402
-from run_week import collect  # noqa: E402
+from run_week import collect, follow_through, most_missed, week_of  # noqa: E402
 
 DOCS = ROOT / "docs"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -62,11 +62,6 @@ p{font-size:13.5px;line-height:1.55;color:#2c3238}
 .chip{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
       padding:3px 8px;border-radius:20px;background:#eef4f8;color:#47809E;margin-left:8px;vertical-align:2px}
 """
-
-
-def week_of(date: str) -> str:
-    """Two fixture weeks: 18–22 May and 26–29 May."""
-    return "week 1" if date <= "2026-05-22" else "week 2"
 
 
 def svg_trend(weeks: list, framing: list, engagement: list) -> str:
@@ -124,16 +119,27 @@ def svg_reps(names: list, w1: list, w2: list) -> str:
     return "".join(parts)
 
 
+EXAMPLES = ROOT / "examples"
+PDF_NAMES = {"example-daily-coaching": "02_daily_coaching_Ana",
+             "example-weekly-coaching": "03_weekly_coaching_Ana",
+             "example-messaging-analysis": "05_weekly_messaging_analysis"}
+
+
 def shot(html: str, name: str, w: int, h: int):
+    """PNG for the README, PDF for examples/ — same HTML, so they always agree."""
     tmp = DOCS / f"_{name}.html"
-    tmp.write_text(f"<!DOCTYPE html><html><head><meta charset='utf-8'><style>{CSS}</style></head>"
-                   f"<body>{html}</body></html>")
+    page = (f"<!DOCTYPE html><html><head><meta charset='utf-8'><style>{CSS}"
+            f"@page{{size:{w+40}px {h+40}px;margin:0}}body{{padding:20px}}"
+            f"</style></head><body>{html}</body></html>")
+    tmp.write_text(page)
     subprocess.run([CHROME, "--headless", "--disable-gpu", "--hide-scrollbars",
                     f"--screenshot={DOCS / (name + '.png')}", f"--window-size={w},{h}",
-                    "--force-device-scale-factor=2", f"file://{tmp}"],
-                   capture_output=True)
+                    "--force-device-scale-factor=2", f"file://{tmp}"], capture_output=True)
+    pdf = EXAMPLES / f"{PDF_NAMES[name]}.pdf"
+    subprocess.run([CHROME, "--headless", "--disable-gpu", "--no-pdf-header-footer",
+                    f"--print-to-pdf={pdf}", f"file://{tmp}"], capture_output=True)
     tmp.unlink()
-    print(f"  docs/{name}.png")
+    print(f"  docs/{name}.png  +  examples/{pdf.name}")
 
 
 def tiles(you_msg, team_msg, you_eng, team_eng, you_step, team_step):
@@ -178,32 +184,61 @@ def main():
     # ---------- ② weekly coaching ----------
     wk = [r for r in week_rows if r["rep"] == "Ana"]
     wp = [r for r in wk if r["message"]]
-    counts = {}
-    for r in wp:
-        for m in r["message"]["missing"]:
-            counts[m] = counts.get(m, 0) + 1
-    worst, hits = max(counts.items(), key=lambda kv: kv[1])
+    w2 = [r for r in wk if week_of(r["date"]) == "week 2"]
+    w1 = [r for r in wk if week_of(r["date"]) == "week 1"]
+    el, hits, of_n = most_missed(wp)
     wteam = {
         "delivered": round(statistics.median([r["message"]["delivered"] for r in week_rows if r["message"]])),
         "engagement": round(statistics.median([r["engagement"]["score"] for r in week_rows])),
-        "next_step": round(statistics.median([r["engagement"]["next_step_level"] for r in week_rows])),
     }
-    wbest = max(wk, key=lambda r: r["engagement"]["score"])
+    now_d = round(statistics.mean([r["message"]["delivered"] for r in w2 if r["message"]]))
+    prev_d = round(statistics.mean([r["message"]["delivered"] for r in w1 if r["message"]]))
+    now_e = round(statistics.median([r["engagement"]["score"] for r in w2]))
+    prev_e = round(statistics.median([r["engagement"]["score"] for r in w1]))
+    lo = min(r["message"]["delivered"] for r in wp)
+    hi = max(r["message"]["delivered"] for r in wp)
+    weakest = min(wp, key=lambda r: r["message"]["delivered"])
+    ft = follow_through("Ana", week_rows)
+    types = {}
+    for r in wk:
+        types[r["call_type"]] = types.get(r["call_type"], 0) + 1
+    mix = " · ".join(f"{v} {k}" for k, v in sorted(types.items(), key=lambda kv: -kv[1]))
+
+    def delta(now, before):
+        if now == before:
+            return '<span style="color:#8b939b">= same as last week</span>'
+        arrow = "▲" if now > before else "▼"
+        col = "#2f8f52" if now > before else "#c07a1e"
+        return f'<span style="color:{col}">{arrow} from {before} last week</span>'
+
     shot(f"""<div class="card">
       <div class="top"><div class="av">A</div>
         <div><div class="who">Ana <span class="chip">weekly</span></div>
-        <div class="sub">week of 18–21 May 2026 · {len(wk)} calls ({len(wp)} pitches)</div></div></div>
-      {tiles(round(statistics.mean([r['message']['delivered'] for r in wp])), wteam['delivered'],
-             round(statistics.median([r['engagement']['score'] for r in wk])), wteam['engagement'],
-             round(statistics.median([r['engagement']['next_step_level'] for r in wk])), wteam['next_step'])}
-      <div class="good"><h3>What worked</h3><p>{wbest['account']} was your strongest call this week —
-        engagement {wbest['engagement']['score']}/100.</p></div>
-      <div class="miss"><h3>What you missed</h3><p><strong>{render.LABELS[worst].capitalize()}</strong>
-        went unsaid in <strong>{hits} of your {len(wp)} pitches</strong> this week.
-        A day says you skipped it on one call; a week says you skip it.</p></div>
-      <div class="do"><h3>What to improve</h3><p>Say {render.LABELS[worst]} out loud before you move into
-        the product. <em>Done looks like:</em> it appears in the first two minutes of the call.</p></div>
-    </div>""", "example-weekly-coaching", 790, 430)
+        <div class="sub">week of 18–29 May 2026 · {len(wk)} calls: {mix}</div></div></div>
+
+      <div class="tiles">
+        <div class="tile"><div class="tl">Message delivered</div>
+          <div class="tv">{now_d} <small>of 6</small></div>
+          <div class="tteam">{delta(now_d, prev_d)} · team {wteam['delivered']} of 6</div></div>
+        <div class="tile"><div class="tl">Engagement</div>
+          <div class="tv">{now_e}<small>/100</small></div>
+          <div class="tteam">{delta(now_e, prev_e)} · team {wteam['engagement']}/100</div></div>
+        <div class="tile"><div class="tl">Consistency</div>
+          <div class="tv">{lo}–{hi} <small>of 6</small></div>
+          <div class="tteam">{weakest['account']} pulls the bottom</div></div>
+      </div>
+
+      <div class="good"><h3>Since last week</h3>
+        <p>{ft.replace('*Last week you were skipping ', '<strong>Last week you were skipping ').replace('* — ', '</strong> — ')}</p></div>
+
+      <div class="miss"><h3>The pattern to fix</h3>
+        <p><strong>{render.LABELS[el].capitalize()}</strong> went unsaid in <strong>{hits} of your
+        {of_n} pitches</strong>. One call is a slip; {hits} is a habit — which is the whole reason
+        this message exists alongside the daily one.</p></div>
+
+      <div class="do"><h3>What to improve</h3><p>Say {render.LABELS[el]} out loud before you move
+        into the product. <em>Done looks like:</em> it appears in the first two minutes of the call.</p></div>
+    </div>""", "example-weekly-coaching", 790, 445)
 
     # ---------- ③ messaging analysis ----------
     pitches = [r for r in week_rows if r["message"]]

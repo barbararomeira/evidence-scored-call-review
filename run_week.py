@@ -43,6 +43,47 @@ def collect(transcript_dir: pathlib.Path, extractor_name: str) -> list:
     return rows
 
 
+def week_of(date: str) -> str:
+    """The fixture spans two weeks: 18–22 May and 26–29 May."""
+    return "week 1" if date <= "2026-05-22" else "week 2"
+
+
+def most_missed(pitches: list) -> tuple:
+    """The element a rep skipped most often. Returns (element_id, times_missed, of_n)."""
+    counts = {}
+    for r in pitches:
+        for m in r["message"]["missing"]:
+            counts[m] = counts.get(m, 0) + 1
+    if not counts:
+        return None, 0, len(pitches)
+    el, n = max(counts.items(), key=lambda kv: kv[1])
+    return el, n, len(pitches)
+
+
+def follow_through(rep: str, rows: list) -> str | None:
+    """Did last week's weakest element improve this week? This is what a day cannot tell you."""
+    prev = [r for r in rows if r["rep"] == rep and r["message"] and week_of(r["date"]) == "week 1"]
+    now = [r for r in rows if r["rep"] == rep and r["message"] and week_of(r["date"]) == "week 2"]
+    if not prev or not now:
+        return None
+    el, missed, of_n = most_missed(prev)
+    if not el:
+        return None
+    landed = sum(1 for r in now if r["record"]["adherence"][el]["status"] == "delivered")
+    label = render.LABELS[el]
+    n_now = len(now)
+    then = f"missed in {missed} of {of_n} {'pitch' if of_n == 1 else 'pitches'}"
+    head = f"*Last week you were skipping {label}* — {then}."
+    if landed == n_now:
+        after = ("This week it landed in the one pitch you had."
+                 if n_now == 1 else f"This week it landed in all {n_now}.")
+        return f"{head} {after} That is the change, and it held."
+    if landed:
+        return f"{head} This week it landed in {landed} of {n_now}. Moving, not fixed."
+    tail = "your only pitch" if n_now == 1 else f"any of your {n_now}"
+    return f"{head} This week it did not land in {tail}. Same gap, second week."
+
+
 def messaging_analysis(rows: list, week: str) -> str:
     """Four questions, in this order. Conversion before speed — money before velocity."""
     pitches = [r for r in rows if r["message"]]
@@ -106,47 +147,73 @@ def messaging_analysis(rows: list, week: str) -> str:
 
 
 def weekly_coaching(rep: str, rows: list, week: str, team: dict) -> str:
-    """Same shape as the daily message. The difference is the window and the emphasis."""
+    """The same shape as the daily message, plus the three things a day cannot give you:
+    a trend against last week, the spread across a week's calls, and whether the last
+    thing you were told actually changed anything."""
     mine = [r for r in rows if r["rep"] == rep]
     pitches = [r for r in mine if r["message"]]
     if not mine:
         return ""
-    avg_delivered = round(statistics.mean([r["message"]["delivered"] for r in pitches])) if pitches else None
-    med_eng = round(statistics.median([r["engagement"]["score"] for r in mine]))
-    med_step = round(statistics.median([r["engagement"]["next_step_level"] for r in mine]))
+    this_wk = [r for r in mine if week_of(r["date"]) == "week 2"] or mine
+    prev_wk = [r for r in mine if week_of(r["date"]) == "week 1"]
+
+    def avg_delivered(rs):
+        ps = [r for r in rs if r["message"]]
+        return round(statistics.mean([r["message"]["delivered"] for r in ps])) if ps else None
+
+    now_d, prev_d = avg_delivered(this_wk), avg_delivered(prev_wk)
+    now_e = round(statistics.median([r["engagement"]["score"] for r in this_wk]))
+    prev_e = round(statistics.median([r["engagement"]["score"] for r in prev_wk])) if prev_wk else None
+
+    def arrow(now, before):
+        if before is None or now == before:
+            return "="
+        return f"↑ from {before}" if now > before else f"↓ from {before}"
+
+    types = {}
+    for r in mine:
+        types[r["call_type"]] = types.get(r["call_type"], 0) + 1
+    mix = " · ".join(f"{v} {k}" for k, v in sorted(types.items(), key=lambda kv: -kv[1]))
 
     lines = [f"*{rep} — week of {week}*",
-             f"{len(mine)} calls ({len(pitches)} pitch{'' if len(pitches) == 1 else 'es'}, "
-             f"{len(mine) - len(pitches)} commercial or logistics)", "", "*Where you land*"]
-    if avg_delivered is not None:
-        lines.append(f"Message delivered — you {avg_delivered} of 6 · team {team['delivered']} of 6")
-    lines += [f"Engagement — you {med_eng}/100 · team {team['engagement']}/100",
-              f"Next step reached — you {med_step} of 4 · team {team['next_step']} of 4"]
+             f"{len(mine)} calls: {mix}", "", "*Where you land*"]
+    if now_d is not None:
+        lines.append(f"Message delivered — you {now_d} of 6 ({arrow(now_d, prev_d)}) · "
+                     f"team {team['delivered']} of 6")
+    lines.append(f"Engagement — you {now_e}/100 ({arrow(now_e, prev_e)}) · team {team['engagement']}/100")
+
+    # Spread: a day has one call, a week has a range. Consistency is its own signal.
+    if len(pitches) > 1:
+        lo = min(r["message"]["delivered"] for r in pitches)
+        hi = max(r["message"]["delivered"] for r in pitches)
+        if lo != hi:
+            weakest = min(pitches, key=lambda r: r["message"]["delivered"])
+            lines.append(f"Consistency — your pitches ran {lo} to {hi} of 6. "
+                         f"The {weakest['account']} call is the one pulling the bottom.")
 
     best = max(mine, key=lambda r: r["engagement"]["score"])
     if best["echo"]:
-        worked = (f'{best["account"]} was your strongest call this week, and they put your framing '
-                  f'in their own words: "{best["echo"][0]["quote"]}"')
+        worked = (f'{best["account"]} was your strongest call, and they put your framing in their '
+                  f'own words: "{best["echo"][0]["quote"]}"')
     else:
-        worked = (f'{best["account"]} was your strongest call this week — engagement '
+        worked = (f'{best["account"]} was your strongest call — engagement '
                   f'{best["engagement"]["score"]}/100.')
     lines += ["", "*What worked*", worked]
 
-    # A weekly miss is a pattern, not an incident.
+    ft = follow_through(rep, rows)
+    if ft:
+        lines += ["", "*Since last week*", ft]
+
     if pitches:
-        counts = {}
-        for r in pitches:
-            for m in r["message"]["missing"]:
-                counts[m] = counts.get(m, 0) + 1
-        if counts:
-            worst, hits = max(counts.items(), key=lambda kv: kv[1])
-            example = next(r for r in pitches if worst in r["message"]["missing"])
-            lines += ["", "*What you missed*",
-                      f"{render.LABELS[worst].capitalize()} went unsaid in {hits} of your "
-                      f"{len(pitches)} pitch{'' if len(pitches) == 1 else 'es'} this week — "
-                      f"{example['account']} is the clearest example.",
+        el, hits, of_n = most_missed(pitches)
+        if el:
+            example = next(r for r in pitches if el in r["message"]["missing"])
+            lines += ["", "*The pattern to fix*",
+                      f"{render.LABELS[el].capitalize()} went unsaid in {hits} of your {of_n} "
+                      f"{'pitch' if of_n == 1 else 'pitches'} — {example['account']} is the clearest "
+                      f"example." + (f" One call is a slip; {hits} is a habit." if hits > 1 else ""),
                       "", "*What to improve*",
-                      f"Say {render.LABELS[worst]} out loud before you move into the product. "
+                      f"Say {render.LABELS[el]} out loud before you move into the product. "
                       "Done looks like: it appears in the first two minutes of the call."]
         else:
             lines += ["", "*What to improve*",
