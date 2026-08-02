@@ -10,17 +10,17 @@ LABELS = {
 
 def scored_table(rows: list) -> str:
     """Aligned terminal table. Columns are fixed width so nothing shifts when a call is refused."""
-    H = f"{'call':<8}{'rep':<8}{'type':<12}{'message':>14}  {'framing':<8}{'engage':>7}  {'echo':<5}"
+    H = f"{'call':<8}{'rep':<8}{'type':<12}{'message':>12}  {'framing':<9}{'engagement':>11}  {'echo':<5}"
     out = [H, "─" * len(H)]
     for r in rows:
         if r["message"] is None:
             msg, framing = "not a pitch", "—"
         else:
             m = r["message"]
-            msg = f"{m['delivered']} of 6 · {m['score']}"
+            msg = f"{m['delivered']} of 6"
             framing = "yes" if m["framing_pair"] else "no"
-        out.append(f"{r['call_id']:<8}{r['rep']:<8}{r['call_type']:<12}{msg:>14}  {framing:<8}"
-                   f"{r['engagement']['score']:>7}  {'yes' if r['echo'] else '—':<5}")
+        out.append(f"{r['call_id']:<8}{r['rep']:<8}{r['call_type']:<12}{msg:>12}  {framing:<9}"
+                   f"{str(r['engagement']['score']) + '/100':>11}  {'yes' if r['echo'] else '—':<5}")
     return "\n".join(out)
 
 

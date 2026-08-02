@@ -4,6 +4,8 @@
 
 > A template for **grading conversations against a rubric you can defend**: read each transcript once, score it only where the rubric applies, require a verbatim quote for every point given *or withheld*, and refuse to state a verdict until there are enough calls to justify one.
 
+![demo](docs/demo.gif)
+
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
 ---
@@ -33,13 +35,15 @@ python3 run_day.py --mock
 You get this, over six invented calls from three reps:
 
 | call | rep | type | message delivered | framing pair | engagement | echo |
-|:--|:--|:--|--:|:-:|--:|:-:|
-| c-0412 | Ana | discovery | 4 of 6 · **67** | ✗ | 67 | — |
-| c-0413 | Ana | pricing | *not a pitch* | — | 67 | — |
-| c-0414 | Ben | demo | 6 of 6 · **100** | ✓ | 93 | ✓ |
-| c-0415 | Ben | scheduling | *not a pitch* | — | 26 | — |
-| c-0416 | Chloe | intro | 1 of 6 · **17** | ✗ | 35 | — |
-| c-0417 | Chloe | discovery | 4 of 6 · **67** | ✓ | 60 | — |
+|:--|:--|:--|:-:|:-:|:-:|:-:|
+| c-0412 | Ana | discovery | **4** of 6 | ✗ | 67 / 100 | — |
+| c-0413 | Ana | pricing | *not a pitch* | — | 67 / 100 | — |
+| c-0414 | Ben | demo | **6** of 6 | ✓ | 93 / 100 | ✓ |
+| c-0415 | Ben | scheduling | *not a pitch* | — | 26 / 100 | — |
+| c-0416 | Chloe | intro | **1** of 6 | ✗ | 35 / 100 | — |
+| c-0417 | Chloe | discovery | **4** of 6 | ✓ | 60 / 100 | — |
+
+*Message delivered* counts how many of your six message elements the rep actually said, out of the number that call had room for. *Framing pair* is whether the two that matter most — the problem and the category — landed **together**. *Engagement* is what the buyer did, scored out of 100.
 
 > **Scored for message:** 4 of 6 calls — `c-0413` and `c-0415` were never pitches
 > **Framing pair landed:** 2 of 4 pitches · `n=4 — not enough data yet`
@@ -56,16 +60,18 @@ Three things in that table are the whole design:
 
 Written from the same evidence, no model involved in choosing what to say:
 
-> **Ben — 2026-05-18**
-> 2 calls (1 pitch, 1 commercial or logistics)
+> **Ben — 2026-05-18** · 2 calls (1 pitch, 1 commercial or logistics)
 >
 > **Where you land**
-> Message delivered — you 6 of 6 · team 4 of 6
-> Engagement — you 60/100 · team 64/100
-> Next step reached — you 3 of 4 · team 3 of 4
+> | | you | team |
+> |:--|:--|:--|
+> | Message delivered | 6 of 6 | 4 of 6 |
+> | Engagement | 60 / 100 | 64 / 100 |
+> | Next step reached | 3 of 4 | 3 of 4 |
 >
 > **What worked**
-> Cobalt Systems was your strongest call — engagement 93/100, and they put your framing in their own words: *"So it takes into account the space between the events, not just the events. That's actually how I'd explain it to my board"*
+> Cobalt Systems was your strongest call — engagement 93/100, and they put your framing in their own words:
+> *"So it takes into account the space between the events, not just the events. That's actually how I'd explain it to my board"*
 >
 > **What to improve**
 > Nothing to change from these calls: every element the call had room for landed.
