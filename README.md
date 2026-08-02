@@ -4,7 +4,7 @@
 
 > A template for **grading conversations against a rubric you can defend**: read each transcript once, score it only where the rubric applies, require a verbatim quote for every point given *or withheld*, and refuse to state a verdict until there are enough calls to justify one.
 
-![demo](docs/demo.gif)
+![how it works](docs/how-it-works.gif)
 
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
@@ -87,7 +87,11 @@ cd evidence-scored-call-coaching
 python3 run_day.py --mock
 ```
 
-You get this, over six invented calls from three reps:
+![the run](docs/demo.gif)
+
+Above: one day, then the whole week. On three calls the daily run prints its numbers and refuses the verdict; on fourteen pitches the weekly one concludes. Same rule, different sample.
+
+Run without `--date` and you get the six calls below:
 
 | call | rep | type | message delivered | framing pair | engagement | echo |
 |:--|:--|:--|:-:|:-:|:-:|:-:|
