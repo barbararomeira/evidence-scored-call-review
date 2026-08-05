@@ -127,3 +127,21 @@ There is a real bug this prevented, kept here because it is instructive: an earl
 **Why:** the first thirty seconds decide whether anyone copies this. A dependency list is a reason to close the tab, and an API key is a reason to never start. Making the *model* the only optional part — mocked by default — means the whole system is inspectable without spending anything.
 
 Cost: hand-rolled front-matter parsing and bucket logic that a library would do better. Contained, and tested.
+
+---
+
+## 11. The transcript decides who was on the call, not the invite
+
+**Chose:** a rep is only scored and coached on calls where the transcript contains at least one turn attributed to them. If the rep a call is filed under never speaks, the call leaves the pipeline before extraction: no score, no engagement figure, no coaching line, and the exclusion is printed with its reason.
+
+**Considered:** trusting the metadata. The meeting title, the calendar invitee list, the "recorded by" field and the CRM owner all name a rep, they are already structured, and reading them costs nothing. Also considered scoring the call but flagging it, which keeps the data and lets a human sort it out later.
+
+**Why:** metadata says who was *invited*; only the artifact shows who was *there*. A call booked on one rep's calendar and run by a colleague is completely ordinary, and it produces a record that looks perfectly well-formed — right account, right date, real quotes, a plausible score — while being about the wrong person.
+
+This one is not hypothetical. In production, a call titled `"<Prospect> and <Rep A>"` with Rep A on the invite was run entirely by Rep B. The pipeline credited both. Rep A was sent a coaching message that praised them for opening on the problem in the first seconds and criticised them for never landing the differentiator. Both sentences described Rep B. Every quote in it was real, every score was arithmetically correct, and the whole thing was about a conversation Rep A was not in.
+
+Flagging instead of excluding was tempting and wrong. A flag on a row that still carries a number means the number reaches the median, the trend and the rep's own "where you land" line, and the flag is the first thing that gets skimmed past. The call has to leave, or it is in.
+
+Two things make the rule hold rather than merely exist. The record carries `rep_turns` — a count per rep — so a zero is visible in the file without re-reading a transcript. And a test asserts that no fixture scores a rep who never spoke, so the property is checked on every run rather than trusted.
+
+The generalisation is the useful part, because this is not really about sales calls: **whoever the record says was involved is a claim, and the artifact is the evidence.** Ticket assignees, PR authors, "reported by" fields, shift rotas and attendance lists all describe who was supposed to be there. Before a system attaches a number to a person's name, it should have to find that person in the thing it is measuring.

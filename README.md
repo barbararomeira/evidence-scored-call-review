@@ -35,7 +35,9 @@ Only the extractor is a model, and only because reading unstructured speech is t
 
 ```mermaid
 flowchart TB
-    T["📞 Call transcripts"] --> X
+    T["📞 Call transcripts"] --> A
+    A{"Did the rep it is<br/>filed under actually speak?"} -->|"no"| DROP["not scored, not coached<br/><b>the invite is not evidence</b>"]
+    A -->|"yes"| X
     RB["📋 Your rubric<br/><i>six elements · what counts as a pitch</i>"] -.-> X
 
     subgraph EXTRACT ["The extractor · daily · the only model"]
@@ -71,6 +73,7 @@ flowchart TB
     style CR fill:#fff8e8,stroke:#b98b2e
     style YOU fill:#faeef2,stroke:#C4718D
     style RB fill:#faeef2,stroke:#C4718D
+    style DROP fill:#f8f9fa,stroke:#8A9099
 ```
 
 The two dotted-in boxes are the only ones you touch: the **rubric** going in, and **you** coming out. Everything between them is fixed — which is the point. When the analysis says every rep misses the same element, that is not four coaching problems, it is one rubric that is asking for something the pitch has no room to say.
@@ -144,7 +147,7 @@ All five outputs are committed as text in **[`examples/`](examples/)**; the card
 | understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 10 entries, chose / considered / why |
 | see the calls it runs on | [`fixtures/`](fixtures/) — invented transcripts and the story they tell |
 | plug in your own model | [`callscore/extractors/base.py`](callscore/extractors/base.py) — one method |
-| read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) |
+| read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) · [`attribution.py`](callscore/attribution.py) |
 
 ---
 
@@ -217,7 +220,7 @@ python3 run_day.py --transcripts ./my_calls --extractor claude_cli
 
 ## Tests
 
-**13 tests** covering: the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
+**19 tests** covering: the attribution gate keeping a rep out of calls they never spoke on · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
 
 ```bash
 python3 -m pytest tests -q

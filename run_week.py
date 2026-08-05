@@ -17,7 +17,7 @@ import pathlib
 import statistics
 import sys
 
-from callscore import dynamics, render, scope, tips
+from callscore import attribution, dynamics, render, scope, tips
 from callscore.extractors import base, get
 from callscore.score_engagement import score as score_engagement
 from callscore.score_message import score as score_message
@@ -31,6 +31,10 @@ def collect(transcript_dir: pathlib.Path, extractor_name: str) -> list:
     rows = []
     for path in sorted(transcript_dir.glob("*.md")):
         t = base.load_transcript(path)
+        # Same attribution gate as the daily run: a call its filed rep never spoke on cannot
+        # produce a fair number about them, so it never enters the week (Decision 11).
+        if not attribution.check(t.rep, t.body)[0]:
+            continue
         record = extractor.extract(t)
         ok, reason = scope.in_scope(t.call_type, record["adherence"])
         rows.append({

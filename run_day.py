@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import argparse, json, pathlib, statistics, sys
 
-from callscore import evidence, render, scope
+from callscore import attribution, evidence, render, scope
 from callscore.extractors import base, get
 from callscore.score_engagement import score as score_engagement
 from callscore.score_message import score as score_message
@@ -24,7 +24,7 @@ MIN_N_FOR_VERDICT = 5  # Decision 9: print n always, suppress the verdict below 
 def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str | None,
             date_filter: str | None = None):
     extractor = get(extractor_name)
-    rows, problems = [], []
+    rows, problems, unattributed = [], [], []
 
     for path in sorted(transcript_dir.glob("*.md")):
         t = base.load_transcript(path)
@@ -32,6 +32,18 @@ def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str |
             continue
         if date_filter and t.date != date_filter:
             continue
+
+        # Attribution gate, first, before anything is scored or even extracted into a row: the
+        # rep this call is filed under has to appear in the transcript. Metadata says who was
+        # invited; only the transcript shows who was there (Decision 11). Such a call leaves the
+        # pipeline here rather than carrying a null through it, so no aggregate, median or
+        # coaching line can accidentally include a call its rep never spoke on.
+        attributable, why = attribution.check(t.rep, t.body)
+        if not attributable:
+            unattributed.append({"call_id": t.call_id, "rep": t.rep, "account": t.account,
+                                 "date": t.date, "reason": why})
+            continue
+
         record = extractor.extract(t)
 
         # Evidence gate: a verdict whose quote isn't in the call is not a verdict (Decision 4).
@@ -44,9 +56,10 @@ def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str |
             "call_id": t.call_id, "rep": t.rep, "call_type": t.call_type, "account": t.account,
             "date": t.date, "message": message, "scope_reason": reason,
             "engagement": score_engagement(record["engagement"], t.duration_min),
+            "rep_turns": attribution.rep_spoke(t.body)[1],
             "echo": record.get("echo", []), "record": record,
         })
-    return rows, problems
+    return rows, problems, unattributed
 
 
 def team_medians(rows):
@@ -72,7 +85,7 @@ def main():
         ap.error("pass --mock to run offline, or --extractor to use a model")
 
     tdir = pathlib.Path(args.transcripts) if args.transcripts else ROOT / "fixtures" / "transcripts"
-    rows, problems = process(tdir, "mock" if args.mock else args.extractor, args.rep, args.date)
+    rows, problems, unattributed = process(tdir, "mock" if args.mock else args.extractor, args.rep, args.date)
 
     if not rows:
         print(f"No transcripts found in {tdir}")
@@ -85,6 +98,10 @@ def main():
     when = f" on {args.date}" if args.date else ""
     print(f"\n{len(rows)} calls{when} from {shown}\n")
     print(render.scored_table(rows))
+
+    # Say what was dropped and why. A silent exclusion looks the same as full coverage.
+    for u in unattributed:
+        print(f"\n  {u['call_id']} ({u['account']}) — not scored: {u['reason']}")
 
     scored = [r for r in rows if r["message"]]
     refused = [r for r in rows if not r["message"]]
