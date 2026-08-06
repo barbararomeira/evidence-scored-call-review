@@ -22,6 +22,38 @@ SPEAKER = re.compile(r"^([A-Z][A-Z _-]*[A-Z]|[A-Z]):", re.M)
 REP_LABEL = "REP"
 
 
+def turns(body: str) -> list:
+    """[(speaker, text), ...] for every labelled line."""
+    out = []
+    for line in body.splitlines():
+        line = line.strip()
+        m = SPEAKER.match(line)
+        if m:
+            out.append((m.group(1), line[m.end():].strip()))
+    return out
+
+
+def diarisation_ok(body: str) -> tuple[bool, str]:
+    """Does the transcript distinguish speakers at all?
+
+    A transcript that came back as one continuous block under a single label cannot support any
+    claim about who said what. The quotes in it are real and the attribution is guesswork, so a
+    model reading it will happily reconstruct a plausible conversation and score both sides of
+    it — message coverage from the rep's supposed lines, engagement from the buyer's. Both
+    numbers look ordinary and neither is evidence.
+
+    This is not hypothetical either: a 20-minute call came back as a single block under one
+    speaker and was scored 83 for message and 87 for engagement, with the turns reconstructed
+    from context.
+    """
+    labels = set(speaking_turns(body))
+    if len(labels) < 2:
+        only = next(iter(labels), "none")
+        return False, (f"the transcript has only one speaker label ({only}) — speaker turns "
+                       "cannot be established, so nothing here can be attributed to anybody")
+    return True, f"{len(labels)} distinct speakers"
+
+
 def speaking_turns(body: str) -> dict:
     """Count turns per speaker label, e.g. {'REP': 12, 'PROSPECT': 9, 'COLLEAGUE': 14}."""
     counts: dict = {}

@@ -73,3 +73,62 @@ def test_every_scored_fixture_has_its_rep_speaking():
             assert not ok
         else:
             assert ok, f"{path.name}: {why}"
+
+
+# ── Decision 12: the transcript must be able to tell speakers apart, and a quote has to
+#    come from the right mouth ──────────────────────────────────────────────────────────
+
+MERGED = "REP: everything both people said, returned as one block under a single label.\n"
+
+
+def test_merged_transcript_is_refused():
+    ok, why = attribution.diarisation_ok(MERGED)
+    assert not ok and "one speaker label" in why
+
+
+def test_two_speakers_is_enough():
+    assert attribution.diarisation_ok(SPOKE)[0] is True
+
+
+def test_merged_fixture_never_reaches_the_scorer():
+    """c-0441 came back as a single block — real quotes, invented attribution."""
+    t = base.load_transcript(FIXTURES / "c-0441.md")
+    assert attribution.diarisation_ok(t.body)[0] is False
+
+    import run_day
+    rows, _, unattributed = run_day.process(FIXTURES, "mock", None, "2026-05-29")
+    assert "c-0441" not in [r["call_id"] for r in rows]
+    dropped = {u["call_id"]: u["reason"] for u in unattributed}
+    assert "c-0441" in dropped and "one speaker label" in dropped["c-0441"]
+
+
+def test_buyers_words_do_not_count_as_the_reps_delivery():
+    """The echo arriving through the back door: the buyer says it, the rep gets the point."""
+    from callscore import evidence
+    body = "REP: so how do you find out?\nPROSPECT: we need a shopfloor management system.\n"
+    adherence = {"category": {"status": "delivered",
+                              "quote": "we need a shopfloor management system"}}
+    problems = evidence.verify(adherence, body)
+    assert problems and "not something the rep said" in problems[0]
+
+
+def test_engagement_cannot_be_scored_from_the_reps_own_words():
+    from callscore import evidence
+    body = "REP: everyone gets excited about this bit.\nPROSPECT: mm.\n"
+    eng = {"excitement": [{"quote": "everyone gets excited about this bit"}]}
+    problems = evidence.verify_engagement(eng, body)
+    assert problems and "not the buyer speaking" in problems[0]
+
+
+def test_every_fixture_engagement_quote_is_the_buyer():
+    """No fixture may score engagement from anything except the buyer's own words."""
+    import json
+    from callscore import evidence
+    records = pathlib.Path(__file__).resolve().parent.parent / "fixtures" / "call_records"
+    for path in sorted(FIXTURES.glob("*.md")):
+        t = base.load_transcript(path)
+        rec = records / f"{t.call_id}.json"
+        if not rec.exists():
+            continue
+        d = json.loads(rec.read_text())
+        assert not evidence.verify_engagement(d.get("engagement", {}), t.body), t.call_id

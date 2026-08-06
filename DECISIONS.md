@@ -145,3 +145,19 @@ Flagging instead of excluding was tempting and wrong. A flag on a row that still
 Two things make the rule hold rather than merely exist. The record carries `rep_turns` — a count per rep — so a zero is visible in the file without re-reading a transcript. And a test asserts that no fixture scores a rep who never spoke, so the property is checked on every run rather than trusted.
 
 The generalisation is the useful part, because this is not really about sales calls: **whoever the record says was involved is a claim, and the artifact is the evidence.** Ticket assignees, PR authors, "reported by" fields, shift rotas and attendance lists all describe who was supposed to be there. Before a system attaches a number to a person's name, it should have to find that person in the thing it is measuring.
+
+---
+
+## 12. A quote has to come from the right mouth, and the transcript has to know whose it is
+
+**Chose:** two further attribution checks. A message element may only be marked *delivered* if its quote comes from a turn the **rep** spoke; engagement evidence must come from a turn the **buyer** spoke. And a transcript that returns fewer than two distinct speaker labels is refused outright — no message score, no engagement score, no coaching.
+
+**Considered:** trusting the extractor, which is reading the transcript and can see who is talking. Also considered scoring merged transcripts with a confidence flag, since the model can usually reconstruct who said what from context and it very nearly always looks right.
+
+**Why:** Decision 4 required a verbatim quote and the checker looked for it *anywhere in the call*. That is a different question from the one that matters. The buyer saying "we need a shopfloor management system" is the single best thing that can happen on a call — it is the echo, which Decision 5 deliberately refuses to score because measuring it destroys it. Under a quote-exists check, that same sentence scores as the rep **delivering** the category. The most valuable signal in the system arrives through the back door as a point for the wrong person.
+
+The mirror matters as much. Engagement measures what the buyer did; if the rep says "everyone gets excited about this bit", that is not excitement, it is a sales line. Scored from the wrong mouth it becomes buyer enthusiasm that never happened.
+
+The diarisation gate came from a production call that returned as one continuous twenty-minute block under a single speaker label. Every quote in it was real. Who said any of them was reconstructed from context by the model, and the call was scored 83 for message coverage and 87 for engagement — both sides of a conversation the transcript could not actually distinguish. The confidence-flag version is the trap here: a flag on a row that still carries two numbers means both numbers reach the rep's average and the flag gets skimmed, which is the same mistake as Decision 11 in a new costume.
+
+**What it cost:** the engagement check found a fixture in this repo whose quote read *"And contract renewals sitting with legal"* where the buyer had said *"Contract renewals sitting with legal"*. A fabricated leading word, invisible for months, because nothing had ever verified engagement evidence at all. That is the argument for the check in one line: the invariants nothing tests are the ones quietly untrue.

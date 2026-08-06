@@ -38,7 +38,10 @@ def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str |
         # invited; only the transcript shows who was there (Decision 11). Such a call leaves the
         # pipeline here rather than carrying a null through it, so no aggregate, median or
         # coaching line can accidentally include a call its rep never spoke on.
-        attributable, why = attribution.check(t.rep, t.body)
+        # A transcript that cannot tell speakers apart cannot support a claim about either
+        # of them (Decision 12) — check that before asking who spoke.
+        diar_ok, diar_why = attribution.diarisation_ok(t.body)
+        attributable, why = attribution.check(t.rep, t.body) if diar_ok else (False, diar_why)
         if not attributable:
             unattributed.append({"call_id": t.call_id, "rep": t.rep, "account": t.account,
                                  "date": t.date, "reason": why})
@@ -48,6 +51,7 @@ def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str |
 
         # Evidence gate: a verdict whose quote isn't in the call is not a verdict (Decision 4).
         problems += [f"{t.call_id}: {p}" for p in evidence.verify(record["adherence"], t.body)]
+        problems += [f"{t.call_id}: {p}" for p in evidence.verify_engagement(record["engagement"], t.body)]
 
         ok, reason = scope.in_scope(t.call_type, record["adherence"])
         message = score_message(record["adherence"]) if ok else None

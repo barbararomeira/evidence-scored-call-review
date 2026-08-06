@@ -220,7 +220,7 @@ python3 run_day.py --transcripts ./my_calls --extractor claude_cli
 
 ## Tests
 
-**19 tests** covering: the attribution gate keeping a rep out of calls they never spoke on · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
+**25 tests** covering: the attribution gate keeping a rep out of calls they never spoke on · a transcript with one speaker label refused rather than reconstructed · the buyer's words not counting as the rep's delivery, and the rep's not counting as engagement · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
 
 ```bash
 python3 -m pytest tests -q

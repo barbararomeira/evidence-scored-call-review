@@ -33,7 +33,7 @@ def collect(transcript_dir: pathlib.Path, extractor_name: str) -> list:
         t = base.load_transcript(path)
         # Same attribution gate as the daily run: a call its filed rep never spoke on cannot
         # produce a fair number about them, so it never enters the week (Decision 11).
-        if not attribution.check(t.rep, t.body)[0]:
+        if not attribution.diarisation_ok(t.body)[0] or not attribution.check(t.rep, t.body)[0]:
             continue
         record = extractor.extract(t)
         ok, reason = scope.in_scope(t.call_type, record["adherence"])
