@@ -2,6 +2,8 @@
 
 ![python](https://img.shields.io/badge/python-3.9%2B-blue) ![runs offline](https://img.shields.io/badge/runs-offline%20%C2%B7%20no%20API%20key-success) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
+*The per-rep artifact is called a **message check**, not coaching — it read a transcript, it wasn't in the room ([Decision 13](DECISIONS.md)). The repo keeps its original name so existing links don't break.*
+
 > A template for **grading conversations against a rubric you can defend**: read each transcript once, score it only where the rubric applies, require a verbatim quote for every point given *or withheld*, and refuse to state a verdict until there are enough calls to justify one.
 
 ![how it works](docs/how-it-works.gif)
@@ -17,7 +19,7 @@ Point it at a folder of call transcripts. It gives you, per call:
 | | |
 |---|---|
 | **How much of your message was delivered** | six things you decided to say, counted — and only on calls where a pitch belonged |
-| **How the buyer responded** | next step reached, situations they described, excitement, real back-and-forth |
+| **How the buyer responded** | next step reached, situations they described, excitement, real back-and-forth — *minus* hedges, deferrals and unresolved objections, counted double when they land late |
 | **A message check per rep** | what landed, what didn't, one thing to change — every claim quoting the call. Deliberately not called coaching: it read a transcript, it wasn't in the room |
 
 ---
@@ -27,16 +29,16 @@ Point it at a folder of call transcripts. It gives you, per call:
 | | Runs | Model | Purpose | Reads | Produces |
 |:--|:--|:--|:--|:--|:--|
 | **The extractor** *(one per call, in parallel)* | inside each daily run | **Sonnet-class.** Claude Sonnet 5 (API or a Claude Code subscription), Codex CLI, or Llama 3.1 8B / Qwen 2.5 via Ollama if you want it free and offline. A reasoning model is wasted here — the judgement lives in the rubric, not the model. | Read one call and come back with facts. Every verdict carries the sentence that proves it, including the ones that say an element was missing. | exactly one transcript | one **call record** — it decides nothing and scores nothing |
-| **The coach** | daily **and** weekly | **none.** Python | Tell each rep what to change. Daily: *you skipped it on this call*. Weekly: *you skip it* — plus the trend, the spread, and whether the last tip stuck. | call records for that window, and the tips register | a **coaching message** per rep, and the updated **tips register** |
+| **The reviewer** | daily **and** weekly | **none.** Python | Show each rep what their calls did. Daily: *you skipped it on this call*. Weekly: *you skip it* — plus the trend, the spread, and whether the last tip stuck. | call records for that window, and the tips register | a **message check** per rep, and the updated **tips register** |
 | **The messaging analyst** | weekly | **none.** Python | Ask whether the message itself is working, separately from who delivered it. Reports per rep, but never judges one. | every call record, all weeks | the **messaging analysis** — trend, what earns attention, what loses the room |
-| **You** | 2 min daily · 10 min weekly | — | Decide. Forward the coaching, or don't. Rewrite the rubric when the analysis says the message is the problem rather than the delivery. | the coaching and the analysis | **edits to `rubric/`** — the only file that changes what any of this measures |
+| **You** | 2 min daily · 10 min weekly | — | Decide. Forward the message check, or don't. Rewrite the rubric when the analysis says the message is the problem rather than the delivery. | the message check and the analysis | **edits to `rubric/`** — the only file that changes what any of this measures |
 
-Only the extractor is a model, and only because reading unstructured speech is the one thing a model does that code cannot. *What* to say is chosen by rules: the same evidence always produces the same coaching, and a rep asking "why this one?" gets an answer rather than a shrug. In the system this came from, the coach and the analyst are LLM agents — see [Decision 9](DECISIONS.md) for why they are not here, and `callscore/extractors/base.py` for the seam if you disagree.
+Only the extractor is a model, and only because reading unstructured speech is the one thing a model does that code cannot. *What* to say is chosen by rules: the same evidence always produces the same message check, and a rep asking "why this one?" gets an answer rather than a shrug. In the system this came from, the reviewer and the analyst are LLM agents — see [Decision 9](DECISIONS.md) for why they are not here, and `callscore/extractors/base.py` for the seam if you disagree.
 
 ```mermaid
 flowchart TB
     T["📞 Call transcripts"] --> A
-    A{"Did the rep it is<br/>filed under actually speak?"} -->|"no"| DROP["not scored, not coached<br/><b>the invite is not evidence</b>"]
+    A{"Did the rep it is<br/>filed under actually speak?"} -->|"no"| DROP["not scored, not reviewed<br/><b>the invite is not evidence</b>"]
     A -->|"yes"| X
     RB["📋 Your rubric<br/><i>six elements · what counts as a pitch</i>"] -.-> X
 
@@ -46,7 +48,7 @@ flowchart TB
 
     X --> CR[("🗂️ Call records<br/><i>one per call, read many times</i>")]
 
-    subgraph COACH ["The coach · daily + weekly · deterministic"]
+    subgraph COACH ["The reviewer · daily + weekly · deterministic"]
         G{"Was this a pitch?"} -->|"no"| SK["no message score at all<br/><b>refusing is a feature</b>"]
         G -->|"yes"| SC["two scores,<br/><i>never blended into one</i>"]
         SC --> TP["tips register<br/><b>status judged from later calls</b>"]
@@ -59,7 +61,7 @@ flowchart TB
     CR --> G
     CR --> TR
     SK --> CM
-    TP --> CM["📄 Coaching message"]
+    TP --> CM["📄 Message check"]
     PR --> MA["📄 Messaging analysis"]
 
     CM --> YOU(["🧑 You — forward it, or don't"])
@@ -76,7 +78,7 @@ flowchart TB
     style DROP fill:#f8f9fa,stroke:#8A9099
 ```
 
-The two dotted-in boxes are the only ones you touch: the **rubric** going in, and **you** coming out. Everything between them is fixed — which is the point. When the analysis says every rep misses the same element, that is not four coaching problems, it is one rubric that is asking for something the pitch has no room to say.
+The two dotted-in boxes are the only ones you touch: the **rubric** going in, and **you** coming out. Everything between them is fixed — which is the point. When the analysis says every rep misses the same element, that is not four delivery problems, it is one rubric that is asking for something the pitch has no room to say.
 
 ---
 
@@ -120,11 +122,11 @@ Three things in that table are the whole design:
 
 ### The three things it writes
 
-**① Daily coaching** — what one rep gets the morning after their calls:
+**① The daily message check** — what one rep gets the morning after their calls:
 
 ![daily coaching](docs/example-daily-coaching.png)
 
-**② Weekly coaching** — same shape, but carrying the four things a day structurally cannot: a trend against the rep's *own* previous week, consistency (the spread across their pitches and which call pulls the bottom), follow-through on the last tip, and the open tips register with a status derived from later calls — never self-reported:
+**② The weekly message check** — same shape, but carrying the four things a day structurally cannot: a trend against the rep's *own* previous week, consistency (the spread across their pitches and which call pulls the bottom), follow-through on the last tip, and the open tips register with a status derived from later calls — never self-reported:
 
 ![weekly coaching](docs/example-weekly-coaching.png)
 
@@ -134,7 +136,7 @@ Three things in that table are the whole design:
 
 All five outputs are committed as text in **[`examples/`](examples/)**; the cards above are rendered from the same run by [`docs/make_visuals.py`](docs/make_visuals.py), so they cannot drift from what the code does.
 
-`--mock` swaps **only** the extraction step, replaying pre-recorded call records from `fixtures/`. Every gate, score, coaching selection and rollup after that is real code executing. Want to read before running? [`examples/`](examples/) has the committed output.
+`--mock` swaps **only** the extraction step, replaying pre-recorded call records from `fixtures/`. Every gate, score, selection and rollup after that is real code executing. Want to read before running? [`examples/`](examples/) has the committed output.
 
 ---
 
@@ -153,7 +155,7 @@ All five outputs are committed as text in **[`examples/`](examples/)**; the card
 
 ## What makes this worth copying
 
-**1. Extract once, analyse many times.** The transcript is the expensive input and the only non-deterministic step. One pass produces one call record; the message score, the engagement score and the coaching all read *that*, never the transcript again. Cost becomes linear in calls rather than calls × metrics — and, more importantly, the numbers can't contradict each other. Two passes over the same call can disagree about whether the rep named the category, and then a coaching message contradicts the dashboard.
+**1. Extract once, analyse many times.** The transcript is the expensive input and the only non-deterministic step. One pass produces one call record; the message score, the engagement score and the message check all read *that*, never the transcript again. Cost becomes linear in calls rather than calls × metrics — and, more importantly, the numbers can't contradict each other. Two passes over the same call can disagree about whether the rep named the category, and then a rep's message contradicts the dashboard.
 
 **2. Refusing to score is a feature.** A pricing negotiation is not a bad pitch; it isn't a pitch. Calls outside the rubric's scope get `message: None` and a printed reason, never a zero. A score that is always available and sometimes meaningless is worse than one that admits when the question doesn't apply.
 
@@ -174,7 +176,7 @@ flowchart LR
     T[transcript<br/>expensive to read] --> R[(call record<br/>quotes + counts)]
     R --> A[message score]
     R --> B[engagement score]
-    R --> C[coaching]
+    R --> C[message check]
     R --> D[weekly rollup]
     R --> E[whatever you add next]
 
