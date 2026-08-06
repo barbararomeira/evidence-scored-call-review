@@ -62,7 +62,7 @@ def test_a_late_but_outweighs_an_early_one():
 
 
 def test_three_warm_lines_then_a_no_does_not_read_as_engaged():
-    """The MillerKnoll shape: polite enthusiasm, then the rest of the call is the 'but'."""
+    """Polite enthusiasm, then the rest of the call is the 'but'."""
     r = score(dict(_warm(), reservations=[
         {"quote": "I don't know if there's a big need for it currently right now", "late": True},
         {"quote": "it's more of a nice to have", "late": True},
