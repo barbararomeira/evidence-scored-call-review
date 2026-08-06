@@ -9,7 +9,7 @@ record together, deterministically: no model, no extra pass, nothing to configur
 
 Neither changes any score. They are the diagnosis behind the number, and the thing a rep can
 actually act on: "the differentiator earns questions, the durability claim is where the room
-goes quiet" is coaching. "You scored 4 of 6" is not.
+goes quiet" is useful. "You scored 4 of 6" is not.
 """
 from __future__ import annotations
 

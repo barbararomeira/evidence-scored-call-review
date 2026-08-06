@@ -9,8 +9,8 @@ Week of 18–21 May 2026  ·  25 calls  ·  19 pitches  ·  6 not pitches
 
   Written:
     outputs/weekly/messaging-analysis.md
-    outputs/weekly/coaching-Ana.md
-    outputs/weekly/coaching-Ben.md
-    outputs/weekly/coaching-Chloe.md
-    outputs/weekly/coaching-Dev.md
+    outputs/weekly/message-check-Ana.md
+    outputs/weekly/message-check-Ben.md
+    outputs/weekly/message-check-Chloe.md
+    outputs/weekly/message-check-Dev.md
 

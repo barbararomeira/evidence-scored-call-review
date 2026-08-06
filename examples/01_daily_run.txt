@@ -1,18 +1,52 @@
 
-3 calls on 2026-05-21 from fixtures/transcripts
+25 calls from fixtures/transcripts
 
 call    rep     type             message  framing   engagement  echo 
 ─────────────────────────────────────────────────────────────────────
+c-0412  Ana     discovery         4 of 6  no            67/100  —    
+c-0413  Ana     pricing      not a pitch  —             67/100  —    
+c-0414  Ben     demo              6 of 6  yes           93/100  yes  
+c-0415  Ben     scheduling   not a pitch  —             26/100  —    
+c-0416  Chloe   intro             1 of 6  no            35/100  —    
 c-0417  Chloe   discovery         4 of 6  yes           60/100  —    
+c-0418  Ana     discovery         4 of 6  no            67/100  —    
+c-0419  Ana     demo              5 of 6  no            58/100  —    
+c-0420  Ben     discovery         6 of 6  yes           85/100  yes  
 c-0421  Ben     intro             4 of 6  yes           58/100  —    
 c-0422  Chloe   demo              4 of 6  yes           50/100  —    
+c-0423  Dev     intro             1 of 6  no            35/100  —    
+c-0424  Dev     pricing      not a pitch  —             67/100  —    
+c-0425  Ana     discovery         5 of 6  no            72/100  —    
+c-0426  Ben     demo              6 of 6  yes          100/100  yes  
+c-0427  Ben     implementation not a pitch  —             60/100  —    
+c-0428  Chloe   discovery         5 of 6  yes           80/100  yes  
+c-0429  Chloe   scheduling   not a pitch  —             26/100  —    
+c-0430  Dev     discovery         3 of 6  yes           58/100  —    
+c-0431  Dev     technical_scoping not a pitch  —             58/100  —    
+c-0432  Ana     demo              5 of 6  yes           87/100  yes  
+c-0433  Ana     discovery         4 of 6  yes           67/100  —    
+c-0434  Chloe   demo              5 of 6  yes           74/100  —    
+c-0435  Ben     discovery         6 of 6  yes           73/100  —    
+c-0436  Dev     demo              3 of 6  yes           58/100  —    
 
-  Scored for message:  3 of 3 calls
-  Framing pair landed: 3 of 3 pitches   n=3 — not enough data yet
-  Echo (recorded, never scored): 0 of 3
+  c-0440 (Halden Industrial) — not scored: filed under Ana, who has no speaking turns — the call was carried by COLLEAGUE 6, PROSPECT 6. Booked on their calendar, run by someone else.
+
+  c-0441 (Marrow Devices) — not scored: the transcript has only one speaker label (REP) — speaker turns cannot be established, so nothing here can be attributed to anybody
+
+  Scored for message:  19 of 25 calls
+    out of scope — c-0413 (pricing): Commercial negotiation. Nobody restates the category while discussing price.
+    out of scope — c-0415 (scheduling): Logistics. There is no pitch to deliver.
+    out of scope — c-0424 (pricing): Commercial negotiation. Nobody restates the category while discussing price.
+    out of scope — c-0427 (implementation): Post-sale planning. Delivery work, not selling.
+    out of scope — c-0429 (scheduling): Logistics. There is no pitch to deliver.
+    out of scope — c-0431 (technical_scoping): Feasibility detail with no product story told.
+  Framing pair landed: 13 of 19 pitches
+  Echo (recorded, never scored): 5 of 25
   Every scored point carries a verbatim quote found in its own transcript.
 
   Coaching written:
-    outputs/coaching/2026-05-21_Ben.md
-    outputs/coaching/2026-05-21_Chloe.md
+    outputs/message-checks/2026-05-18_Ana.md
+    outputs/message-checks/2026-05-18_Ben.md
+    outputs/message-checks/2026-05-18_Chloe.md
+    outputs/message-checks/2026-05-18_Dev.md
 

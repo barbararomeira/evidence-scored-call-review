@@ -1,6 +1,6 @@
 """Offline extractor: replays a pre-recorded call record for each fixture transcript.
 
-The mock swaps ONLY this step. Every score, gate, coaching selection and rollup downstream is
+The mock swaps ONLY this step. Every score, gate, selection and rollup downstream is
 real code executing — which is the point of putting the seam here.
 """
 from __future__ import annotations

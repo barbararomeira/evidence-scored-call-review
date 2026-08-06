@@ -6,8 +6,8 @@ All of them are regenerated from the code — if they ever disagree with it, the
 | # | File | What it is | Produced by |
 |---|---|---|---|
 | 1 | [`01_daily_run.txt`](01_daily_run.txt) | One day's calls, scored | `python3 run_day.py --mock --date 2026-05-21` |
-| 2 | [`02_daily_coaching_Ana.pdf`](02_daily_coaching_Ana.pdf) | **Daily coaching** — one rep, yesterday's calls | `python3 run_day.py --mock` → `docs/make_visuals.py` |
-| 3 | [`03_weekly_coaching_Ana.pdf`](03_weekly_coaching_Ana.pdf) | **Weekly coaching** — trend, consistency, follow-through | `python3 run_week.py --mock` → `docs/make_visuals.py` |
+| 2 | [`02_daily_message_check_Ana.pdf`](02_daily_message_check_Ana.pdf) | **The daily message check** — one rep, yesterday's calls | `python3 run_day.py --mock` → `docs/make_visuals.py` |
+| 3 | [`03_weekly_message_check_Ana.pdf`](03_weekly_message_check_Ana.pdf) | **The weekly message check** — trend, consistency, follow-through | `python3 run_week.py --mock` → `docs/make_visuals.py` |
 | 4 | [`04_weekly_run.txt`](04_weekly_run.txt) | The week's findings at a glance | `python3 run_week.py --mock` |
 | 5 | [`05_weekly_messaging_analysis.pdf`](05_weekly_messaging_analysis.pdf) | **Messaging analysis** — with week-over-week charts | `python3 run_week.py --mock` → `docs/make_visuals.py` |
 

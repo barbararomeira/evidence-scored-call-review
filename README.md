@@ -1,8 +1,8 @@
-# Evidence-scored call coaching
+# Evidence-scored call review
 
 ![python](https://img.shields.io/badge/python-3.9%2B-blue) ![runs offline](https://img.shields.io/badge/runs-offline%20%C2%B7%20no%20API%20key-success) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
 
-*The per-rep artifact is called a **message check**, not coaching — it read a transcript, it wasn't in the room ([Decision 13](DECISIONS.md)). The repo keeps its original name so existing links don't break.*
+*The per-rep artifact is a **message check**, not coaching — it read a transcript, it wasn't in the room ([Decision 13](DECISIONS.md)).*
 
 > A template for **grading conversations against a rubric you can defend**: read each transcript once, score it only where the rubric applies, require a verbatim quote for every point given *or withheld*, and refuse to state a verdict until there are enough calls to justify one.
 
@@ -87,8 +87,8 @@ The two dotted-in boxes are the only ones you touch: the **rubric** going in, an
 No install, no API key, no network:
 
 ```bash
-git clone https://github.com/barbararomeira/evidence-scored-call-coaching
-cd evidence-scored-call-coaching
+git clone https://github.com/barbararomeira/evidence-scored-call-review
+cd evidence-scored-call-review
 python3 run_day.py --mock
 ```
 
@@ -124,11 +124,11 @@ Three things in that table are the whole design:
 
 **① The daily message check** — what one rep gets the morning after their calls:
 
-![daily coaching](docs/example-daily-coaching.png)
+![daily message check](docs/example-daily-message-check.png)
 
 **② The weekly message check** — same shape, but carrying the four things a day structurally cannot: a trend against the rep's *own* previous week, consistency (the spread across their pitches and which call pulls the bottom), follow-through on the last tip, and the open tips register with a status derived from later calls — never self-reported:
 
-![weekly coaching](docs/example-weekly-coaching.png)
+![weekly message check](docs/example-weekly-message-check.png)
 
 **③ Messaging analysis** — a different document for a different reader. About the message, never about a person:
 

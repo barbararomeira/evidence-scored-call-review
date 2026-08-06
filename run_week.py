@@ -4,7 +4,7 @@
     python3 run_week.py --mock
 
 Produces:
-  1. a weekly coaching message per rep — the same shape as the daily one, but a pattern
+  1. a weekly message check per rep — the same shape as the daily one, but a pattern
      across the week instead of one call
   2. a messaging analysis — is the message itself working, separate from who delivered it
 
@@ -166,7 +166,7 @@ def messaging_analysis(rows: list, week: str) -> str:
         eng = round(statistics.median([r["engagement"]["score"] for r in rows if r["rep"] == rep]))
         out.append(f"| {rep} | {len(rp)} | {avg} of 6 | {fp} of {len(rp)} | {eng}/100 |")
     out += ["", "Named here because this section is read by whoever owns the message, and a gap that "
-                "sits with one rep is a coaching problem while a gap across all of them is a "
+                "sits with one rep is an individual problem while a gap across all of them is a "
                 "messaging problem. They are fixed in different places."]
 
     out += ["", "## 3. Are we converting better?", "",
@@ -181,7 +181,7 @@ def messaging_analysis(rows: list, week: str) -> str:
     return "\n".join(out)
 
 
-def weekly_coaching(rep: str, rows: list, week: str, team: dict) -> str:
+def weekly_message_check(rep: str, rows: list, week: str, team: dict) -> str:
     """The same shape as the daily message, plus the three things a day cannot give you:
     a trend against last week, the spread across a week's calls, and whether the last
     thing you were told actually changed anything."""
@@ -294,8 +294,8 @@ def main():
     p.write_text(analysis + "\n"); written.append(p)
 
     for rep in sorted({r["rep"] for r in rows}):
-        msg = weekly_coaching(rep, rows, args.week, team)
-        p = outdir / "weekly" / f"coaching-{rep}.md"
+        msg = weekly_message_check(rep, rows, args.week, team)
+        p = outdir / "weekly" / f"message-check-{rep}.md"
         p.write_text(msg + "\n"); written.append(p)
 
     # Summary to stdout: the findings, not a file list.

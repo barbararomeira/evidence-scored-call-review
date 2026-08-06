@@ -1,4 +1,4 @@
-"""Markdown and stdout rendering. No dependencies: markdown is what a coaching message is."""
+"""Markdown and stdout rendering. No dependencies: markdown is what a message check is."""
 from __future__ import annotations
 
 from .config import expected_for
@@ -26,8 +26,8 @@ def scored_table(rows: list) -> str:
     return "\n".join(out)
 
 
-def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
-    """Deterministic selection (Decision 11): the same evidence always produces the same coaching."""
+def message_check(rep: str, day: str, rows: list[dict], team: dict) -> str:
+    """Deterministic selection (Decision 11): the same evidence always produces the same message check."""
     import statistics
     mine = [r for r in rows if r["rep"] == rep]
     pitches = [r for r in mine if r["message"]]

@@ -1,6 +1,6 @@
 """The tips register: what a rep was told, and whether it stuck.
 
-A coaching message that raises a new tip every week and never checks the last one trains people
+A message check that raises a new tip every week and never checks the last one trains people
 to ignore it. Tips here get a stable id and a status that is *derived from later calls*, never
 self-reported and never guessed.
 

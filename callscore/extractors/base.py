@@ -1,6 +1,6 @@
 """The one seam where a model touches this system.
 
-Everything downstream — both scores, the scope gate, coaching, the weekly rollup — is
+Everything downstream — both scores, the scope gate, the message check, the weekly rollup — is
 deterministic Python reading the call record this produces. That is what makes "extract once,
 analyse many times" true rather than a slogan (Decision 1).
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Daily run: transcripts in, scored table and per-rep coaching out.
+"""Daily run: transcripts in, scored table and a per-rep message check out.
 
     python3 run_day.py --mock                 # offline, no key, no network
     python3 run_day.py --mock --rep Ben      # one rep
@@ -37,7 +37,7 @@ def process(transcript_dir: pathlib.Path, extractor_name: str, rep_filter: str |
         # rep this call is filed under has to appear in the transcript. Metadata says who was
         # invited; only the transcript shows who was there (Decision 11). Such a call leaves the
         # pipeline here rather than carrying a null through it, so no aggregate, median or
-        # coaching line can accidentally include a call its rep never spoke on.
+        # line of a message check can accidentally include a call its rep never spoke on.
         # A transcript that cannot tell speakers apart cannot support a claim about either
         # of them (Decision 12) — check that before asking who spoke.
         diar_ok, diar_why = attribution.diarisation_ok(t.body)
@@ -82,7 +82,7 @@ def main():
     ap.add_argument("--transcripts", default=None, help="folder of transcript .md files")
     ap.add_argument("--rep", default=None, help="only this rep")
     ap.add_argument("--date", default=None, help="only this day, e.g. 2026-05-26 (a daily run is one day)")
-    ap.add_argument("--out", default="outputs", help="where coaching messages are written")
+    ap.add_argument("--out", default="outputs", help="where message checks are written")
     args = ap.parse_args()
 
     if not args.mock and not args.extractor:
@@ -127,12 +127,12 @@ def main():
     else:
         print("  Every scored point carries a verbatim quote found in its own transcript.")
 
-    outdir = ROOT / args.out / "coaching"
+    outdir = ROOT / args.out / "message-checks"
     outdir.mkdir(parents=True, exist_ok=True)
     team = team_medians(rows)
     print("\n  Coaching written:")
     for rep in sorted({r["rep"] for r in rows}):
-        msg = render.coaching_message(rep, rows[0]["date"], rows, team)
+        msg = render.message_check(rep, rows[0]["date"], rows, team)
         p = outdir / f"{rows[0]['date']}_{rep}.md"
         p.write_text(msg + "\n")
         print(f"    {p.relative_to(ROOT)}")

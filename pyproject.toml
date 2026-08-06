@@ -1,7 +1,7 @@
 [project]
-name = "evidence-scored-call-coaching"
+name = "evidence-scored-call-review"
 version = "0.1.0"
-description = "Turns sales-call transcripts into evidence-backed rubric scores and per-rep coaching."
+description = "Turns sales-call transcripts into evidence-backed rubric scores and a per-rep message check."
 requires-python = ">=3.9"          # runs on whatever python3 is already on the machine
 dependencies = []            # stdlib only, on purpose: the quickstart must run with no install
 

@@ -138,8 +138,8 @@ def svg_reps(names: list, w1: list, w2: list) -> str:
 
 
 EXAMPLES = ROOT / "examples"
-PDF_NAMES = {"example-daily-coaching": "02_daily_coaching_Ana",
-             "example-weekly-coaching": "03_weekly_coaching_Ana",
+PDF_NAMES = {"example-daily-message-check": "02_daily_message_check_Ana",
+             "example-weekly-message-check": "03_weekly_message_check_Ana",
              "example-messaging-analysis": "05_weekly_messaging_analysis"}
 
 
@@ -172,12 +172,14 @@ def tiles(you_msg, team_msg, you_eng, team_eng, you_step, team_step):
 
 
 def main():
-    rows, _ = process(ROOT / "fixtures" / "transcripts", "mock", None, None)
+    rows, _, _ = process(ROOT / "fixtures" / "transcripts", "mock", None, None)
     team = team_medians(rows)
     week_rows = collect(ROOT / "fixtures" / "transcripts", "mock")
     print("rendering:")
 
-    # ---------- ① daily coaching ----------
+    # ---------- ① the daily message check ----------
+    # No score tiles and no team comparison (Decision 14): the daily says how many calls were
+    # analysed and then only what happened.
     mine = [r for r in rows if r["rep"] == "Ana" and r["date"] == "2026-05-18"]
     pitch = [r for r in mine if r["message"]]
     best = max(mine, key=lambda r: r["engagement"]["score"])
@@ -185,21 +187,20 @@ def main():
     shot(f"""<div class="card">
       <div class="top"><div class="av">A</div>
         <div><div class="who">Ana <span class="stamp">daily</span></div>
-        <div class="sub">2026-05-18 · 2 calls (1 pitch, 1 commercial or logistics)</div></div></div>
-      {tiles(pitch[0]['message']['delivered'], team['delivered'],
-             round(statistics.median([r['engagement']['score'] for r in mine])), team['engagement'],
-             round(statistics.median([r['engagement']['next_step_level'] for r in mine])), team['next_step'])}
-      <div class="good"><h3>What worked</h3><p>{best['account']} was your strongest call —
-        engagement {best['engagement']['score']}/100.</p>
+        <div class="sub">2026-05-18 · 2 calls analysed (1 pitch, 1 commercial or logistics)</div></div></div>
+      <div class="miss"><h3>Objections you faced</h3><p>Nothing recorded as an unresolved objection
+        on these two calls. Read that as empty rather than clean.</p></div>
+      <div class="good"><h3>What worked</h3><p>{best['account']} was the call the buyer leaned into most.</p>
         <div class="q">“{exc[0]['quote']}”</div></div>
-      <div class="miss"><h3>What you missed</h3><p>On {pitch[0]['account']} you did not land:
+      <div class="do"><h3>What to do differently</h3><p>On {pitch[0]['account']} you did not land:
         <strong>the problem</strong> and <strong>the category</strong> — the two that separate the new
-        message from the old pitch.</p></div>
-      <div class="do"><h3>What to improve</h3><p>Say the problem out loud before you move into the product.
+        message from the old pitch. Say the problem out loud before you move into the product.
         <em>Done looks like:</em> it appears in the first two minutes of the call.</p></div>
-    </div>""", "example-daily-coaching", 790, 455)
+      <div class="miss"><h3>What I can't see</h3><p>Tone, and the room. Also: nothing the buyer
+        pushed back on was captured on either call.</p></div>
+    </div>""", "example-daily-message-check", 790, 430)
 
-    # ---------- ② weekly coaching ----------
+    # ---------- ② the weekly message check ----------
     wk = [r for r in week_rows if r["rep"] == "Ana"]
     wp = [r for r in wk if r["message"]]
     w2 = [r for r in wk if week_of(r["date"]) == "week 2"]
@@ -252,13 +253,13 @@ def main():
       <div class="tiles">
         <div class="tile"><div class="tl">Message delivered</div>
           <div class="tv">{now_d} <small>of 6</small></div>
-          <div class="tteam">{delta(now_d, prev_d)}<br>team {wteam['delivered']} of 6</div></div>
+          <div class="tteam">{delta(now_d, prev_d)}<br>your last week</div></div>
         <div class="tile"><div class="tl">Engagement</div>
           <div class="tv">{now_e}<small>/100</small></div>
-          <div class="tteam">{delta(now_e, prev_e)}<br>team {wteam['engagement']}/100</div></div>
+          <div class="tteam">{delta(now_e, prev_e)}<br>your last week</div></div>
         <div class="tile"><div class="tl">Next step</div>
           <div class="tv">{now_s} <small>of 4</small></div>
-          <div class="tteam">team {wteam['step']} of 4</div></div>
+          <div class="tteam">your own figure only</div></div>
         <div class="tile"><div class="tl">Consistency</div>
           <div class="tv">{lo}–{hi} <small>of 6</small></div>
           <div class="tteam">{weakest['account']} pulls the bottom</div></div>
@@ -274,11 +275,11 @@ def main():
         <p><strong>{render.LABELS[el].capitalize()}</strong> went unsaid in <strong>{hits} of your
         {of_n} pitches</strong>. One call is a slip; {hits} is a habit.</p></div>
 
-      <div class="do"><h3>What to improve</h3><p>Say {render.LABELS[el]} out loud before you move
+      <div class="do"><h3>What to do differently</h3><p>Say {render.LABELS[el]} out loud before you move
         into the product. <em>Done looks like:</em> it appears in the first two minutes.</p></div>
 
       <div class="tips"><h3>Your open tips</h3>{tiprows}</div>
-    </div>""", "example-weekly-coaching", 800, 545)
+    </div>""", "example-weekly-message-check", 800, 545)
 
     # ---------- ③ messaging analysis ----------
     pitches = [r for r in week_rows if r["message"]]
