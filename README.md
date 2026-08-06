@@ -18,7 +18,7 @@ Point it at a folder of call transcripts. It gives you, per call:
 |---|---|
 | **How much of your message was delivered** | six things you decided to say, counted — and only on calls where a pitch belonged |
 | **How the buyer responded** | next step reached, situations they described, excitement, real back-and-forth |
-| **A coaching message per rep** | what worked, what they missed, one thing to change — every claim quoting the call |
+| **A message check per rep** | what landed, what didn't, one thing to change — every claim quoting the call. Deliberately not called coaching: it read a transcript, it wasn't in the room |
 
 ---
 
@@ -220,7 +220,7 @@ python3 run_day.py --transcripts ./my_calls --extractor claude_cli
 
 ## Tests
 
-**25 tests** covering: the attribution gate keeping a rep out of calls they never spoke on · a transcript with one speaker label refused rather than reconstructed · the buyer's words not counting as the rep's delivery, and the rep's not counting as engagement · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
+**31 tests** covering: engagement able to go *down* on a call that ends in a polite no · the attribution gate keeping a rep out of calls they never spoke on · a transcript with one speaker label refused rather than reconstructed · the buyer's words not counting as the rep's delivery, and the rep's not counting as engagement · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
 
 ```bash
 python3 -m pytest tests -q

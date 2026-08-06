@@ -1,6 +1,8 @@
 """Markdown and stdout rendering. No dependencies: markdown is what a coaching message is."""
 from __future__ import annotations
 
+from .config import expected_for
+
 
 LABELS = {
     "problem_framing": "the problem", "category": "the category",
@@ -49,7 +51,11 @@ def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
     mine_step = round(statistics.median([r["engagement"]["next_step_level"] for r in mine]))
     lines.append(f"Next step reached — you {mine_step} of 4 · team {team['next_step']} of 4")
 
+    # Reservations belong in the message: a rep reading "your strongest call, 74/100" about a
+    # call that ended in a polite no has to argue with the report, which costs more attention
+    # than it saves (Decision 13).
     best = max(mine, key=lambda r: r["engagement"]["score"])
+    held_back = best["record"].get("engagement", {}).get("reservations") or []
     # An echo and an enthusiastic aside are different things. Saying "they gave your framing
     # back" over an excitement quote would be the exact failure this system exists to prevent.
     if best["echo"]:
@@ -60,6 +66,17 @@ def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
         proof = "."
     lines += ["", "*What worked*",
               f"{best['account']} was your strongest call — engagement {best['engagement']['score']}/100{proof}"]
+    if held_back:
+        q = held_back[0].get("quote", "")
+        lines.append(f'Read with the reservation, though: "{q}"'
+                     + (" — and it came late in the call." if held_back[0].get("late") else ""))
+
+    # An element that is the point of the meeting is not an achievement. Delivering the problem
+    # frame on a proposal call is the meeting; only its absence is worth saying.
+    for r in pitches:
+        exp = expected_for(r["call_type"])
+        r["_notable_missing"] = [m for m in r["message"]["missing"]]
+        r["_expected_missing"] = [m for m in r["message"]["missing"] if m in exp]
 
     missed = [r for r in pitches if r["message"]["missing"]]
     if missed:

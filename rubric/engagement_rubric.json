@@ -1,5 +1,5 @@
 {
-  "_comment": "Illustrative weights, not validated. They sum to 100 and a test enforces that. Re-weight for your own funnel.",
+  "_comment": "Illustrative weights, not validated. The four components sum to 100 and a test enforces that. Reservations are a deduction applied after, not a fifth weight, so the positive scale stays readable.",
   "components": [
     {
       "id": "next_step_reached",
@@ -52,5 +52,22 @@
       "label": "Repeated our framing back",
       "why": "The best available signal that the message landed, and the most dangerous to score: the moment it counts, reps fish for it and the signal dies."
     }
-  ]
+  ],
+  "reservations": {
+    "label": "Reservations",
+    "definition": "Explicit hedges, deferrals, no-urgency statements and objections the rep left unresolved. Each needs a verbatim buyer quote, exactly like a positive.",
+    "points_each": 12,
+    "max_deduction": 45,
+    "late_multiplier": 2.0,
+    "late_means": "in the last third of the call",
+    "why": "Without this the score can only go up. A buyer who says three warm things and then spends the rest of the call explaining why not scores as an enthusiastic call. A rep reading that has to argue with it, which costs more attention than it saves. Reservations late in the call count double because that is where a call actually lands: enthusiasm followed by a 'but' is a no, and a 'but' followed by enthusiasm is a maybe.",
+    "examples": [
+      "I don't know if there's a big need for it right now",
+      "it's a nice to have",
+      "if we ever insource that",
+      "let me socialise it internally",
+      "I'd have to see the cost",
+      "we already do this manually and it's fine"
+    ]
+  }
 }

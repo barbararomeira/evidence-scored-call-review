@@ -44,5 +44,20 @@
   "evidence": {
     "quote_required": true,
     "quote_required_for_absent": true
+  },
+  "expected_by_call_type": {
+    "_why": "Elements that are the point of that kind of meeting. They still count for coverage — the rep did say them — but they are never reported as 'what worked', because praising someone for doing the thing the meeting exists for reads as noise and costs the whole message its credibility. Missing one of these is the finding, not delivering it. Edit this for your own funnel.",
+    "proposal": [
+      "problem_framing"
+    ],
+    "demo": [
+      "problem_framing"
+    ],
+    "business_case_review": [
+      "problem_framing"
+    ],
+    "intro": [
+      "category"
+    ]
   }
 }

@@ -161,3 +161,21 @@ The mirror matters as much. Engagement measures what the buyer did; if the rep s
 The diarisation gate came from a production call that returned as one continuous twenty-minute block under a single speaker label. Every quote in it was real. Who said any of them was reconstructed from context by the model, and the call was scored 83 for message coverage and 87 for engagement — both sides of a conversation the transcript could not actually distinguish. The confidence-flag version is the trap here: a flag on a row that still carries two numbers means both numbers reach the rep's average and the flag gets skimmed, which is the same mistake as Decision 11 in a new costume.
 
 **What it cost:** the engagement check found a fixture in this repo whose quote read *"And contract renewals sitting with legal"* where the buyer had said *"Contract renewals sitting with legal"*. A fabricated leading word, invisible for months, because nothing had ever verified engagement evidence at all. That is the argument for the check in one line: the invariants nothing tests are the ones quietly untrue.
+
+---
+
+## 13. The score has to be able to go down, and it is not called coaching
+
+**Chose:** engagement carries a **reservations** deduction — explicit hedges, deferrals, no-urgency statements and unresolved objections, each with a verbatim buyer quote, counting double in the last third of the call. Message elements that are the *point* of a given meeting are declared per call type and never reported as "what worked". And the per-rep artifact is a **message check**, not a coaching message.
+
+**Considered:** leaving engagement as it was and telling reps to read it as "how much the buyer engaged" rather than "how well it went". Also considered a model-scored sentiment or warmth field, which is the obvious fix and the one every demo reaches for.
+
+**Why:** the first version could only go up. Every component was a count of something positive, so a buyer who said three warm things and then spent the rest of the call explaining why not scored as an engaged call. A real one did: 74 out of 100 on a conversation the rep wanted to disqualify. His words — *"yes he said that, the entire rest of the call was the 'but'"*.
+
+Telling people to reinterpret the number does not work. If a report says *your strongest call, 74/100* about a call that ended in a polite no, the rep has to argue with the report, and that costs more attention than the report saves. A measure that cannot represent a "no" is not measuring the thing anyone cares about.
+
+Sentiment scoring was the tempting fix and would have been the third version of the same mistake this repo keeps making: a confident number with nothing verifiable underneath. Reservations are counted the way everything else here is counted — a quote, or it did not happen. Late ones count double because that is where a call lands: enthusiasm followed by a "but" is a no, and a "but" followed by enthusiasm is a maybe.
+
+The call-type expectations came from the same conversation. Opening on the customer's problem during a *proposal* meeting is not an achievement, it is the meeting. Scoring it as a win is noise, and noise in a report about someone's work is what teaches them to stop reading it.
+
+**On the name.** It was called coaching, and that word claims something the artifact cannot deliver. Coaching implies someone who watched, who holds context, who is accountable for your development. This reads a transcript. The rep who pushed back put it exactly: *"I am up for coaching, if a coach is present and is willing to watch the calls for context. I'm kind of against having an AI scan my calls with no context and give me advice."* He is right, and the honest fix is not a better tone — it is a smaller claim. **Message check**: here is what the agreed message did and did not do on this call, with the quotes; you decide what it means. Everything the artifact actually does survives the rename. Only the authority it was borrowing goes away.
