@@ -179,3 +179,21 @@ Sentiment scoring was the tempting fix and would have been the third version of 
 The call-type expectations came from the same conversation. Opening on the customer's problem during a *proposal* meeting is not an achievement, it is the meeting. Scoring it as a win is noise, and noise in a report about someone's work is what teaches them to stop reading it.
 
 **On the name.** It was called coaching, and that word claims something the artifact cannot deliver. Coaching implies someone who watched, who holds context, who is accountable for your development. This reads a transcript. The rep who pushed back put it exactly: *"I am up for coaching, if a coach is present and is willing to watch the calls for context. I'm kind of against having an AI scan my calls with no context and give me advice."* He is right, and the honest fix is not a better tone — it is a smaller claim. **Message check**: here is what the agreed message did and did not do on this call, with the quotes; you decide what it means. Everything the artifact actually does survives the rename. Only the authority it was borrowing goes away.
+
+---
+
+## 14. The daily message carries no scores, and compares the rep to nobody
+
+**Chose:** the daily message states how many calls were analysed and then says only what happened — objections, what worked, one thing to do differently, moments worth re-hearing, and what the system could not see. No score of any kind, and no comparison to a colleague or a team figure. Scores appear once a week, next to that rep's *own* previous week.
+
+**Considered:** keeping a rolling seven-day figure in the daily so the number always had a reasonable sample behind it. Also considered keeping the team median, which had been the only comparison shown and felt like the safe, impersonal one.
+
+**Why:** the rolling window was a workaround for a question nobody asked. A rep reading a daily message wants to know what to do today; the number was there because it was easy to compute, and it invited them to argue with the sample instead of reading the evidence. One to four calls cannot support a number about a person, and printing one anyway teaches the reader that the message is padded.
+
+The team median turned out to be worse than useless at small headcount. With two or three people actually pitching, "the team" is one colleague wearing a disguise: the strongest rep reads his own number labelled as everyone's, and everyone else reads his. It looks impersonal and functions as a ranking. The only comparison that survives is a rep against their own last week, which is also the only one that answers a question they have.
+
+**What prompted it.** A rep pushed back on the whole artifact, and the two specific things he named were both true (Decision 13). The third thing he said was quieter and mattered more: *"I then have to spend my mental energy trying to correct it."* A wrong line in a report is not neutral — it costs the attention the report was supposed to save. Everything above follows from taking that seriously. Strip anything the evidence cannot carry, and what remains is worth reading.
+
+He also asked for something we had not built: the objections he faced, in the buyer's words, with what he said back. That is now the second section of every message, and the deliberate omission is the answer — the system reports what was asked and never invents what should have been said, because a system improvising product claims at scale is a far worse failure than a bad score.
+
+**The generalisation:** *a measure earns its place by changing what someone does.* Coverage scores, team medians and rolling averages all survive in reporting systems because they are cheap to compute and look rigorous, not because anyone acts on them. The test is not "is this number correct" but "if this number were different, would the reader do something different today". Most numbers in most reports fail it.

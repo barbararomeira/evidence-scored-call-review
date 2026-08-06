@@ -39,17 +39,11 @@ def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
     made_of = f"{n_pitch} pitch" + ("" if n_pitch == 1 else "es")
     if n_other:
         made_of += f", {n_other} commercial or logistics"
+    # No scores in the daily message, and no comparison to anybody (Decision 14). One to four
+    # calls cannot support a number about a person, and a team median across two or three reps is
+    # one colleague wearing a disguise. Numbers live in the weekly, beside the rep's own last week.
     lines = [f"*{rep} — {day}*",
-             f"{len(mine)} call{'' if len(mine) == 1 else 's'} ({made_of})",
-             "",
-             "*Where you land*"]
-    if avg_delivered is not None:
-        lines.append(f"Message delivered — you {avg_delivered} of 6 · team {team['delivered']} of 6")
-    lines.append(f"Engagement — you {avg_eng}/100 · team {team['engagement']}/100")
-    # Median, not max: one commercial call reaching "asked for pricing" should not present as
-    # the rep's typical outcome.
-    mine_step = round(statistics.median([r["engagement"]["next_step_level"] for r in mine]))
-    lines.append(f"Next step reached — you {mine_step} of 4 · team {team['next_step']} of 4")
+             f"{len(mine)} call{'' if len(mine) == 1 else 's'} analysed ({made_of})"]
 
     # Reservations belong in the message: a rep reading "your strongest call, 74/100" about a
     # call that ended in a polite no has to argue with the report, which costs more attention
@@ -64,8 +58,20 @@ def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
         proof = f'. The moment worth repeating: "{best["record"]["engagement"]["excitement"][0]["quote"]}"'
     else:
         proof = "."
+    held = [(r, x) for r in mine for x in (r["record"].get("engagement", {}).get("reservations") or [])]
+    if held:
+        lines += ["", "*Objections you faced*"]
+        for r, x in held[:3]:
+            late = " — and it came late in the call" if x.get("late") else ""
+            lines.append(f'▸ "{x.get("quote", "")}" — {r["account"]}{late}')
+        lines.append("What you said back is in the call; this reports what was asked, not what "
+                     "the answer should have been.")
+    else:
+        lines += ["", "*Objections you faced*",
+                  "Nothing recorded as an unresolved objection. Read that as empty rather than clean."]
+
     lines += ["", "*What worked*",
-              f"{best['account']} was your strongest call — engagement {best['engagement']['score']}/100{proof}"]
+              f"{best['account']} was the call the buyer leaned into most{proof}"]
     if held_back:
         q = held_back[0].get("quote", "")
         lines.append(f'Read with the reservation, though: "{q}"'
@@ -82,19 +88,28 @@ def coaching_message(rep: str, day: str, rows: list[dict], team: dict) -> str:
     if missed:
         worst = min(missed, key=lambda r: r["message"]["score"])
         names = ", ".join(LABELS[m] for m in worst["message"]["missing"])
-        lines += ["", "*What you missed*",
-                  f"On {worst['account']} you did not land: {names}. "
-                  f"That call delivered {worst['message']['delivered']} of "
-                  f"{worst['message']['applicable']} elements."]
+        lines += ["", "*What to do differently*",
+                  f"On {worst['account']} you did not land: {names}."]
         if not any(r["message"]["framing_pair"] for r in pitches):
             lines.append("Across every pitch this run, the problem and the category never landed together — "
                          "that pair is what separates the new message from the old pitch.")
-        lines += ["", "*What to improve*",
+        lines += ["",
                   f"Say {LABELS[worst['message']['missing'][0]]} out loud before you move into the product. "
                   "Done looks like: it appears in the first two minutes of the call."]
     elif pitches:
         # Nothing was missed. Say so plainly rather than manufacturing a tip — a tip nobody
         # needed is worse than no tip.
-        lines += ["", "*What to improve*",
+        lines += ["",
                   "Nothing to change from these calls: every element the call had room for landed."]
+    # Naming the specific unknown is what makes the rest credible. A rep told where the system is
+    # blind argues with it less and uses it more.
+    gaps = []
+    if any(r["engagement"].get("next_step_level") in (None, 0) for r in mine):
+        gaps.append("no next step was reached on at least one of these calls")
+    if not held:
+        gaps.append("nothing the buyer pushed back on was captured")
+    lines += ["", "*What I can't see*",
+              "Tone, and the room. " + ("Also: " + "; ".join(gaps) + "." if gaps else
+                                        "Nothing else stands out as missing from these calls.")]
+
     return "\n".join(lines)
