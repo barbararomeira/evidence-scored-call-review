@@ -44,7 +44,7 @@ c-0436  Dev     demo              3 of 6  yes           58/100  —
   Echo (recorded, never scored): 5 of 25
   Every scored point carries a verbatim quote found in its own transcript.
 
-  Coaching written:
+  Message checks written:
     outputs/message-checks/2026-05-18_Ana.md
     outputs/message-checks/2026-05-18_Ben.md
     outputs/message-checks/2026-05-18_Chloe.md

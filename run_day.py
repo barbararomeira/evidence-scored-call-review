@@ -130,7 +130,7 @@ def main():
     outdir = ROOT / args.out / "message-checks"
     outdir.mkdir(parents=True, exist_ok=True)
     team = team_medians(rows)
-    print("\n  Coaching written:")
+    print("\n  Message checks written:")
     for rep in sorted({r["rep"] for r in rows}):
         msg = render.message_check(rep, rows[0]["date"], rows, team)
         p = outdir / f"{rows[0]['date']}_{rep}.md"

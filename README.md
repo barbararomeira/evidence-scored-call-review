@@ -95,9 +95,9 @@ python3 run_day.py --mock
 
 ![the run](docs/demo.gif)
 
-Above: one day, then the whole week. On three calls the daily run prints its numbers and refuses the verdict; on fourteen pitches the weekly one concludes. Same rule, different sample.
+Above: one day, then the whole week. On three calls the daily run prints its numbers and refuses the verdict; on nineteen pitches the weekly one concludes. Same rule, different sample.
 
-Run without `--date` and you get the six calls below:
+The full run scores **25 calls** — two of the 27 fixtures never reach the scorer at all, one filed under a rep who never speaks on it and one whose transcript came back as a single speaker block. Both are printed with their reason rather than dropped quietly. Here are the first six:
 
 | call | rep | type | message delivered | framing pair | engagement | echo |
 |:--|:--|:--|:-:|:-:|:-:|:-:|
