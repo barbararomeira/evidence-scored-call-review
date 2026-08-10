@@ -20,6 +20,7 @@ Point it at a folder of call transcripts. It gives you, per call:
 |---|---|
 | **How much of your message was delivered** | six things you decided to say, counted — and only on calls where a pitch belonged |
 | **How the buyer responded** | next step reached, situations they described, excitement, real back-and-forth — *minus* hedges, deferrals and unresolved objections, counted double when they land late |
+| **A delivery receipt per run** | what it *actually sent*, not what it wrote — because a green run with an empty inbox looks identical from outside ([Decision 15](DECISIONS.md)) |
 | **A message check per rep** | the objections they faced, what landed, one thing to change, and what the system couldn't see — every claim quoting the call. **No scores and no comparison to anyone**; numbers appear weekly, beside that rep's own previous week. Deliberately not called coaching: it read a transcript, it wasn't in the room |
 
 ---

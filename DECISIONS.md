@@ -197,3 +197,25 @@ The team median turned out to be worse than useless at small headcount. With two
 He also asked for something we had not built: the objections he faced, in the buyer's words, with what he said back. That is now the second section of every message, and the deliberate omission is the answer — the system reports what was asked and never invents what should have been said, because a system improvising product claims at scale is a far worse failure than a bad score.
 
 **The generalisation:** *a measure earns its place by changing what someone does.* Coverage scores, team medians and rolling averages all survive in reporting systems because they are cheap to compute and look rigorous, not because anyone acts on them. The test is not "is this number correct" but "if this number were different, would the reader do something different today". Most numbers in most reports fail it.
+
+---
+
+## 15. A message that was written is not a message that arrived
+
+**Chose:** treat *ran* and *arrived* as two separate states. Every run writes a delivery receipt naming each message it intended to send and whether the send call actually succeeded. A separate job reads those receipts, and treats **a missing receipt as an alarm in its own right**. The alarm reaches the operator through a channel the pipeline does not use.
+
+**Considered:** the obvious thing, which is what was already there — the run reports success or failure at the end, and sends an alert if it fails. Also considered simply checking the run's exit code, which is what most schedulers give you for free.
+
+**Why:** exit codes describe the process, not the outcome. A run can read every call, score it correctly, write the message, archive it, and exit zero, having delivered nothing to anybody. That is not a hypothetical — it happened, and the run's own summary said it had completed. Green process, empty inbox. Nobody found out for five hours, and only by asking.
+
+The worse version is the one that happened twice. The failure alert used the same channel as the messages, so when that channel was unavailable the messages did not send **and** nothing said so. An alarm that shares a failure mode with the thing it is watching is not an alarm; it is a second copy of the same risk. If the pipeline sends over Slack, the alarm must not. Ours now raises a desktop notification and writes a file, and reaches for the shared channel only as a bonus.
+
+**Three traps found while building the check**, all of which are easier to fall into than to spot:
+
+**A guard that can never pass.** The pre-send check required a field that only began being recorded partway through the project. Every message citing an older call would have failed it — silently, for ever, because "withheld" looked identical to "nothing was due". A guard must be able to succeed on the data it will actually see, and the way to find out is to run it against last week rather than against a fixture.
+
+**An alarm that cries wolf.** The first version treated a missing receipt as a failure every day, including the days the system deliberately sends nothing. It would have fired twice a week, every week, and within a fortnight the operator would have learned to dismiss it — at which point it would not work on the day it mattered. **The cost of a false alarm is not the interruption; it is the credibility of every future alarm.**
+
+**A test that is indistinguishable from the real thing.** Verifying the alarm meant firing it, which put a genuine-looking alert in front of the operator for a fabricated failure. If an alarm is worth building it is worth building a dry-run mode, because the first thing anyone does with a new alarm is test it.
+
+**The generalisation, which is not about messages:** *instrument the outcome you actually care about, not the step you happen to be able to measure.* Exit codes, HTTP 200s and "job completed" are all proxies for delivery, and each of them is satisfied by systems that delivered nothing. The same mistake in a different costume: earlier the same day, a page was confirmed live because the URL returned 200 — it did, and it was serving the wrong content the whole time.
