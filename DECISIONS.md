@@ -221,3 +221,41 @@ The worse version is the one that happened twice. The failure alert used the sam
 **A receipt with more than one author.** Three jobs run on different schedules, and each was told to write the receipt by overwriting it. That is fine four days a week and wrong on the fifth, when two of them run on the same day: the later one erases the earlier one's evidence before anything has archived it, and the check quietly falls back to inferring delivery from logs — the exact fallback the receipts were built to replace. Nothing had been lost when this was found, because the schedules had not yet collided; it was found by reading the writers rather than the data. **A record that several writers share is not a record until you decide what happens when two of them write.** Now the archive merges on (recipient, kind) instead of replacing, and each run archives its own receipt the moment it finishes rather than waiting for a reader that may be days away.
 
 **The generalisation, which is not about messages:** *instrument the outcome you actually care about, not the step you happen to be able to measure.* Exit codes, HTTP 200s and "job completed" are all proxies for delivery, and each of them is satisfied by systems that delivered nothing. The same mistake in a different costume: earlier the same day, a page was confirmed live because the URL returned 200 — it did, and it was serving the wrong content the whole time.
+
+---
+
+## 16. Ordering two jobs is not the same as making one depend on the other
+
+**Chose:** the job that writes messages refuses to start until the job that produces its input has reported success for the day. It waits, then gives up loudly rather than proceeding on a partial week. Separately, the status page gained a state for *delivered but wrong*, so a day can no longer read "all clear" on the strength of everything having been sent.
+
+**Considered:** moving the two jobs further apart on the clock, which is what was already there and what everyone suggests first. Also considered running them as one job, which removes the question by removing the seam.
+
+**Why:** the two jobs were an hour apart and had been for weeks, and the gap was in the wrong direction. The reader ran first. Most days that was invisible, because the previous day's run had already written everything the reader needed; the dependency only bit when the producer had been failing quietly over a weekend and the reader was the first job of the week to notice.
+
+What it produced was worse than a missing report. A rep received a message, on time, in the normal format, stating that he had no calls after Tuesday and nothing outstanding. He had two calls and two open commitments, one of them due that week. His weekly engagement figure was wrong by twenty points. Nothing failed. Every exit code was zero.
+
+Widening the gap would have made this less likely and never impossible. Any morning the producer overruns or dies, the same message goes out again, and the schedule cannot tell you which morning that is. **A guarantee you get from a clock is not a guarantee.** Gating on the fact — has the producer finished, yes or no — is the same six lines of shell and does not care what time anything runs. It also removed a second hazard nobody had written down: the two jobs write the same workbook, and until now the only thing keeping them from writing it at once was the schedule that had just failed.
+
+Merging them into one job was tempting and wrong for a different reason: they fail differently and want different retry behaviour, and a merged job's failure takes out both halves.
+
+**What prompted it.** The operator's first instinct was the clock — *"maybe we need to change the agents' time so not all fires at the same time?"* — which is the right instinct about the symptom and the wrong fix for the cause. Worth saying plainly, because the clock fix is cheap, feels responsive, and would have closed the incident.
+
+**The generalisation:** *if job B needs job A's output, say so in code; do not encode it in two cron lines and hope.* Schedule-as-dependency is everywhere, it works for months at a time, and it fails on exactly the days when the upstream job was already having a bad morning — which is to say, on the days the output matters most. The same shape shows up in the status page: **delivered is not correct**, and a dashboard that only knows how to check delivery will report a green day while a wrong message sits in somebody's inbox.
+
+---
+
+## 17. A matched answer is not an approved answer
+
+**Chose:** three rules for any line that tells a rep what to say next time. The suggestion must cite its source. A source matched by topic is re-checked against where the deal actually is before it is used, and if it belongs to a later stage the system looks for a stage-appropriate source before it gives up. And the reasoning that selected the line never appears in the line.
+
+**Considered:** trusting the topic match, since the extraction step already records which reference row an objection corresponds to and it is right about the topic every time. Also considered the previous rule, which was to stay silent whenever the matched row was too advanced for the deal.
+
+**Why:** the topic match is a lookup, not a judgement. On one call the buyer said he had no time to drive the project; the extraction matched that to a reference row about competing priorities, and the row's answer was to quantify the cost of delay. Correct topic, correct row, and wrong advice — that row is written for a deal several stages further along, where the buyer has already agreed there is a problem worth pricing. Giving it to a rep at first contact tells him to push for a decision he has not earned the right to ask for. That exact fault had been caught before, from a rep who objected to being told to pin a restart date on a deal four stages too early, and the fix had been written down. It recurred anyway, because the field that records the match reads like permission.
+
+Staying silent was the previous fix and it was too blunt. There is usually a source that does fit — reference material written for earlier stages, or positioning material that holds at any stage. The rep gets a usable line instead of a gap, and the gap was never neutral: a section that sometimes has advice and sometimes does not teaches the reader that the empty ones mean nothing was wrong.
+
+The third rule came from reading a draft aloud. It was accurate, sourced, stage-checked, and unreadable: it explained which reference table the row lived in and how many stages separated it from the deal. All true, none of it actionable, and none of it anything the reader had asked. **The check decides which line you give; it is not part of the line.** Put the source in brackets at the end and stop.
+
+**What prompted it.** A message that took four drafts, each rejected for a different reason: the first invented its own layout instead of the standard one, the second gave advice in the system's own words with no source, the third showed its working and quietly handed the rep's own open question to somebody else to answer. That last one is the subtlest. A rule against improvising commercial answers is right, but it had been applied as *this is not yours to deal with* rather than *this is not yours to answer* — so the rep was told his own deal's open question was being handled elsewhere, and given nothing to do. The fix is to state the fact he needs and give him an action he owns.
+
+**The generalisation:** *a system that retrieves the right reference has done the easy half.* Retrieval is judged on relevance and applicability is a different question — whether this reader, in this situation, at this point, can act on it. Every rule broken here was already written down and had been for a week; documenting a rule and following it are separate problems, and the fix that finally works is usually a worked example of the wrong version sitting next to the right one.
