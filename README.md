@@ -8,7 +8,7 @@
 
 ![how it works](docs/how-it-works.gif)
 
-*Companion project: [**product-discovery-agents**](https://github.com/barbararomeira/product-discovery-agents) — the other half of the same pipeline. It reads the same transcripts for what customers need built; this one reads them for how the conversation went. Reading each transcript once and analysing it several ways is the reason both exist.*
+*Companion project: [**product-discovery-agents**](https://github.com/barbararomeira/product-discovery-agents). Both projects use the same transcript source for different decisions. Product Discovery identifies what customers need built, while Evidence-Scored Call Review examines how the commercial conversation went. Each uses a purpose-specific extraction so the evidence and evaluation rules remain separate.*
 
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
