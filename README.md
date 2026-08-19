@@ -8,6 +8,8 @@
 
 ![how it works](docs/how-it-works.gif)
 
+*Companion project: [**product-discovery-agents**](https://github.com/barbararomeira/product-discovery-agents) — the other half of the same pipeline. It reads the same transcripts for what customers need built; this one reads them for how the conversation went. Reading each transcript once and analysing it several ways is the reason both exist.*
+
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
 ---
@@ -147,7 +149,7 @@ All five outputs are committed as text in **[`examples/`](examples/)**; the card
 |---|---|
 | see what it produces, without cloning | [`examples/`](examples/) |
 | change what gets scored | [`rubric/`](rubric/) — four files, the only ones you edit |
-| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 10 entries, chose / considered / why |
+| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 20 entries, chose / considered / why |
 | see the calls it runs on | [`fixtures/`](fixtures/) — invented transcripts and the story they tell |
 | plug in your own model | [`callscore/extractors/base.py`](callscore/extractors/base.py) — one method |
 | read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) · [`attribution.py`](callscore/attribution.py) |
