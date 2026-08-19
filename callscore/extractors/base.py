@@ -8,6 +8,21 @@ To add a backend: implement `extract`, return a dict matching the call-record sh
 `fixtures/call_records/`, and register it in `__init__.get`. The prompt should hand the model
 `rubric/positioning.md` plus `rubric/message_rubric.json` and require a verbatim quote for
 every verdict — including every `absent`.
+
+Two rules the prompt must carry, both learned the expensive way (Decisions 21 and 23):
+
+1. **Search the whole call before recording an absence.** A buyer who raises something and
+   changes subject mid-turn is routinely answered many minutes later, when the conversation
+   comes back to it. An extractor that reads only the turns adjacent to a question will record
+   "no response" for objections that were answered three times, and downstream that becomes
+   "you never answered this". If a field is null because the search did not find it, downstream
+   copy must say so — never that the thing did not happen.
+
+2. **Score the claim, not the wording.** An element is delivered when the idea arrived, whatever
+   words carried it; two phrasings of the same claim are the same claim. Matching the agreed
+   phrase is cheaper and reproducible, and it measures compliance with a script rather than
+   whether the message landed. The floor: half a claim is still half — being loose about
+   vocabulary means being strict about meaning.
 """
 from __future__ import annotations
 

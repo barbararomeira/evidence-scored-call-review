@@ -149,7 +149,7 @@ All five outputs are committed as text in **[`examples/`](examples/)**; the card
 |---|---|
 | see what it produces, without cloning | [`examples/`](examples/) |
 | change what gets scored | [`rubric/`](rubric/) — four files, the only ones you edit |
-| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 20 entries, chose / considered / why |
+| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 23 entries, chose / considered / why |
 | see the calls it runs on | [`fixtures/`](fixtures/) — invented transcripts and the story they tell |
 | plug in your own model | [`callscore/extractors/base.py`](callscore/extractors/base.py) — one method |
 | read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) · [`attribution.py`](callscore/attribution.py) |

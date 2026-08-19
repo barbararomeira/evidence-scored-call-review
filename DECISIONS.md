@@ -315,3 +315,57 @@ Three alarms, three non-problems, one morning. And this is the audit that exists
 Individually obvious is the trap. Nobody decides to ignore a guard; they get used to scrolling past it, and the day it is right looks exactly like the days it was not.
 
 **The generalisation:** *an alarm's job is not to fire, it is to be believed.* Every false positive spends credibility that the true one will need, and guards accumulate them naturally, because the world moves and the guard's copy of it does not. Any check holding its own copy of a fact is on a timer — it will eventually be auditing a system that no longer exists.
+
+---
+
+## 21. Not finding something is not evidence that it did not happen
+
+**Chose:** any claim that something is *absent* from a call must be phrased as a fact about the search — "I didn't find an answer to this" — never as a fact about the conversation. Where a lookup returns nothing, the reader is told what was looked for, not what did not occur.
+
+**Considered:** treating the three instances below as three separate bugs, which is how they arrived.
+
+**Why:** they turned out to be one defect wearing three hats, and they reached one reviewer in a single message.
+
+- An objection was recorded as unanswered because the extraction read only the turns adjacent to it. The buyer had changed subject mid-turn; the rep answered eight minutes later, and twice more after that. The message told him he had ignored it.
+- A reference lookup searched only the stage-scoped tables, missed a stage-independent section that answered the objection twice over, and reported that no approved answer existed — sending the operator off to write something already written.
+- A CRM lookup searched on a site name the buyer had mentioned in passing, found nothing, and reported that the *account* had no record. The account had twelve.
+
+Each is a null meaning *the search did not find it*, printed as *the thing does not exist*. The person receiving it can tell the difference immediately, because they were in the room.
+
+**What prompted it.** A rep replying with three corrections in one message, every one of which the system had stated as fact.
+
+**The generalisation:** *a negative result is a fact about the search, not about the world.* Systems that demand a citation for every positive claim routinely have no discipline at all for negative ones, because there is no quote to attach to an absence. It is also the claim a reader is best placed to falsify, and the fastest way to lose them.
+
+---
+
+## 22. Your backlog is not the reader's problem
+
+**Chose:** when no approved source supports a suggestion, write nothing in the suggestion slot.
+
+**Considered:** the previous rule — print one line saying no approved answer exists yet and that the gap has been logged.
+
+**Why:** that rule was written for a good reason. It gave the reader evidence that the gap was going somewhere rather than vanishing. What it produced was a line in the advice slot containing no advice, and the rep's verdict was blunt: *not useful*.
+
+He was right twice over. The gap is internal — it concerns a document he does not own and cannot change — and on that occasion it was not even real: the answer existed and the lookup had missed it (Decision 21). So the line spent his attention to tell him something false about a process he has no part in.
+
+A slot that sometimes holds advice and sometimes holds an apology teaches people to skip the slot, which costs the advice too.
+
+The gap still travels. It goes to the register and the run summary, which exist for exactly this and are read by the people who can act on it.
+
+**The generalisation:** *tell the reader what you know; tell your own team what you are missing.* Mixing the two spends the reader's attention and buys nothing — the people who can close the gap are not the people being asked to read about it.
+
+---
+
+## 23. Score the claim, not the vocabulary — and never contradict your own score
+
+**Chose:** an element counts as delivered when the claim landed, whatever words carried it. And the message may never criticise the phrasing of an element its own record marked `delivered`.
+
+**Considered:** matching on the agreed phrase, which is cheap, perfectly reproducible, and easy to defend in a rubric.
+
+**Why:** a rep made the positioning claim in his own words. The record scored it `delivered`, quoting him. The message then told him the agreed wording was different. **Two verdicts on one sentence, in one artifact, from one run.** His reply was that the two phrasings are close enough not to deserve a flag, and he was right.
+
+Exact matching is attractive precisely because it is auditable — but it measures compliance with a script, and what the rubric exists to measure is whether the idea arrived. Those come apart the moment someone competent paraphrases.
+
+The loosening has a floor: **half a claim is still half.** Where a rep delivered one part of a two-part positioning and stopped, that remains absent. Being loose about words means being strict about meaning; otherwise "score the claim" becomes "score nothing".
+
+**The generalisation:** *when a score and a comment disagree inside one document, the reader believes neither.* The contradiction did more damage than either verdict would have alone — a wrong score is arguable, but a document arguing with itself just reads as not knowing.

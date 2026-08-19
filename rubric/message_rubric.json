@@ -1,5 +1,5 @@
 {
-  "_comment": "The message you decided to tell. Rewrite these six for your own positioning; ids are stable, labels are what humans read.",
+  "_comment": "The message you decided to tell. Rewrite these six for your own positioning; ids are stable, labels are what humans read. Match on MEANING, not wording: an element is delivered when the claim landed, whatever words carried it. Never mark an element absent because a particular phrase was missing — but half a claim is still half (Decision 23).",
   "elements": [
     {
       "id": "problem_framing",
