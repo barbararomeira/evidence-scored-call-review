@@ -259,3 +259,59 @@ The third rule came from reading a draft aloud. It was accurate, sourced, stage-
 **What prompted it.** A message that took four drafts, each rejected for a different reason: the first invented its own layout instead of the standard one, the second gave advice in the system's own words with no source, the third showed its working and quietly handed the rep's own open question to somebody else to answer. That last one is the subtlest. A rule against improvising commercial answers is right, but it had been applied as *this is not yours to deal with* rather than *this is not yours to answer* — so the rep was told his own deal's open question was being handled elsewhere, and given nothing to do. The fix is to state the fact he needs and give him an action he owns.
 
 **The generalisation:** *a system that retrieves the right reference has done the easy half.* Retrieval is judged on relevance and applicability is a different question — whether this reader, in this situation, at this point, can act on it. Every rule broken here was already written down and had been for a week; documenting a rule and following it are separate problems, and the fix that finally works is usually a worked example of the wrong version sitting next to the right one.
+
+---
+
+## 18. Two things in the same call are not cause and effect
+
+**Chose:** the reviewer may state what happened and in what order. It may not claim one thing caused another unless the transcript shows the join — the buyer referring back to what the rep said, or the timestamps running the way the sentence implies. Where it cannot show that, it states the two observations separately and stops.
+
+**Considered:** leaving it to the existing observable-versus-inferred rule, which already forbids asserting what happened outside the call, tone, intent, or whether an omission was deliberate.
+
+**Why:** that rule never covered sequence, and sequence is where the failures were. One run produced three claims that were wrong the same way. Two were checkable against timestamps, and both had the order backwards.
+
+The first told a rep he had declined to claim a capability when the buyer pushed on it. The buyer's question came four minutes *after* the rep's line — and the rep's own recap of the agenda is what put the topic on the table. He was faulted for not answering something nobody had yet asked, in a conversation he had opened.
+
+The second marked a scored element missing and offered the buyer's later question as proof: the phrase was never said, *and that is exactly where he went*. The buyer had heard the framing five minutes earlier without querying it; his question was about integration, not about what the product was; and the answer that satisfied him came from someone else on the call.
+
+Both read as insight. Both are the same move — two things appear in one transcript and the write-up supplies a connection nobody in the room made. It is the most persuasive sentence in the message and the first to fall over in front of anyone who was there.
+
+**What prompted it.** All three were caught by a person who had been on the call. Nothing in the pipeline could have caught them: every quote was verbatim, correctly attributed and correctly timestamped. The defect was in the connective tissue between quotes, which no evidence check looks at.
+
+**The generalisation:** *order is observable; causation almost never is.* A system that cites evidence per claim can still be wrong about the story the claims sit in, because the join between two well-sourced facts is unsourced by construction. Where the whole value of a reviewer is that it read something you did not, the sentences explaining *why* are exactly the ones you cannot check without reading it yourself.
+
+---
+
+## 19. Some gaps are decisions, and the reviewer has to be told which
+
+**Chose:** a short, hand-maintained file of deliberate product and architecture decisions, read before any *next time* line is written and before anything is flagged as a product gap. Two rules attach to every entry: never file a matching signal as a gap without naming the decision, and never write up a matching answer as a handling failure.
+
+**Considered:** relying on the reference material already loaded — positioning, playbook, qualification framework. Also considered a per-signal review queue instead of a standing file, so a human resolves each case as it appears.
+
+**Why:** the reference material says what to sell and how to sell it. None of it says what the product deliberately will *not* do, or why. To a reviewer, a constraint is therefore indistinguishable from an unmet requirement.
+
+On one call a buyer's infrastructure policy conflicted with how the product must be deployed. The rep answered it correctly. The reviewer told him his answer had missed the point and filed the conflict as an open product question — when that deployment shape is precisely what makes the product's central privacy guarantee true. The reviewer had no way to know. Nothing it could read said so.
+
+The queue was the tempting option and it fails on repetition: the same constraint arrives on every call where the same policy exists, and a queue turns a settled decision into a recurring question.
+
+The file caught a second, subtler case immediately. A scored element was marked missing, and the stated reason was that a particular phrase never appeared. That element is defined by positioning, not vocabulary — and the rep had done something its definition did not anticipate, placing the product alongside a system the buyer already ran instead of above it. That framing was correct, and it was half the element. The reviewer had no way to say *right, but incomplete*, so it fell back on the phrase.
+
+**What prompted it.** A rep being told, in sourced and confident language, that he had mishandled the one thing on the call he got exactly right.
+
+**The generalisation:** *a system that only knows what you want cannot recognise what you decided.* Deliberate constraints are invisible to anything reading requirements, and they resurface as findings — plausible, well-evidenced, and aimed at the question you already closed. The fix is not better judgement; it is writing the decision down where the judgement happens, and saying which way it cuts.
+
+---
+
+## 20. A guard that cries wolf is worse than no guard
+
+**Chose:** every automated check reads the same copy of a fact that the system it checks reads, and understands the conventions that system uses to record itself. A check that keeps its own copy of a roster, or its own idea of what a row means, is a second source of truth wearing a safety vest.
+
+**Considered:** leaving the false alarms alone as harmless noise, since each was individually obvious to anyone who looked.
+
+**Why:** in one morning the integrity audit raised two errors and both were false. A person had joined the roster a week earlier and the audit's private copy of that roster was never updated, so every call he spoke on was reported as somebody appearing where he did not belong. Separately, the message log records a corrected message as two rows — the original annotated as incomplete, then the correction — which is deliberate, and is how the system keeps an honest account of what actually went out. The audit counted rows and reported a duplicate delivery. The status page, independently, filed a correctly withheld message under *needs attention*.
+
+Three alarms, three non-problems, one morning. And this is the audit that exists to catch the single worst thing this system can do: attach a person's name to work that was somebody else's. That check is worth having only if somebody still reads it.
+
+Individually obvious is the trap. Nobody decides to ignore a guard; they get used to scrolling past it, and the day it is right looks exactly like the days it was not.
+
+**The generalisation:** *an alarm's job is not to fire, it is to be believed.* Every false positive spends credibility that the true one will need, and guards accumulate them naturally, because the world moves and the guard's copy of it does not. Any check holding its own copy of a fact is on a timer — it will eventually be auditing a system that no longer exists.
