@@ -10,6 +10,14 @@
 
 *Companion project: [**product-discovery-agents**](https://github.com/barbararomeira/product-discovery-agents). Both projects use the same transcript source for different decisions. Product Discovery identifies what customers need built, while Evidence-Scored Call Review examines how the commercial conversation went. Each uses a purpose-specific extraction so the evidence and evaluation rules remain separate.*
 
+| | |
+|---|---|
+| **Problem** | Call-review systems score the wrong calls, misattribute quotes to whoever booked the meeting, and present thin evidence as coaching. |
+| **Built** | A transcript-review pipeline that separates model extraction from deterministic applicability, attribution, scoring and sample-size rules. |
+| **Human boundary** | It checks whether a message was delivered. It does not judge employee performance, and it cannot show that a message caused a commercial outcome. |
+| **Public scope** | Offline clean-room template on invented transcripts. Delivery, scheduling and CRM integrations are excluded — see *Not built, on purpose*. |
+| **Verification** | 31 deterministic tests across scope, evidence, attribution and scoring. |
+
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
 ---
@@ -238,6 +246,30 @@ python3 -m pytest tests -q
 ## Not built, on purpose
 
 CRM connectors · audio and diarisation · a web UI · a database · delivery and scheduling · running one installation for several teams at once. Each is a real piece of work and none of it is the interesting part. This is one team, one rubric, files on disk.
+
+## Employee and customer safeguards
+
+This is a **message-evidence tool, not an automated employee-performance system**, and the difference
+is load-bearing rather than a disclaimer. It is why the per-rep artifact is called a message check
+and not coaching ([Decision 13](DECISIONS.md)), why the daily message carries no scores and compares
+the rep to nobody ([Decision 14](DECISIONS.md)), why a call the filed rep never spoke on is scored
+for no one ([Decision 11](DECISIONS.md)), and why no verdict is stated below a minimum sample size.
+
+If you deploy something like this, the burden is not on the rubric:
+
+- **People on the call should know it may be analysed.** That includes the customer, not only the rep.
+- **A rep should be able to inspect and correct** attribution and transcript errors in anything written
+  about them. Diarisation is wrong often enough that this is a routine need, not an escalation.
+- **Access and retention should be limited**, and per-person material kept narrower than aggregate
+  reporting.
+- **Scores should never automatically determine compensation, discipline, promotion or termination.**
+  Nothing here is calibrated for that, and a rubric that measures whether six sentences were said is
+  not a measure of a person's work.
+- **Review the deployment** against the privacy, employment and works-council requirements that apply
+  to you. In several jurisdictions monitoring of this kind requires consultation before it starts.
+
+The strongest safeguard in practice is the cheapest: the rep who was in the room reads it, and can
+say it is wrong.
 
 ## License
 
