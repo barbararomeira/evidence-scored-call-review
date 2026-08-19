@@ -16,7 +16,7 @@
 | **Built** | A transcript-review pipeline that separates model extraction from deterministic applicability, attribution, scoring and sample-size rules. |
 | **Human boundary** | It checks whether a message was delivered. It does not judge employee performance, and it cannot show that a message caused a commercial outcome. |
 | **Public scope** | Offline clean-room template on invented transcripts. Delivery, scheduling and CRM integrations are excluded — see *Not built, on purpose*. |
-| **Verification** | 31 deterministic tests across scope, evidence, attribution and scoring. |
+| **Verification** | Deterministic tests across scope, evidence, attribution and scoring. |
 
 The example in this repo is a sales team checking whether reps actually deliver a new positioning message. The pattern works anywhere a human judgment becomes a number someone is measured on — support-ticket QA, interview scorecards, teaching observations, compliance call review. The failure modes are the same everywhere: scoring things the rubric was never meant to cover, awarding points with no evidence, and calling a trend off four data points.
 
@@ -161,7 +161,7 @@ All five outputs are committed as text in **[`examples/`](examples/)**; the card
 |---|---|
 | see what it produces, without cloning | [`examples/`](examples/) |
 | change what gets scored | [`rubric/`](rubric/) — four files, the only ones you edit |
-| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — 23 entries, chose / considered / why |
+| understand why it works this way | [`DECISIONS.md`](DECISIONS.md) — chose / considered / why, entry by entry |
 | see the calls it runs on | [`fixtures/`](fixtures/) — invented transcripts and the story they tell |
 | plug in your own model | [`callscore/extractors/base.py`](callscore/extractors/base.py) — one method |
 | read the scoring itself | [`callscore/score_message.py`](callscore/score_message.py) · [`score_engagement.py`](callscore/score_engagement.py) · [`scope.py`](callscore/scope.py) · [`attribution.py`](callscore/attribution.py) |
@@ -237,7 +237,7 @@ python3 run_day.py --transcripts ./my_calls --extractor claude_cli
 
 ## Tests
 
-**31 tests** covering: engagement able to go *down* on a call that ends in a polite no · the attribution gate keeping a rep out of calls they never spoke on · a transcript with one speaker label refused rather than reconstructed · the buyer's words not counting as the rep's delivery, and the rep's not counting as engagement · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
+**Deterministic tests** covering: engagement able to go *down* on a call that ends in a polite no · the attribution gate keeping a rep out of calls they never spoke on · a transcript with one speaker label refused rather than reconstructed · the buyer's words not counting as the rep's delivery, and the rep's not counting as engagement · the scope gate refusing rather than zeroing · not-applicable elements leaving the denominator while absent ones stay in · the framing pair being independent of the coverage score · engagement weights summing to 100 · echo declared but never scored · the short-call rule refusing to extrapolate a nine-minute call · excitement capped · quotes verified against their own transcript · absent verdicts requiring evidence too.
 
 ```bash
 python3 -m pytest tests -q
