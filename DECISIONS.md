@@ -4,6 +4,8 @@ Why this is shaped the way it is. Each entry records what was chosen, what was g
 
 **Note on names.** Every company, person and quote in this repo is invented. The reps are called Ana, Ben and Chloe; the buyers are companies that do not exist. Nothing here is drawn from a real call.
 
+**Scope note:** This log includes decisions from both the public clean-room implementation and the live internal workflow that inspired it. Entries that could reasonably imply a public capability state whether the safeguard is **implemented here**, provided as **guidance rather than enforcement**, or documented as a **production lesson only**.
+
 ---
 
 ## 1. Read the transcript once; every metric reads the call record, not the transcript
@@ -222,6 +224,8 @@ The worse version is the one that happened twice. The failure alert used the sam
 
 **The generalisation, which is not about messages:** *instrument the outcome you actually care about, not the step you happen to be able to measure.* Exit codes, HTTP 200s and "job completed" are all proxies for delivery, and each of them is satisfied by systems that delivered nothing. The same mistake in a different costume: earlier the same day, a page was confirmed live because the URL returned 200 — it did, and it was serving the wrong content the whole time.
 
+**Implementation status:** Production lesson only. This template writes messages to disk and has no delivery mechanism, so there is nothing to receipt — see *Not built, on purpose* in the README.
+
 ---
 
 ## 16. Ordering two jobs is not the same as making one depend on the other
@@ -242,6 +246,8 @@ Merging them into one job was tempting and wrong for a different reason: they fa
 
 **The generalisation:** *if job B needs job A's output, say so in code; do not encode it in two cron lines and hope.* Schedule-as-dependency is everywhere, it works for months at a time, and it fails on exactly the days when the upstream job was already having a bad morning — which is to say, on the days the output matters most. The same shape shows up in the status page: **delivered is not correct**, and a dashboard that only knows how to check delivery will report a green day while a wrong message sits in somebody's inbox.
 
+**Implementation status:** Production lesson only. Job scheduling and inter-job gating are outside this template; `run_day.py` and `run_week.py` are invoked by hand.
+
 ---
 
 ## 17. A matched answer is not an approved answer
@@ -259,6 +265,8 @@ The third rule came from reading a draft aloud. It was accurate, sourced, stage-
 **What prompted it.** A message that took four drafts, each rejected for a different reason: the first invented its own layout instead of the standard one, the second gave advice in the system's own words with no source, the third showed its working and quietly handed the rep's own open question to somebody else to answer. That last one is the subtlest. A rule against improvising commercial answers is right, but it had been applied as *this is not yours to deal with* rather than *this is not yours to answer* — so the rep was told his own deal's open question was being handled elsewhere, and given nothing to do. The fix is to state the fact he needs and give him an action he owns.
 
 **The generalisation:** *a system that retrieves the right reference has done the easy half.* Retrieval is judged on relevance and applicability is a different question — whether this reader, in this situation, at this point, can act on it. Every rule broken here was already written down and had been for a week; documenting a rule and following it are separate problems, and the fix that finally works is usually a worked example of the wrong version sitting next to the right one.
+
+**Implementation status:** Production lesson only. The stage gate needs a CRM, which this template deliberately excludes, and there is no approved-answer source in the public tree.
 
 ---
 
@@ -280,6 +288,8 @@ Both read as insight. Both are the same move — two things appear in one transc
 
 **The generalisation:** *order is observable; causation almost never is.* A system that cites evidence per claim can still be wrong about the story the claims sit in, because the join between two well-sourced facts is unsourced by construction. Where the whole value of a reviewer is that it read something you did not, the sentences explaining *why* are exactly the ones you cannot check without reading it yourself.
 
+**Implementation status:** Guidance, not enforcement. Stated as a rule at the extractor seam (`callscore/extractors/base.py`); the shipped mock extractor does not enforce it, and no deterministic check downstream can.
+
 ---
 
 ## 19. Some gaps are decisions, and the reviewer has to be told which
@@ -300,6 +310,8 @@ The file caught a second, subtler case immediately. A scored element was marked 
 
 **The generalisation:** *a system that only knows what you want cannot recognise what you decided.* Deliberate constraints are invisible to anything reading requirements, and they resurface as findings — plausible, well-evidenced, and aimed at the question you already closed. The fix is not better judgement; it is writing the decision down where the judgement happens, and saying which way it cuts.
 
+**Implementation status:** Production lesson only. There is no constraints file in this template — the rubric under `rubric/` is the only reference the scoring reads.
+
 ---
 
 ## 20. A guard that cries wolf is worse than no guard
@@ -315,6 +327,8 @@ Three alarms, three non-problems, one morning. And this is the audit that exists
 Individually obvious is the trap. Nobody decides to ignore a guard; they get used to scrolling past it, and the day it is right looks exactly like the days it was not.
 
 **The generalisation:** *an alarm's job is not to fire, it is to be believed.* Every false positive spends credibility that the true one will need, and guards accumulate them naturally, because the world moves and the guard's copy of it does not. Any check holding its own copy of a fact is on a timer — it will eventually be auditing a system that no longer exists.
+
+**Implementation status:** Production lesson only. The integrity audit described here runs against a live delivery log, neither of which exists in this template.
 
 ---
 
@@ -336,6 +350,8 @@ Each is a null meaning *the search did not find it*, printed as *the thing does 
 
 **The generalisation:** *a negative result is a fact about the search, not about the world.* Systems that demand a citation for every positive claim routinely have no discipline at all for negative ones, because there is no quote to attach to an absence. It is also the claim a reader is best placed to falsify, and the fastest way to lose them.
 
+**Implementation status:** Guidance, not enforcement. Stated at the extractor seam (`callscore/extractors/base.py`); whether a backend actually searches the whole call is a property of the extractor you supply.
+
 ---
 
 ## 22. Your backlog is not the reader's problem
@@ -354,6 +370,8 @@ The gap still travels. It goes to the register and the run summary, which exist 
 
 **The generalisation:** *tell the reader what you know; tell your own team what you are missing.* Mixing the two spends the reader's attention and buys nothing — the people who can close the gap are not the people being asked to read about it.
 
+**Implementation status:** Production lesson only. The approved-answer lookup, the suggestion routing and the internal gap register are all outside this public template.
+
 ---
 
 ## 23. Score the claim, not the vocabulary — and never contradict your own score
@@ -369,3 +387,5 @@ Exact matching is attractive precisely because it is auditable — but it measur
 The loosening has a floor: **half a claim is still half.** Where a rep delivered one part of a two-part positioning and stopped, that remains absent. Being loose about words means being strict about meaning; otherwise "score the claim" becomes "score nothing".
 
 **The generalisation:** *when a score and a comment disagree inside one document, the reader believes neither.* The contradiction did more damage than either verdict would have alone — a wrong score is arguable, but a document arguing with itself just reads as not knowing.
+
+**Implementation status:** Guidance, not enforcement. Stated at the extractor seam (`callscore/extractors/base.py`) and in the `_comment` of `rubric/message_rubric.json`; the scoring code reads whatever verdict the extractor recorded.

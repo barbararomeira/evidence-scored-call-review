@@ -23,6 +23,12 @@ Two rules the prompt must carry, both learned the expensive way (Decisions 21 an
    phrase is cheaper and reproducible, and it measures compliance with a script rather than
    whether the message landed. The floor: half a claim is still half — being loose about
    vocabulary means being strict about meaning.
+
+3. **State observations and sequence, not unsupported causality.** Two events appearing in the
+   same transcript do not establish that one caused the other. A causal connection needs explicit
+   evidence in the conversation — the buyer referring back to what the rep said. Timestamp order
+   establishes sequence and never causation. Where the connection is unsupported, record the two
+   observations separately and stop.
 """
 from __future__ import annotations
 
